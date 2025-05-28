@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 3 elements from project &apos;profmng&apos;&#x0D;&#x0A;- Original project: &apos;profmng&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     profmng/src/main/java/com.rnb.profmng.com&#x0D;&#x0A;     profmng/src/main/java/com.rnb.profmng.com.rnb&#x0D;&#x0A;     profmng/src/main/java/com.rnb.profmng.com.rnb.profmng&#x0D;&#x0A;- Delete subpackages" description="Delete elements" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.rnb.profmng.com.rnb.profmng" element2="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.rnb.profmng.com.rnb" element3="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.rnb.profmng.com" elements="3" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1748357883838" subPackages="true" version="1.0"/>
+</session>
