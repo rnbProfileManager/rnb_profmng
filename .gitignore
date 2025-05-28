@@ -1,0 +1,28 @@
+# Java class files
+*.class
+
+# Maven
+target/
+
+# STS / Eclipse
+*.iml
+.idea/
+.settings/
+.project
+.classpath
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# 환경 설정
+.env
+application-*.yml
+application-*.properties
