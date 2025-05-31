@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class TestEntity {
 	@Id
-	@Column(name = "TEST_USER")
+	@Column(name = "TEST_USER", length = 50, nullable = false)
 	private String testUser;
-	@Column(name = "TEST_TEXT")
+	@Column(name = "TEST_TEXT", length = 255)
 	private String testText;
 
 }

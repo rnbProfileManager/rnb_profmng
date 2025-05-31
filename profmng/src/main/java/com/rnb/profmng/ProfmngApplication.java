@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProfmngApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Tomcat Start.....");
-		SpringApplication.run(ProfmngApplication.class, args);
-	}
+        SpringApplication.run(ProfmngApplication.class, args);
+    }
 }
