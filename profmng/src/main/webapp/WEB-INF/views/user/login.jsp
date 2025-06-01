@@ -11,11 +11,7 @@
 <body>
     <div class="login-container">
         <div class="logo-section">
-            <!-- 여기에 실제 로고 이미지를 넣으세요 -->
-            <!-- <img src="<c:url value='/images/logo.png' />" alt="R&B Logo" style="width: 80px; height: 80px;"> -->
-            <div class="logo">
-                <div class="logo-text">R&B</div>
-            </div>
+			<img src="/images/rnbsoft_logo.png" alt="로고" class="logo" />
             <h1 class="company-name">알앤비소프트</h1>
             <p class="company-subtitle">RnB Software Solutions</p>
         </div>
