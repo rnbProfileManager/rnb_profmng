@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
 	@GetMapping("/")
-	public String getHome() {
-		System.out.println("Home Controller 호출");
-		return "index";
-	}
+    public String redirectToStatic() {
+        return "redirect:/index.html";
+    }
+	
+	@GetMapping("/login")
+    public String showLoginPage() {
+        return "user/login";
+    }
 }
