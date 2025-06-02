@@ -12,9 +12,9 @@ spring:
   # Oracle DB 연결 설정 (XE 버전) - 활성화된 설정만 포함
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@192.168.0.5:1521:XE
-    username: system
-    password: oracle
+    url: jdbc:oracle:thin:@192.168.1.212:1521:XE
+    username: C##rnb_002
+    password: rnb6707
 
   # JPA 설정
   jpa:
