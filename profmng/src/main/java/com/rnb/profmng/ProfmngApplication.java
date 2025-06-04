@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProfmngApplication {
 
 	public static void main(String[] args) {
-        SpringApplication.run(ProfmngApplication.class, args);
+        SpringApplication.run(ProfmngApplication.class, args); 
     }
 }
