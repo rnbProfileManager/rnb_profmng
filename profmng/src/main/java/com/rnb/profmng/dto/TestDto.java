@@ -1,4 +1,4 @@
-package com.rnb.profmng.repository.dto;
+package com.rnb.profmng.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
