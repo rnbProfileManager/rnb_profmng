@@ -16,14 +16,15 @@
             <p class="company-subtitle">RnB Software Solutions</p>
         </div>
 
-        <form action="<c:url value='/login' />" method="post">
+        <form action="<c:url value='/user/login' />" method="post">
             <div class="form-group">
-                <input type="text" name="username" class="form-input" placeholder="계정" required>
+                <input type="text" name="userId" class="form-input" placeholder="계정" required>
             </div>
             
             <div class="form-group">
-                <input type="password" name="password" class="form-input" placeholder="비밀번호" required>
+                <input type="password" name="userPwd" class="form-input" placeholder="비밀번호" required>
             </div>
+            
             
             <button type="submit" class="login-button">로그인</button>
             
@@ -31,11 +32,6 @@
                 <input type="checkbox" id="saveLogin" name="saveLogin" class="checkbox">
                 <label for="saveLogin" class="checkbox-label">계정 저장</label>
             </div>
-            
-            <!-- CSRF 토큰 (Spring Security 사용 시) -->
-            <c:if test="${not empty _csrf}">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </c:if>
         </form>
 
         <div class="additional-links">
@@ -43,20 +39,6 @@
             <span style="color: #ddd;">|</span>
             <a href="<c:url value='/register' />" class="link">회원가입</a>
         </div>
-        
-        <!-- 에러 메시지 표시 -->
-        <c:if test="${not empty error}">
-            <div class="error-message">
-                ${error}
-            </div>
-        </c:if>
-        
-        <!-- 성공 메시지 표시 -->
-        <c:if test="${not empty message}">
-            <div class="success-message">
-                ${message}
-            </div>
-        </c:if>
     </div>
 </body>
 </html>
