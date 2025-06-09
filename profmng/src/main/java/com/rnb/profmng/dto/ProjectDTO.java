@@ -1,7 +1,7 @@
 package com.rnb.profmng.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.rnb.profmng.entity.project.Project;
 
@@ -15,8 +15,8 @@ public class ProjectDTO {
 	// PROJECT_TABLE
 	private String projectCd;
     private String projectNm;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String pmId;
     private String client;
     private String contractor;

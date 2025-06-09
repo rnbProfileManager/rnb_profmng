@@ -1,7 +1,7 @@
 package com.rnb.profmng.entity.project;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,10 +26,10 @@ public class Project {
     private String projectNm;
 
     @Column(name = "START_DATE", nullable = false)
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "END_DATE")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Column(name = "PM_ID", length = 20)
     private String pmId;

@@ -1,4 +1,3 @@
-<%@ page import="java.net.URLEncoder" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8");%>
 <%@ page import="java.sql.*" %>
@@ -42,13 +41,11 @@
 		pstmt.setString(10, projectType);
         pstmt.executeUpdate();
 
-		String successMsg = URLEncoder.encode("데이터가 성공적으로 삽입되었습니다.", "UTF-8");
-		<%--response.sendRedirect("project.jsp?insertSuccess=true&projectCd=" + successMsg);--%>
+        out.println("데이터가 성공적으로 삽입되었습니다.");
     } catch(Exception e) {
-		String errorMsg = URLEncoder.encode("오류 발생: " + e.getMessage(), "UTF-8");
-		<%--response.sendRedirect("project.jsp?insertError=true&projectCd=" + errorMsg);--%>
+        out.println("오류 발생: " + e.getMessage());
     } finally {
-        if (pstmt != null) try { pstmt.close(); } catch(Exception e1) {}
-        if (conn != null) try { conn.close(); } catch(Exception e2) {}
+        if (pstmt != null) try { pstmt.close(); } catch(Exception e) {}
+        if (conn != null) try { conn.close(); } catch(Exception e) {}
     }
 %>

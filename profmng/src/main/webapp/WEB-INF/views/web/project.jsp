@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -63,7 +64,7 @@
             <div class="content-grid">
                 <article class="content-card">
                     <h3 class="card-title">신규 프로젝트</h3>
-					<form action="insertProject.jsp" method="post">
+					<form action="/insertProject" method="post">
 						<div class="">
 							<label for="searchInput">프로젝트 코드:</label>
 							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001">
@@ -114,13 +115,23 @@
 							</select>
 						</div>
 						<div class="">
-						  <button onclick="searchData()">입력</button>
-						</div>
-						<div class="">
-						  <h2>검색 결과:</h2>
-						  <ul id="resultList"></ul>
+						  <button type="submit">입력</button>
 						</div>
 					</form>
+					<c:choose>
+					    <c:when test="${insertResult eq 'success'}">
+					        <div class="success-msg">✅ 프로젝트 등록에 성공했습니다.</div>
+					    </c:when>
+					    <c:when test="${insertResult eq 'fail'}">
+					        <div class="error-msg">❌ 등록 중 오류가 발생했습니다.</div>
+					    </c:when>
+					    <c:when test="${insertResult eq 'duplicate'}">
+					        <div class="error-msg">⚠️ 프로젝트 코드가 이미 존재합니다.</div>
+					    </c:when>
+					    <c:otherwise>
+					        <!-- 아무 메시지도 출력 안 함 -->
+					    </c:otherwise>
+					</c:choose>
                 </article>
             </div>
         </main>
