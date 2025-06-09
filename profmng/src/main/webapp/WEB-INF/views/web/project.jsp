@@ -63,62 +63,64 @@
             <div class="content-grid">
                 <article class="content-card">
                     <h3 class="card-title">신규 프로젝트</h3>
-					<div class="">
-						<label for="searchInput">프로젝트 코드:</label>
-						<input type="text" class="searchInput" placeholder="예: 0001">
-                    </div>
-					<div class="">
-						<label for="searchInput">프로젝트 명:</label>
-						<input type="text" class="searchInput" placeholder="예: ICIS-TR 프로젝트">
-					</div>
-					<div class="">
-						<label for="dateInput">시작 일자 선택:</label>
-						<input type="date" class="dateInput">
-					</div>
-					<div class="">
-						<label for="dateInput">종료 일자 선택:</label>
-						<input type="date" class="dateInput">
-					</div>
-					<div class="">
-						<label for="searchInput">PM 명:</label>
-						<input type="text" class="searchInput" placeholder="예: 김상수">
-					</div>
-					<div class="">
-						<label for="searchInput">발주기관:</label>
-						<input type="text" class="searchInput" placeholder="예: KT">
-					</div>
-					<div class="">
-						<label for="searchInput">주 수행사:</label>
-						<input type="text" class="searchInput" placeholder="예: KT DS">
-					</div>
-					<div class="">
-						<label for="number">총 투입 공수 입력:</label>
-						<input type="number" class="price" name="price" step="any" required>
-					</div>
-					<div class="">
-						<label for="number">총 수주 금액 입력:</label>
-						<input type="number" class="price" name="price" step="any" required>
-					</div>
-					<div class="">
-						<label for="departmentSelect">프로젝트 유형 선택:</label>
-						<select class="departmentSelect">
-						  <option value="전체">전체</option>
-						  <option value="솔루션">솔루션</option>
-						  <option value="컨설팅">컨설팅</option>
-						  <option value="ITO">ITO</option>
-						  <option value="PoC">PoC</option>
-						  <option value="SI">SI</option>
-						  <option value="SA">SA</option>
-						  <option value="SM">SM</option>
-						</select>
-					</div>
-					<div class="">
-					  <button onclick="searchData()">입력</button>
-					</div>
-					<div class="">
-					  <h2>검색 결과:</h2>
-					  <ul id="resultList"></ul>
-					</div>
+					<form action="insertProject.jsp" method="post">
+						<div class="">
+							<label for="searchInput">프로젝트 코드:</label>
+							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001">
+	                    </div>
+						<div class="">
+							<label for="searchInput">프로젝트 명:</label>
+							<input type="text" name="projectNm" class="searchInput" placeholder="예: ICIS-TR 프로젝트">
+						</div>
+						<div class="">
+							<label for="dateInput">시작 일자 선택:</label>
+							<input type="date" name="startDate" class="dateInput">
+						</div>
+						<div class="">
+							<label for="dateInput">종료 일자 선택:</label>
+							<input type="date" name="endDate" class="dateInput">
+						</div>
+						<div class="">
+							<label for="searchInput">PM 명:</label>
+							<input type="text" name="pmId" class="searchInput" placeholder="예: 김상수">
+						</div>
+						<div class="">
+							<label for="searchInput">발주기관:</label>
+							<input type="text" name="client" class="searchInput" placeholder="예: KT">
+						</div>
+						<div class="">
+							<label for="searchInput">주 수행사:</label>
+							<input type="text" name="contractor" class="searchInput" placeholder="예: KT DS">
+						</div>
+						<div class="">
+							<label for="number">총 투입 공수 입력:</label>
+							<input type="number" name="manMonth" class="price" name="price" step="any" required>
+						</div>
+						<div class="">
+							<label for="number">총 수주 금액 입력:</label>
+							<input type="number" name="totAmt" class="price" name="price" step="any" required>
+						</div>
+						<div class="">
+							<label for="departmentSelect">프로젝트 유형 선택:</label>
+							<select class="departmentSelect" name="projectType">
+							  <option value="전체">전체</option>
+							  <option value="솔루션">솔루션</option>
+							  <option value="컨설팅">컨설팅</option>
+							  <option value="ITO">ITO</option>
+							  <option value="PoC">PoC</option>
+							  <option value="SI">SI</option>
+							  <option value="SA">SA</option>
+							  <option value="SM">SM</option>
+							</select>
+						</div>
+						<div class="">
+						  <button onclick="searchData()">입력</button>
+						</div>
+						<div class="">
+						  <h2>검색 결과:</h2>
+						  <ul id="resultList"></ul>
+						</div>
+					</form>
                 </article>
             </div>
         </main>
