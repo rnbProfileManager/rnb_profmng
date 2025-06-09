@@ -49,52 +49,76 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="#" class="active">대시보드</a></li>
-                <li><a href="#">새 프로젝트</a></li>
-                <li><a href="#">작업 현황</a></li>
-                <li><a href="#">팀 관리</a></li>
-                <li><a href="#">캘린더</a></li>
-                <li><a href="#">파일 관리</a></li>
-                <li><a href="#">설정</a></li>
+                <li><a href="#" class="active">프로젝트 입력</a></li>
+                <li><a href="#">프로젝트 조회</a></li>
+                <li><a href="#">프로젝트 수정</a></li>
             </ul>
         </aside>
 
         <!-- MAIN CONTENT -->
         <main>
-            <h1 class="main-title">대시보드</h1>
-            <p class="main-subtitle">프로젝트 현황과 주요 업무를 한눈에 확인하세요</p>
+            <h1 class="main-title">프로젝트 입력</h1>
+            <p class="main-subtitle">신규 프로젝트 데이터를 입력해주세요</p>
 
             <div class="content-grid">
                 <article class="content-card">
-                    <h3 class="card-title">진행 중인 프로젝트</h3>
-                    <div class="card-content">
-                        현재 5개의 프로젝트가 진행 중입니다. 이번 주 마감 예정인 프로젝트가 2개 있으니 확인해 주세요.
+                    <h3 class="card-title">신규 프로젝트</h3>
+					<div class="">
+						<label for="searchInput">프로젝트 코드:</label>
+						<input type="text" class="searchInput" placeholder="예: 0001">
                     </div>
-                    <div class="card-date">2024.12.01</div>
-                </article>
-
-                <article class="content-card">
-                    <h3 class="card-title">팀 업무 현황</h3>
-                    <div class="card-content">
-                        개발팀 85% 완료, 디자인팀 92% 완료, QA팀 78% 완료 상태입니다. 전체적으로 순조로운 진행 상황입니다.
-                    </div>
-                    <div class="card-date">2024.12.01</div>
-                </article>
-
-                <article class="content-card">
-                    <h3 class="card-title">시스템 알림</h3>
-                    <div class="card-content">
-                        서버 점검이 이번 주 토요일 새벽 2시에 예정되어 있습니다. 약 2시간 소요될 예정입니다.
-                    </div>
-                    <div class="card-date">2024.11.30</div>
-                </article>
-
-                <article class="content-card">
-                    <h3 class="card-title">월간 리포트</h3>
-                    <div class="card-content">
-                        11월 프로젝트 완료율 94%, 고객 만족도 4.8/5.0으로 목표를 달성했습니다. 수고하셨습니다!
-                    </div>
-                    <div class="card-date">2024.11.29</div>
+					<div class="">
+						<label for="searchInput">프로젝트 명:</label>
+						<input type="text" class="searchInput" placeholder="예: ICIS-TR 프로젝트">
+					</div>
+					<div class="">
+						<label for="dateInput">시작 일자 선택:</label>
+						<input type="date" class="dateInput">
+					</div>
+					<div class="">
+						<label for="dateInput">종료 일자 선택:</label>
+						<input type="date" class="dateInput">
+					</div>
+					<div class="">
+						<label for="searchInput">PM 명:</label>
+						<input type="text" class="searchInput" placeholder="예: 김상수">
+					</div>
+					<div class="">
+						<label for="searchInput">발주기관:</label>
+						<input type="text" class="searchInput" placeholder="예: KT">
+					</div>
+					<div class="">
+						<label for="searchInput">주 수행사:</label>
+						<input type="text" class="searchInput" placeholder="예: KT DS">
+					</div>
+					<div class="">
+						<label for="number">총 투입 공수 입력:</label>
+						<input type="number" class="price" name="price" step="any" required>
+					</div>
+					<div class="">
+						<label for="number">총 수주 금액 입력:</label>
+						<input type="number" class="price" name="price" step="any" required>
+					</div>
+					<div class="">
+						<label for="departmentSelect">프로젝트 유형 선택:</label>
+						<select class="departmentSelect">
+						  <option value="전체">전체</option>
+						  <option value="솔루션">솔루션</option>
+						  <option value="컨설팅">컨설팅</option>
+						  <option value="ITO">ITO</option>
+						  <option value="PoC">PoC</option>
+						  <option value="SI">SI</option>
+						  <option value="SA">SA</option>
+						  <option value="SM">SM</option>
+						</select>
+					</div>
+					<div class="">
+					  <button onclick="searchData()">입력</button>
+					</div>
+					<div class="">
+					  <h2>검색 결과:</h2>
+					  <ul id="resultList"></ul>
+					</div>
                 </article>
             </div>
         </main>
