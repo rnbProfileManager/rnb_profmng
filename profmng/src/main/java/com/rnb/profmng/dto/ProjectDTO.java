@@ -1,5 +1,6 @@
 package com.rnb.profmng.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.rnb.profmng.entity.project.Project;
@@ -19,8 +20,8 @@ public class ProjectDTO {
     private String pmId;
     private String client;
     private String contractor;
-    private String members;
-    private String totAmt;
+    private BigDecimal manMonth;
+    private BigDecimal totAmt;
     private String projectType;
     
     
@@ -40,7 +41,7 @@ public class ProjectDTO {
     	this.pmId = project.getPmId();
     	this.client = project.getClient();
     	this.contractor = project.getContractor();
-    	this.members = project.getMembers();
+    	this.manMonth = project.getManMonth();
     	this.totAmt = project.getTotAmt();
     	this.projectType = project.getProjectType();
     }

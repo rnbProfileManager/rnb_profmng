@@ -1,5 +1,6 @@
 package com.rnb.profmng.entity.project;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -18,34 +19,34 @@ import lombok.NoArgsConstructor;
 public class Project {
 
     @Id
-    @Column(name = "project_Cd", length = 4, nullable = false)
+    @Column(name = "PROJECT_CD", length = 4, nullable = false)
     private String projectCd;
 
-    @Column(name = "project_Nm", length = 100, nullable = false)
+    @Column(name = "PROJECT_NM", length = 100, nullable = false)
     private String projectNm;
 
-    @Column(name = "start_Date", nullable = false)
+    @Column(name = "START_DATE", nullable = false)
     private LocalDateTime startDate;
 
-    @Column(name = "endD_ate")
+    @Column(name = "END_DATE")
     private LocalDateTime endDate;
 
-    @Column(name = "pm_Id", length = 20)
+    @Column(name = "PM_ID", length = 20)
     private String pmId;
 
-    @Column(name = "client", length = 20)
+    @Column(name = "CLIENT", length = 20)
     private String client;
 
-    @Column(name = "contractor", length = 20)
+    @Column(name = "CONTRACTOR", length = 20)
     private String contractor;
     
-    @Column(name = "members", length = 20)
-    private String members;
+    @Column(name = "MAN_MONTH", precision = 20, scale = 2)
+    private BigDecimal manMonth;
 
-    @Column(name = "tot_Amt", length = 20)
-    private String totAmt;
+    @Column(name = "TOT_AMT", precision = 20)
+    private BigDecimal totAmt;
 
-    @Column(name = "project_Type", length = 10)
+    @Column(name = "PROJECT_TYPE", length = 10)
     private String projectType;
 
 }
