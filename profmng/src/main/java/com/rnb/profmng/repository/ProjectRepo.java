@@ -12,8 +12,59 @@ public class ProjectRepo {
     private JdbcTemplate jdbcTemplate;
 
     public int insert(ProjectDTO projectDto) {
-        String sql = "INSERT INTO project_table (project_cd, project_nm, start_date, end_date, pm_id, client, contractor, man_month, tot_amt, project_type) " +
+        String sql = "INSERT INTO PROJECT_TABLE (project_cd, project_nm, start_date, end_date, pm_id, client, contractor, man_month, tot_amt, project_type) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        int result = jdbcTemplate.update(sql, projectDto.getProjectCd(),
+        		projectDto.getProjectNm(),
+        		projectDto.getStartDate(),
+        		projectDto.getEndDate(),
+        		projectDto.getPmId(),
+        		projectDto.getClient(),
+        		projectDto.getContractor(),
+        		projectDto.getManMonth(),
+        		projectDto.getTotAmt(),
+        		projectDto.getProjectType());
+        
+        return result;
+    }
+    
+    public int select(ProjectDTO projectDto) {
+        String sql = "SELECT * FROM PROJECT_TABLE WHERE PROJECT_CD = ''";
+        
+        int result = jdbcTemplate.update(sql, projectDto.getProjectCd(),
+        		projectDto.getProjectNm(),
+        		projectDto.getStartDate(),
+        		projectDto.getEndDate(),
+        		projectDto.getPmId(),
+        		projectDto.getClient(),
+        		projectDto.getContractor(),
+        		projectDto.getManMonth(),
+        		projectDto.getTotAmt(),
+        		projectDto.getProjectType());
+        
+        return result;
+    }
+    
+    public int update(ProjectDTO projectDto) {
+        String sql = "UPDATE PROJECT_TABLE SET  WHERE PROJECT_CD = ''";
+
+        int result = jdbcTemplate.update(sql, projectDto.getProjectCd(),
+        		projectDto.getProjectNm(),
+        		projectDto.getStartDate(),
+        		projectDto.getEndDate(),
+        		projectDto.getPmId(),
+        		projectDto.getClient(),
+        		projectDto.getContractor(),
+        		projectDto.getManMonth(),
+        		projectDto.getTotAmt(),
+        		projectDto.getProjectType());
+        
+        return result;
+    }
+    
+    public int delete(ProjectDTO projectDto) {
+        String sql = "DELETE FROM PROJECT_TABLE WHERE PROJECT_CD = ''";
 
         int result = jdbcTemplate.update(sql, projectDto.getProjectCd(),
         		projectDto.getProjectNm(),

@@ -50,9 +50,9 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="/insertProject">프로젝트 입력</a></li>
+                <li><a href="#" class="active">프로젝트 입력</a></li>
                 <li><a href="/selectProject">프로젝트 조회</a></li>
-                <li><a href="#" class="active">프로젝트 수정</a></li>
+                <li><a href="/updateProject">프로젝트 수정</a></li>
             </ul>
         </aside>
 
@@ -66,16 +66,16 @@
                     <h3 class="card-title">신규 프로젝트</h3>
 					<form action="/insertProject" method="post">
 						<div class="">
-							<label for="searchInput">프로젝트 코드:</label>
-							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001">
+							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
+							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
 	                    </div>
 						<div class="">
-							<label for="searchInput">프로젝트 명:</label>
-							<input type="text" name="projectNm" class="searchInput" placeholder="예: ICIS-TR 프로젝트">
+							<label for="searchInput">프로젝트 명: <span class="required">*</span></label>
+							<input type="text" name="projectNm" class="searchInput" placeholder="예: ICIS-TR 프로젝트" required>
 						</div>
 						<div class="">
-							<label for="dateInput">시작 일자 선택:</label>
-							<input type="date" name="startDate" class="dateInput">
+							<label for="dateInput">시작 일자 선택: <span class="required">*</span></label>
+							<input type="date" name="startDate" class="dateInput" required>
 						</div>
 						<div class="">
 							<label for="dateInput">종료 일자 선택:</label>
@@ -95,11 +95,11 @@
 						</div>
 						<div class="">
 							<label for="number">총 투입 공수 입력:</label>
-							<input type="number" name="manMonth" class="price" name="price" step="any" required>
+							<input type="number" name="manMonth" class="price" name="price" step="any">
 						</div>
 						<div class="">
 							<label for="number">총 수주 금액 입력:</label>
-							<input type="number" name="totAmt" class="price" name="price" step="any" required>
+							<input type="number" name="totAmt" class="price" name="price" step="any">
 						</div>
 						<div class="">
 							<label for="departmentSelect">프로젝트 유형 선택:</label>

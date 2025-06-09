@@ -22,7 +22,22 @@ public class ProjectController{
 		return "web/project";
 	}
 	
-	@PostMapping("/insertProject")
+	@GetMapping("/insertProject")
+	public String showInsertProjectPage() {
+		return "project/insertProject";
+	}
+	
+	@GetMapping("/selectProject")
+	public String showSelectProjectPage() {
+		return "project/selectProject";
+	}
+	
+	@GetMapping("/updateProject")
+	public String showUpdateProjectPage() {
+		return "project/updateProject";
+	}
+	
+	@PostMapping("/insertData")
 	public String insertProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
 		try {
 			int result = projectService.insertProject(projectDto);
