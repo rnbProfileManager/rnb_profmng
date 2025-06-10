@@ -39,7 +39,7 @@
                 <a href="/system">시스템 설정</a>
             </div>
             <div class="nav-item">
-                <a href="#" class="active">리포트</a>
+                <a href="/report" class="active">리포트</a>
             </div>
         </div>
     </nav>

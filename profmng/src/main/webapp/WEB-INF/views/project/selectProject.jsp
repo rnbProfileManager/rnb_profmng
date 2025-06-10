@@ -74,7 +74,54 @@
 						</div>
 					</form>
 					<c:choose>
-					    <c:when test="${insertResult eq 'success'}">
+					    <c:when test="${selectAll eq 'success'}">
+					        <div class="success-msg">✅ 프로젝트 조회에 성공했습니다.</div>
+							<div class="">
+								<label for="searchInput">프로젝트 코드: ${projectCd}</label>
+					        </div>
+							<div class="">
+								<label for="searchInput">프로젝트 명: ${projectNm}</label>
+							</div>
+							<div class="">
+								<label for="dateInput">시작 일자 선택: ${startDate}</label>
+							</div>
+							<div class="">
+								<label for="dateInput">종료 일자 선택: ${endDate}</label>
+							</div>
+							<div class="">
+								<label for="searchInput">PM 명: ${pmId}</label>
+							</div>
+							<div class="">
+								<label for="searchInput">발주기관: ${client}</label>
+							</div>
+							<div class="">
+								<label for="searchInput">주 수행사: ${contractor}</label>
+							</div>
+							<div class="">
+								<label for="number">총 투입 공수 입력: ${manMonth}</label>
+							</div>
+							<div class="">
+								<label for="number">총 수주 금액 입력: ${totAmt}</label>
+							</div>
+							<div class="">
+								<label for="departmentSelect">프로젝트 유형 선택: ${projectType}</label>
+							</div>
+					    </c:when>
+						<c:when test="${selectAll eq 'no Data'}">
+						    <div class="error-msg">❌ 일치하는 데이터가 없습니다.</div>
+						</c:when>
+					    <c:when test="${selectAll eq 'fail'}">
+					        <div class="error-msg">❌ 조회 중 오류가 발생했습니다.</div>
+					    </c:when>
+					    <c:when test="${selectAll eq 'duplicate'}">
+					        <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
+					    </c:when>
+					    <c:otherwise>
+					        <!-- 아무 메시지도 출력 안 함 -->
+					    </c:otherwise>
+					</c:choose>
+					<c:choose>
+					    <c:when test="${selectResult eq 'success'}">
 					        <div class="success-msg">✅ 프로젝트 조회에 성공했습니다.</div>
 							<div class="">
 								<label for="searchInput">프로젝트 코드: ${projectCd}</label>
@@ -131,13 +178,13 @@
 							}
 							</script>
 					    </c:when>
-						<c:when test="${insertResult eq 'no Data'}">
+						<c:when test="${selectResult eq 'no Data'}">
 						    <div class="error-msg">❌ 일치하는 데이터가 없습니다.</div>
 						</c:when>
-					    <c:when test="${insertResult eq 'fail'}">
+					    <c:when test="${selectResult eq 'fail'}">
 					        <div class="error-msg">❌ 조회 중 오류가 발생했습니다.</div>
 					    </c:when>
-					    <c:when test="${insertResult eq 'duplicate'}">
+					    <c:when test="${selectResult eq 'duplicate'}">
 					        <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
 					    </c:when>
 						<c:when test="${deleteResult eq 'success'}">

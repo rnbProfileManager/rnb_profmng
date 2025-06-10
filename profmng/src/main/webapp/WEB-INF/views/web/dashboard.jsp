@@ -27,7 +27,7 @@
     <nav>
         <div class="nav-content">
             <div class="nav-item">
-                <a href="#" class="active">대시보드</a>
+                <a href="/dashboard" class="active">대시보드</a>
             </div>
             <div class="nav-item">
                 <a href="/project">프로젝트 관리</a>

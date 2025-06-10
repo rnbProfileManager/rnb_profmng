@@ -31,7 +31,7 @@
                 <a href="/dashboard">대시보드</a>
             </div>
             <div class="nav-item">
-                <a href="#" class="active">프로젝트 관리</a>
+                <a href="/project" class="active">프로젝트 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/profile">사용자 관리</a>

@@ -36,7 +36,7 @@
                 <a href="/profile">사용자 관리</a>
             </div>
             <div class="nav-item">
-                <a href="#" class="active">시스템 설정</a>
+                <a href="/system" class="active">시스템 설정</a>
             </div>
             <div class="nav-item">
                 <a href="/report">리포트</a>

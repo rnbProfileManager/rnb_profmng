@@ -33,6 +33,12 @@ public class ProjectService {
     	return result;
     }
     
+    public List selectAll() {
+    	List result = projectRepo.selectAll();
+    	
+    	return result;
+    }
+    
     public int insertProject(ProjectDTO projectDto) {
     	int result = projectRepo.insert(projectDto);
     	

@@ -41,6 +41,19 @@ public class ProjectRepo {
 
         return jdbcTemplate.query(sql, rowMapper);
     }
+	
+	public List<ProjectDTO> selectAll() {
+        String sql = "SELECT * FROM project_table WHERE 1=1";
+        		
+        RowMapper<ProjectDTO> rowMapper = (rs, rowNum) -> {
+        	ProjectDTO projectDto = new ProjectDTO();
+        	projectDto.setProjectCd(rs.getString("PROJECT_CD"));
+        	projectDto.setProjectNm(rs.getString("PROJECT_NM"));
+            return projectDto;
+        };
+
+        return jdbcTemplate.query(sql, rowMapper);
+    }
     
     /*
      * 프로젝트 관리
