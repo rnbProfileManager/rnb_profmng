@@ -1,5 +1,7 @@
 package com.rnb.profmng.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,12 @@ public class ProjectService {
 
     public int insertProject(ProjectDTO projectDto) {
     	int result = projectRepo.insert(projectDto);
+    	
+    	return result;
+    }
+    
+    public List selectProject(String projectCd) {
+    	List result = projectRepo.select(projectCd);
     	
     	return result;
     }

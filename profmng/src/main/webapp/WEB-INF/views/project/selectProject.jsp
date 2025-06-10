@@ -64,10 +64,10 @@
             <div class="content-grid">
                 <article class="content-card">
                     <h3 class="card-title">신규 프로젝트</h3>
-					<form action="/insertProject" method="post">
+					<form action="/selectData" method="post">
 						<div class="">
-							<label for="searchInput">프로젝트 코드:</label>
-							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001">
+							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
+							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
 	                    </div>
 						<div class="">
 						  <button type="submit">검색</button>
@@ -76,22 +76,55 @@
 					<c:choose>
 					    <c:when test="${insertResult eq 'success'}">
 					        <div class="success-msg">✅ 프로젝트 조회에 성공했습니다.</div>
-							<!--프로젝트 코드-->
-							<!--프로젝트 명-->
-							<!--시작 일자-->
-							<!--종료 일자-->
-							<!--PM 명-->
-							<!--발주기관-->
-							<!--주 수행사-->
-							<!--총 투입 공수 입력-->
-							<!--총 수주 금액 입력-->
-							<!--프로젝트 유형-->
+							<div class="">
+								<label for="searchInput">프로젝트 코드: ${projectCd}</label>
+		                    </div>
+							<div class="">
+								<label for="searchInput">프로젝트 명: ${projectNm}</label>
+							</div>
+							<div class="">
+								<label for="dateInput">시작 일자 선택: ${startDate}</label>
+							</div>
+							<div class="">
+								<label for="dateInput">종료 일자 선택: ${endDate}</label>
+							</div>
+							<div class="">
+								<label for="searchInput">PM 명: ${pmId}</label>
+							</div>
+							<div class="">
+								<label for="searchInput">발주기관: ${client}</label>
+							</div>
+							<div class="">
+								<label for="searchInput">주 수행사: ${contractor}</label>
+							</div>
+							<div class="">
+								<label for="number">총 투입 공수 입력: ${manMonth}</label>
+							</div>
+							<div class="">
+								<label for="number">총 수주 금액 입력: ${totAmt}</label>
+							</div>
+							<div class="">
+								<label for="departmentSelect">프로젝트 유형 선택: ${projectType}</label>
+							</div>
+							<form action="/updateData" method="post">
+							<div class="">
+							  <button type="submit">수정</button>
+							</div>
+							</form>
+							<form action="/deleteData" method="post">
+							<div class="">
+							  <button type="submit">삭제</button>
+							</div>
+							</form>
 					    </c:when>
+						<c:when test="${insertResult eq 'no Data'}">
+						    <div class="error-msg">❌ 일치하는 데이터가 없습니다.</div>
+						</c:when>
 					    <c:when test="${insertResult eq 'fail'}">
 					        <div class="error-msg">❌ 조회 중 오류가 발생했습니다.</div>
 					    </c:when>
 					    <c:when test="${insertResult eq 'duplicate'}">
-					        <div class="error-msg">⚠️ 프로젝트 코드가 이미 존재합니다.</div>
+					        <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
 					    </c:when>
 					    <c:otherwise>
 					        <!-- 아무 메시지도 출력 안 함 -->

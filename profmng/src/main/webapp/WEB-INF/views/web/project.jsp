@@ -126,7 +126,7 @@
 					        <div class="error-msg">❌ 등록 중 오류가 발생했습니다.</div>
 					    </c:when>
 					    <c:when test="${insertResult eq 'duplicate'}">
-					        <div class="error-msg">⚠️ 프로젝트 코드가 이미 존재합니다.</div>
+					        <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
 					    </c:when>
 					    <c:otherwise>
 					        <!-- 아무 메시지도 출력 안 함 -->
