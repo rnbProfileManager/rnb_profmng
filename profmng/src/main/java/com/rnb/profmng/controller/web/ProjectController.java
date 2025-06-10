@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.rnb.profmng.ProfmngApplication;
 import com.rnb.profmng.dto.ProjectDTO;
 import com.rnb.profmng.service.ProjectService;
@@ -46,6 +49,12 @@ public class ProjectController{
 	
 	@GetMapping("/updateProject")
 	public String showUpdateProjectPage() {
+		return "project/updateProject";
+	}
+	
+	@GetMapping("/updateProjectWithCd")
+	public String showUpdateProjectPage(@RequestParam String projectCd, Model model) {
+		model.addAttribute("projectCd", projectCd);
 		return "project/updateProject";
 	}
 	
@@ -109,11 +118,17 @@ public class ProjectController{
 		return "redirect:/selectProject";
 	}
 	
+	@PostMapping("/updateButton")
+	public String updateButton(@RequestParam String projectCd) {
+		System.out.println(projectCd);
+		return "redirect:/updateProjectWithCd?projectCd=" + projectCd;
+	}
+	
 	@PostMapping("/updateData")
 	public String updateProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
 		try {
-			int result = projectService.insertProject(projectDto);
-
+			int result = projectService.updateProject(projectDto);
+			System.out.println(result);
 		    if (result > 0) {
 		        redirectAttributes.addFlashAttribute("insertResult", "success");
 		    } else {
@@ -124,29 +139,33 @@ public class ProjectController{
 	        redirectAttributes.addFlashAttribute("insertResult", "duplicate");
 	    } catch (Exception e) {
 	        // 기타 예외
+	    	System.out.println(e);
 	        redirectAttributes.addFlashAttribute("insertResult", "fail");
 	    }
-		return "redirect:/project";
+		return "redirect:/updateProject";
 	}
 	
-	@PostMapping("/deleteData")
-	public String deleteProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
+	@PostMapping("/deleteButton")
+	public String deleteProject(@RequestParam String projectCd, RedirectAttributes redirectAttributes) {
 		try {
-			int result = projectService.insertProject(projectDto);
+			int result = projectService.deleteProject(projectCd);
 
 		    if (result > 0) {
-		        redirectAttributes.addFlashAttribute("insertResult", "success");
+		        redirectAttributes.addFlashAttribute("deleteResult", "success");
+		        return "redirect:/selectProject";
 		    } else {
-		        redirectAttributes.addFlashAttribute("insertResult", "fail");
+		        redirectAttributes.addFlashAttribute("deleteResult", "fail");
+		        return "redirect:/updateProjectWithCd?projectCd=" + projectCd;
 		    }
 		}catch (DuplicateKeyException e) {
 	        // 중복 키 오류 발생 시
-	        redirectAttributes.addFlashAttribute("insertResult", "duplicate");
+	        redirectAttributes.addFlashAttribute("deleteResult", "duplicate");
+	        return "redirect:/updateProjectWithCd?projectCd=" + projectCd;
 	    } catch (Exception e) {
 	        // 기타 예외
-	        redirectAttributes.addFlashAttribute("insertResult", "fail");
+	        redirectAttributes.addFlashAttribute("deleteResult", "fail");
+	        return "redirect:/updateProjectWithCd?projectCd=" + projectCd;
 	    }
-		return "redirect:/project";
 	}
 	
 	

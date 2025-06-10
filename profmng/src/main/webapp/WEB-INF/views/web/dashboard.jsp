@@ -66,35 +66,31 @@
 
             <div class="content-grid">
                 <article class="content-card">
-                    <h3 class="card-title">진행 중인 프로젝트</h3>
-                    <div class="card-content">
-                        현재 5개의 프로젝트가 진행 중입니다. 이번 주 마감 예정인 프로젝트가 2개 있으니 확인해 주세요.
-                    </div>
-                    <div class="card-date">2024.12.01</div>
+                    <h3 class="card-title">최근 진행 중인 프로젝트1</h3>
+					<div class="card-content">프로젝트 코드 : ${dashboard_projectCd1}</div>
+					<div class="card-content">프로젝트 명 : ${dashboard_projectNm1}</div>
+                    <div class="card-date">${dashboard_startDate1} ~ ${dashboard_endDate1}</div>
                 </article>
 
                 <article class="content-card">
-                    <h3 class="card-title">팀 업무 현황</h3>
-                    <div class="card-content">
-                        개발팀 85% 완료, 디자인팀 92% 완료, QA팀 78% 완료 상태입니다. 전체적으로 순조로운 진행 상황입니다.
-                    </div>
-                    <div class="card-date">2024.12.01</div>
+                    <h3 class="card-title">최근 진행 중인 프로젝트2</h3>
+					<div class="card-content">프로젝트 코드 : ${dashboard_projectCd2}</div>
+					<div class="card-content">프로젝트 명 : ${dashboard_projectNm2}</div>
+                    <div class="card-date">${dashboard_startDate2} ~ ${dashboard_endDate2}</div>
                 </article>
 
                 <article class="content-card">
-                    <h3 class="card-title">시스템 알림</h3>
-                    <div class="card-content">
-                        서버 점검이 이번 주 토요일 새벽 2시에 예정되어 있습니다. 약 2시간 소요될 예정입니다.
-                    </div>
-                    <div class="card-date">2024.11.30</div>
+                    <h3 class="card-title">최근 진행 중인 프로젝트3</h3>
+					<div class="card-content">프로젝트 코드 : ${dashboard_projectCd3}</div>
+					<div class="card-content">프로젝트 명 : ${dashboard_projectNm3}</div>
+                    <div class="card-date">${dashboard_startDate3} ~ ${dashboard_endDate3}</div>
                 </article>
 
                 <article class="content-card">
-                    <h3 class="card-title">월간 리포트</h3>
-                    <div class="card-content">
-                        11월 프로젝트 완료율 94%, 고객 만족도 4.8/5.0으로 목표를 달성했습니다. 수고하셨습니다!
-                    </div>
-                    <div class="card-date">2024.11.29</div>
+                    <h3 class="card-title">최근 진행 중인 프로젝트4</h3>
+                    <div class="card-content">프로젝트 코드 : ${dashboard_projectCd4}</div>
+					<div class="card-content">프로젝트 명 : ${dashboard_projectNm4}</div>
+                    <div class="card-date">${dashboard_startDate4} ~ ${dashboard_endDate4}</div>
                 </article>
             </div>
         </main>

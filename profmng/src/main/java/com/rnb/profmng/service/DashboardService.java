@@ -9,32 +9,18 @@ import com.rnb.profmng.dto.ProjectDTO;
 import com.rnb.profmng.repository.ProjectRepo;
 
 @Service
-public class ProjectService {
+public class DashboardService {
     @Autowired
     private ProjectRepo projectRepo;
 
-    /*
-     * 대시보드
-     * select Repo 호출
-     */
-    public List selectProject() {
-    	List result = projectRepo.select();
-    	
-    	return result;
-    }
-    
-    /*
-     * 프로젝트 관리
-     * select, insert, update, delete Repo 호출
-     */
-    public List selectProject(String projectCd) {
-    	List result = projectRepo.select(projectCd);
-    	
-    	return result;
-    }
-    
     public int insertProject(ProjectDTO projectDto) {
     	int result = projectRepo.insert(projectDto);
+    	
+    	return result;
+    }
+    
+    public List selectProject(String projectCd) {
+    	List result = projectRepo.select(projectCd);
     	
     	return result;
     }

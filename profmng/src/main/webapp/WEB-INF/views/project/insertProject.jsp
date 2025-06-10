@@ -50,7 +50,7 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="#" class="active">프로젝트 입력</a></li>
+                <li><a href="/insertProject" class="active">프로젝트 입력</a></li>
                 <li><a href="/selectProject">프로젝트 조회</a></li>
                 <li><a href="/updateProject">프로젝트 수정</a></li>
             </ul>
@@ -64,7 +64,7 @@
             <div class="content-grid">
                 <article class="content-card">
                     <h3 class="card-title">신규 프로젝트</h3>
-					<form action="/insertProject" method="post">
+					<form action="/insertData" method="post">
 						<div class="">
 							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
 							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>

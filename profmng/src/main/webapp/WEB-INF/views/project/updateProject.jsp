@@ -52,7 +52,7 @@
             <ul class="sidebar-menu">
                 <li><a href="/insertProject">프로젝트 입력</a></li>
                 <li><a href="/selectProject">프로젝트 조회</a></li>
-                <li><a href="#" class="active">프로젝트 수정</a></li>
+                <li><a href="/updateProject" class="active">프로젝트 수정</a></li>
             </ul>
         </aside>
 
@@ -64,10 +64,21 @@
             <div class="content-grid">
                 <article class="content-card">
                     <h3 class="card-title">신규 프로젝트</h3>
-					<form action="/insertProject" method="post">
+					<div class="">
+						<p>수정할 프로젝트 코드를 입력해주세요</p>
+					</div>
+					<form action="/updateData" method="post">
 						<div class="">
-							<label for="searchInput">프로젝트 코드:</label>
-							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001">
+							<c:choose>
+							    <c:when test="${projectCd != null}">
+									<label for="searchInput">프로젝트 코드:</label>
+									<input type="text" id="projectCd" name="projectCd" value="${projectCd}" required />
+							    </c:when>
+								<c:otherwise>
+									<label for="searchInput">프로젝트 코드:</label>
+									<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
+								</c:otherwise>
+							</c:choose>
 	                    </div>
 						<div class="">
 							<label for="searchInput">프로젝트 명:</label>
@@ -95,11 +106,11 @@
 						</div>
 						<div class="">
 							<label for="number">총 투입 공수 입력:</label>
-							<input type="number" name="manMonth" class="price" name="price" step="any" required>
+							<input type="number" name="manMonth" class="price" name="price" step="any">
 						</div>
 						<div class="">
 							<label for="number">총 수주 금액 입력:</label>
-							<input type="number" name="totAmt" class="price" name="price" step="any" required>
+							<input type="number" name="totAmt" class="price" name="price" step="any">
 						</div>
 						<div class="">
 							<label for="departmentSelect">프로젝트 유형 선택:</label>
@@ -115,7 +126,7 @@
 							</select>
 						</div>
 						<div class="">
-						  <button type="submit">입력</button>
+						  <button type="submit">수정</button>
 						</div>
 					</form>
 					<c:choose>

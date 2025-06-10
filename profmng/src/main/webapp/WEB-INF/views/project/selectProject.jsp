@@ -51,7 +51,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
                 <li><a href="/insertProject">프로젝트 입력</a></li>
-                <li><a href="#" class="active">프로젝트 조회</a></li>
+                <li><a href="/selectProject" class="active">프로젝트 조회</a></li>
                 <li><a href="/updateProject">프로젝트 수정</a></li>
             </ul>
         </aside>
@@ -106,16 +106,30 @@
 							<div class="">
 								<label for="departmentSelect">프로젝트 유형 선택: ${projectType}</label>
 							</div>
-							<form action="/updateData" method="post">
-							<div class="">
-							  <button type="submit">수정</button>
-							</div>
+							<form action="/updateButton" method="post">
+								<div class="">
+									<c:choose>
+										<c:when test="${projectCd != null}">
+											<input type="hidden" name="projectCd" value="${projectCd}" />
+											<button type="submit">수정</button>
+										</c:when>
+										<c:otherwise>
+										    <button type="submit">수정</button>
+										</c:otherwise>	
+									</c:choose>    
+								</div>
 							</form>
-							<form action="/deleteData" method="post">
-							<div class="">
-							  <button type="submit">삭제</button>
-							</div>
+							<form action="/deleteButton" method="post" onsubmit="return confirmDelete();">
+								<div class="">
+									<input type="hidden" name="projectCd" value="${projectCd}" />
+									<button type="submit">삭제</button>
+								</div>
 							</form>
+							<script>
+							function confirmDelete() {
+							    return confirm("정말 삭제하시겠습니까?");
+							}
+							</script>
 					    </c:when>
 						<c:when test="${insertResult eq 'no Data'}">
 						    <div class="error-msg">❌ 일치하는 데이터가 없습니다.</div>
@@ -126,6 +140,18 @@
 					    <c:when test="${insertResult eq 'duplicate'}">
 					        <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
 					    </c:when>
+						<c:when test="${deleteResult eq 'success'}">
+						    <div class="error-msg">✅ 프로젝트 삭제에 성공했습니다.</div>
+						</c:when>
+						<c:when test="${deleteResult eq 'no Data'}">
+						    <div class="error-msg">❌ 일치하는 데이터가 없습니다.</div>
+						</c:when>
+						<c:when test="${deleteResult eq 'fail'}">
+						    <div class="error-msg">❌ 조회 중 오류가 발생했습니다.</div>
+						</c:when>
+						<c:when test="${deleteResult eq 'duplicate'}">
+						    <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
+						</c:when>
 					    <c:otherwise>
 					        <!-- 아무 메시지도 출력 안 함 -->
 					    </c:otherwise>
