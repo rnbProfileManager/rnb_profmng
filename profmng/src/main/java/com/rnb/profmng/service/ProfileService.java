@@ -1,10 +1,15 @@
 package com.rnb.profmng.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.rnb.profmng.dto.ProfileDTO;
+import com.rnb.profmng.dto.ProfiledbDto;
 import com.rnb.profmng.entity.profile.EmpAbility;
 import com.rnb.profmng.entity.profile.EmpAbilityPK;
 import com.rnb.profmng.entity.profile.EmpNo;
@@ -13,9 +18,14 @@ import com.rnb.profmng.entity.profile.ProjectEmpInfo;
 import com.rnb.profmng.entity.profile.ProjectEmpInfoPK;
 import com.rnb.profmng.repository.EmpAbilityRepo;
 import com.rnb.profmng.repository.EmpNoRepo;
+import com.rnb.profmng.repository.ProfileRepository;
 import com.rnb.profmng.repository.ProjectEmpInfoRepo;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+
+@RequiredArgsConstructor
 public class ProfileService {
     @Autowired
     private EmpNoRepo empNoRepo;
@@ -25,6 +35,35 @@ public class ProfileService {
 
     @Autowired
     private ProjectEmpInfoRepo projectEmpInfoRepo;
+    
+    private final ProfileRepository profileRepository;
+	 
+	 // 전체 조회
+	 public List<ProfiledbDto> getAllProfiles() {
+		 List<ProfiledbDto> dto = profileRepository.getAllProfiles();
+
+	        return dto;
+	    }
+	 
+	// 조회조건 조회   
+	 public List<ProfiledbDto> searchProfiles(String empNm, String startDateStr, String endDateStr) {
+	        if ((empNm == null || empNm.isEmpty()) 
+	            && (startDateStr == null || startDateStr.isEmpty()) 
+	            && (endDateStr == null || endDateStr.isEmpty())) {
+	            return getAllProfiles();
+	        }
+
+	        LocalDateTime parsedStartDate = (startDateStr != null && !startDateStr.isEmpty())
+	                ? LocalDate.parse(startDateStr).atStartOfDay()
+	                : null;
+
+	        LocalDateTime parsedEndDate = (endDateStr != null && !endDateStr.isEmpty())
+	                ? LocalDate.parse(endDateStr).atTime(23, 59, 59)
+	                : null;
+
+	        return profileRepository.searchProfiles(empNm, parsedStartDate, parsedEndDate);
+	    }
+    
 
     public EmpNo insertEmpNo(ProfileDTO profileDto) {
     	

@@ -15,5 +15,13 @@ public class TestEntity {
 	private String testUser;
 	@Column(name = "TEST_TEXT", length = 255)
 	private String testText;
+	
+	public String getTestUser() {
+        return testUser;
+    }
+
+    public String getTestText() {
+        return testText;
+    }
 
 }

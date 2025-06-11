@@ -1,9 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <script src=""></script>
     <title>R&B 알앤비소프트 - 사내프로젝트</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -13,10 +15,10 @@
 	<!-- HEADER -->
     <header>
         <div class="header-content">
-            <div class="logo-header">
-                <img class="logo-circle" src="images/rnbsoft_logo.png">
-                <h1>알앤비소프트</h1>
-            </div>
+			<div class="logo-header">
+			               <img class="logo-circle" src="images/rnbsoft_logo.png">
+			               <h1>알앤비소프트</h1>
+			           </div>
             <div id="userInfoArea" class="user-info">
                 <a href="/user/showLogin" class="logout-btn">로그인</a>
             </div>
@@ -33,7 +35,7 @@
                 <a href="/project">프로젝트 관리</a>
             </div>
             <div class="nav-item">
-                <a href="/profile" class="active">사용자 관리</a>
+                <a href="/profile/manage" class="active">사용자 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/system">시스템 설정</a>
@@ -49,164 +51,121 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-				<li><a href="/selectProfile" class="active">프로필 조회</a></li>
-                <li><a href="/empProfileInsert">사원 정보 추가</a></li>
-				<li><a href="/empProfileManage">사원 정보 관리</a></li>
-                <li><a href="/empProjectInsert">투입 인력 추가</a></li>
-				<li><a href="/empProjectManage">투입 인력 관리</a></li>
-				<li><a href="/empAbilityInsert">직무 능력 추가</a></li>
-				<li><a href="/empAbilityManage">직무 능력 관리</a></li>
+                <li><a href="/profile/manage">프로필 조회</a></li>
+                <li><a href="#">직원 정보</a></li>
+                <li><a href="#">팀 관리</a></li>
+                <li><a href="#">캘린더</a></li>
+                <li><a href="#">파일 관리</a></li>
+                <li><a href="#">설정</a></li>
             </ul>
         </aside>
 
         <!-- MAIN CONTENT -->
         <main>
             <h1 class="main-title">프로필 조회</h1>
-            <p class="main-subtitle">사원 코드를 입력해주세요</p>
+            <p class="main-subtitle">직원명, 입사기간을 조회해 주세요.</p>
 
-			<div class="content-grid">
-                <article class="content-card">
-					<form action="/selectData" method="post">
-						<div class="">
-							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
-							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
-	                    </div>
-						<div class="">
-						  <button type="submit">검색</button>
-						</div>
-					</form>
-					<c:choose>
-					    <c:when test="${selectAll eq 'success'}">
-					        <div class="success-msg">✅ 프로젝트 조회에 성공했습니다.</div>
-							<div class="">
-								<label for="searchInput">프로젝트 코드: ${projectCd}</label>
-					        </div>
-							<div class="">
-								<label for="searchInput">프로젝트 명: ${projectNm}</label>
-							</div>
-							<div class="">
-								<label for="dateInput">시작 일자 선택: ${startDate}</label>
-							</div>
-							<div class="">
-								<label for="dateInput">종료 일자 선택: ${endDate}</label>
-							</div>
-							<div class="">
-								<label for="searchInput">PM 명: ${pmId}</label>
-							</div>
-							<div class="">
-								<label for="searchInput">발주기관: ${client}</label>
-							</div>
-							<div class="">
-								<label for="searchInput">주 수행사: ${contractor}</label>
-							</div>
-							<div class="">
-								<label for="number">총 투입 공수 입력: ${manMonth}</label>
-							</div>
-							<div class="">
-								<label for="number">총 수주 금액 입력: ${totAmt}</label>
-							</div>
-							<div class="">
-								<label for="departmentSelect">프로젝트 유형 선택: ${projectType}</label>
-							</div>
-					    </c:when>
-						<c:when test="${selectAll eq 'no Data'}">
-						    <div class="error-msg">❌ 일치하는 데이터가 없습니다.</div>
-						</c:when>
-					    <c:when test="${selectAll eq 'fail'}">
-					        <div class="error-msg">❌ 조회 중 오류가 발생했습니다.</div>
-					    </c:when>
-					    <c:when test="${selectAll eq 'duplicate'}">
-					        <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
-					    </c:when>
-					    <c:otherwise>
-					        <!-- 아무 메시지도 출력 안 함 -->
-					    </c:otherwise>
-					</c:choose>
-					<c:choose>
-					    <c:when test="${selectResult eq 'success'}">
-					        <div class="success-msg">✅ 프로젝트 조회에 성공했습니다.</div>
-							<div class="">
-								<label for="searchInput">프로젝트 코드: ${projectCd}</label>
-		                    </div>
-							<div class="">
-								<label for="searchInput">프로젝트 명: ${projectNm}</label>
-							</div>
-							<div class="">
-								<label for="dateInput">시작 일자 선택: ${startDate}</label>
-							</div>
-							<div class="">
-								<label for="dateInput">종료 일자 선택: ${endDate}</label>
-							</div>
-							<div class="">
-								<label for="searchInput">PM 명: ${pmId}</label>
-							</div>
-							<div class="">
-								<label for="searchInput">발주기관: ${client}</label>
-							</div>
-							<div class="">
-								<label for="searchInput">주 수행사: ${contractor}</label>
-							</div>
-							<div class="">
-								<label for="number">총 투입 공수 입력: ${manMonth}</label>
-							</div>
-							<div class="">
-								<label for="number">총 수주 금액 입력: ${totAmt}</label>
-							</div>
-							<div class="">
-								<label for="departmentSelect">프로젝트 유형 선택: ${projectType}</label>
-							</div>
-							<form action="/updateButton" method="post">
-								<div class="">
-									<c:choose>
-										<c:when test="${projectCd != null}">
-											<input type="hidden" name="projectCd" value="${projectCd}" />
-											<button type="submit">수정</button>
-										</c:when>
-										<c:otherwise>
-										    <button type="submit">수정</button>
-										</c:otherwise>	
-									</c:choose>    
-								</div>
-							</form>
-							<form action="/deleteButton" method="post" onsubmit="return confirmDelete();">
-								<div class="">
-									<input type="hidden" name="projectCd" value="${projectCd}" />
-									<button type="submit">삭제</button>
-								</div>
-							</form>
-							<script>
-							function confirmDelete() {
-							    return confirm("정말 삭제하시겠습니까?");
-							}
-							</script>
-					    </c:when>
-						<c:when test="${selectResult eq 'no Data'}">
-						    <div class="error-msg">❌ 일치하는 데이터가 없습니다.</div>
-						</c:when>
-					    <c:when test="${selectResult eq 'fail'}">
-					        <div class="error-msg">❌ 조회 중 오류가 발생했습니다.</div>
-					    </c:when>
-					    <c:when test="${selectResult eq 'duplicate'}">
-					        <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
-					    </c:when>
-						<c:when test="${deleteResult eq 'success'}">
-						    <div class="error-msg">✅ 프로젝트 삭제에 성공했습니다.</div>
-						</c:when>
-						<c:when test="${deleteResult eq 'no Data'}">
-						    <div class="error-msg">❌ 일치하는 데이터가 없습니다.</div>
-						</c:when>
-						<c:when test="${deleteResult eq 'fail'}">
-						    <div class="error-msg">❌ 조회 중 오류가 발생했습니다.</div>
-						</c:when>
-						<c:when test="${deleteResult eq 'duplicate'}">
-						    <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
-						</c:when>
-					    <c:otherwise>
-					        <!-- 아무 메시지도 출력 안 함 -->
-					    </c:otherwise>
-					</c:choose>
-                </article>
-            </div>
+			<section class="search-area">
+			    <h2>프로필 조회</h2>
+
+			    <form class="search-form" method="get" action="/profile/manage">	<div class="form-group">
+					    <label for="empNm">직원명</label>
+					    <input type="text" id="empNm" name="empNm" value="${param.empNm}">
+					</div>
+			        <div class="form-group">
+			            <label for="startDate">기간</label>
+			            <input type="date" id="startDate" name="startDate" value="${param.startDate}">
+			            <span>~</span>
+			            <input type="date" id="endDate" name="endDate" value="${param.endDate}">
+			        </div>
+			        <button type="submit" class="btn search">조회</button>
+			    </form>
+
+			    <!-- 리스트 영역 -->
+			    <div class="grid-area">
+					<table class="data-grid">
+					    <thead>
+					        <tr>
+					            <th><input type="checkbox" /></th>
+					            <th>직원명</th>
+					            <th>이력서</th>
+					            <th>경력</th>
+					            <th>휴대폰번호</th>
+					            <th>이력서 업로드</th>
+					        </tr>
+					    </thead>
+
+						    <tbody>
+								<h3>직원수: ${fn:length(employeeList)}</h3>
+									<c:forEach var="emp" items="${employeeList}">
+										${emp}
+										<tr>
+										   <td><input type="checkbox" name="empChk" value="${emp.empCd}" /></td>
+										    <td>${emp.empNm}</td>
+										    <td>
+												<c:choose>
+												    <c:when test="${not empty emp.filePath}">
+												      <a href="/download?file=${emp.filePath}">${emp.fileName}</a>
+												    </c:when>
+												    <c:otherwise>등록된 이력서 없음</c:otherwise>
+												  </c:choose></td>
+										    <td>${emp.jobTitle}</td>
+										    <td>${emp.callNumber}</td>
+										    <td>
+												<input type="hidden" class="empCd" value="${emp.empCd}" />
+												<input type="hidden" class="empNm" value="${emp.empNm}" />
+												<input type="file" id="fileInput_${emp.empCd}" style="display:none;" />
+												<button type="button" onclick="$('#fileInput_${emp.empCd}').click();" class="btn">파일 선택</button>
+										    </td>
+										</tr>
+									</c:forEach>
+						  
+						    </tbody>
+						</table>
+						<script>
+							$(document).on("change", "input[type=file]", function() {
+							    const file = this.files[0];
+							    if (!file) return;
+							    const $tr = $(this).closest('tr');
+							    const empCd = $tr.find('.empCd').val();
+							    const empNm = $tr.find('.empNm').val();
+
+							    const formData = new FormData();
+							    formData.append("file", file);
+							    formData.append("empCd", empCd);
+							    formData.append("empNm", empNm);
+
+							    $.ajax({
+							        url: "/upload",
+							        type: "POST",
+							        data: formData,
+							        contentType: false,
+							        processData: false,
+									success: function(response) {
+									    if(response === "OK"){
+									        alert("업로드 성공");
+									        location.reload();
+									    } else {
+									        alert("업로드 실패: " + response);
+									    }
+									},
+									error: function(xhr, status, error) {
+									    alert("업로드 실패: " + error);
+									}
+							    });
+							});
+						    </script>
+			        <div class="file-actions">
+			            
+			        </div>
+
+			        <div class="grid-buttons">
+			            <button type="button" onclick="location.href='/profile/new'" class="btn new">신규</button>
+			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
+			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
+			        </div>
+			    </div>
+			</section>
         </main>
     </div>
 
