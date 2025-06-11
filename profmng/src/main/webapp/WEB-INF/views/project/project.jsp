@@ -52,7 +52,6 @@
             <ul class="sidebar-menu">
                 <li><a href="/insertProject" class="active">프로젝트 추가</a></li>
                 <li><a href="/selectProject">프로젝트 조회</a></li>
-                <li><a href="/updateProject">프로젝트 수정</a></li>
             </ul>
         </aside>
 

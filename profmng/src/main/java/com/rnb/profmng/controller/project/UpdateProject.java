@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rnb.profmng.dto.ProjectDTO;
+import com.rnb.profmng.entity.project.Project;
 import com.rnb.profmng.service.ProjectService;
 
 @Controller
@@ -39,9 +40,8 @@ public class UpdateProject{
 	@PostMapping("/updateProjectData")
 	public String updateProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
 		try {
-			int result = projectService.updateProject(projectDto);
-			System.out.println(result);
-		    if (result > 0) {
+			Project result = projectService.update(projectDto);
+		    if (result != null) {
 		        redirectAttributes.addFlashAttribute("insertResult", "success");
 		    } else {
 		        redirectAttributes.addFlashAttribute("insertResult", "fail");

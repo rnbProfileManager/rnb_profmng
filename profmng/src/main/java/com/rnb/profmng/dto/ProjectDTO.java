@@ -17,6 +17,7 @@ public class ProjectDTO {
     private String projectNm;
     private LocalDate startDate;
     private LocalDate endDate;
+    private LocalDate updateDate;
     private String pmId;
     private String client;
     private String contractor;
@@ -24,20 +25,29 @@ public class ProjectDTO {
     private BigDecimal totAmt;
     private String projectType;
     
-    
-    
-    // --- 로그인 요청을 위한 생성자 ---
-    public ProjectDTO(String projectCd, String projectNm) {
-        this.projectCd = projectCd;
-        this.projectNm = projectNm;
-    }
+	public ProjectDTO(String projectCd, String projectNm, LocalDate startDate, LocalDate endDate,
+			LocalDate updateDate, String pmId, String client, String contractor, BigDecimal manMonth,
+			BigDecimal totAmt, String projectType) {
+		this.projectCd = projectCd;
+		this.projectNm = projectNm;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.updateDate = updateDate;
+		this.pmId = pmId;
+		this.client = client;
+		this.contractor = contractor;
+		this.manMonth = manMonth;
+		this.totAmt = totAmt;
+		this.projectType = projectType;
+	}
     
     // User 엔티티를 DTO로 변환하기 위한 생성자( 응답 )
     public ProjectDTO(Project project) {
-    	this.projectCd = project.getProjectCd();
-    	this.projectNm = project.getProjectNm();
-    	this.startDate = project.getStartDate();
+    	this.projectCd = project.getProjectPk().getProjectCd();
+    	this.projectNm = project.getProjectPk().getProjectNm();
+    	this.startDate = project.getProjectPk().getStartDate();
     	this.endDate = project.getEndDate();
+    	this.updateDate = project.getUpdateDate();
     	this.pmId = project.getPmId();
     	this.client = project.getClient();
     	this.contractor = project.getContractor();

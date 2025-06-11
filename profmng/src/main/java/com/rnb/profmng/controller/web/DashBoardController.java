@@ -18,7 +18,7 @@ public class DashBoardController{
 	
 	@GetMapping("/dashboard")
 	public String showProjectPage(Model model) {
-		List<ProjectDTO> result = projectService.selectProject();
+		List<ProjectDTO> result = projectService.selectAll();
 		System.out.println(result);
 		
 		// DESC 정렬. 최신순으로 번호 역순
@@ -49,8 +49,6 @@ public class DashBoardController{
 
 		return "web/dashboard";
 	}
-	
-
 }
 
 

@@ -13,28 +13,9 @@ public class DashboardService {
     @Autowired
     private ProjectRepo projectRepo;
 
-    public int insertProject(ProjectDTO projectDto) {
-    	int result = projectRepo.insert(projectDto);
-    	
-    	return result;
-    }
-    
     public List selectProject(String projectCd) {
-    	List result = projectRepo.select(projectCd);
-    	
-    	return result;
-    }
-    
-    public int updateProject(ProjectDTO projectDto) {
-    	int result = projectRepo.update(projectDto);
-    	
-    	return result;
+    	List result = projectRepo.findAll();
 
-    }
-    
-    public int deleteProject(String projectCd) {
-    	int result = projectRepo.delete(projectCd);
-    	
     	return result;
     }
 }

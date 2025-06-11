@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,18 +18,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Project {
 
-    @Id
-    @Column(name = "PROJECT_CD", length = 4, nullable = false)
-    private String projectCd;
-
-    @Column(name = "PROJECT_NM", length = 100, nullable = false)
-    private String projectNm;
-
-    @Column(name = "START_DATE", nullable = false)
-    private LocalDate startDate;
-
+	@EmbeddedId
+    private ProjectPK projectPk;
+	
     @Column(name = "END_DATE")
     private LocalDate endDate;
+
+    @Column(name = "UPDATE_DATE")
+    private LocalDate updateDate;
 
     @Column(name = "PM_ID", length = 20)
     private String pmId;
