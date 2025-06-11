@@ -58,12 +58,11 @@
 
         <!-- MAIN CONTENT -->
         <main>
-            <h1 class="main-title">프로젝트 입력</h1>
-            <p class="main-subtitle">신규 프로젝트 데이터를 입력해주세요</p>
+            <h1 class="main-title">프로젝트 수정</h1>
+            <p class="main-subtitle">수정할 데이터를 입력해주세요</p>
 
             <div class="content-grid">
                 <article class="content-card">
-                    <h3 class="card-title">신규 프로젝트</h3>
 					<div class="">
 						<p>수정할 프로젝트 코드를 입력해주세요</p>
 					</div>

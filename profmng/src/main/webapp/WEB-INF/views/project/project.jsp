@@ -50,7 +50,7 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="/insertProject" class="active">프로젝트 입력</a></li>
+                <li><a href="/insertProject" class="active">프로젝트 추가</a></li>
                 <li><a href="/selectProject">프로젝트 조회</a></li>
                 <li><a href="/updateProject">프로젝트 수정</a></li>
             </ul>
@@ -58,7 +58,7 @@
 
         <!-- MAIN CONTENT -->
         <main>
-            <h1 class="main-title">프로젝트 입력</h1>
+            <h1 class="main-title">프로젝트 추가</h1>
             <p class="main-subtitle">신규 프로젝트 데이터를 입력해주세요</p>
 
             <div class="content-grid">

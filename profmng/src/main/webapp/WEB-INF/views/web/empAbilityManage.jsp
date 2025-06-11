@@ -27,13 +27,13 @@
     <nav>
         <div class="nav-content">
             <div class="nav-item">
-                <a href="/dashboard" class="active">대시보드</a>
+                <a href="/dashboard">대시보드</a>
             </div>
             <div class="nav-item">
                 <a href="/project">프로젝트 관리</a>
             </div>
             <div class="nav-item">
-                <a href="/profile">사용자 관리</a>
+                <a href="/profile" class="active">사용자 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/system">시스템 설정</a>
@@ -49,48 +49,32 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="/dashboard" class="active">대시보드</a></li>
-                <li><a href="#">새 프로젝트</a></li>
-                <li><a href="#">작업 현황</a></li>
-                <li><a href="#">팀 관리</a></li>
-                <li><a href="#">캘린더</a></li>
-                <li><a href="#">파일 관리</a></li>
-                <li><a href="#">설정</a></li>
+				<li><a href="/selectProfile">프로필 조회</a></li>
+                <li><a href="/empProfileInsert">사원 정보 추가</a></li>
+				<li><a href="/empProfileManage">사원 정보 관리</a></li>
+                <li><a href="/empProjectInsert">투입 인력 추가</a></li>
+				<li><a href="/empProjectManage">투입 인력 관리</a></li>
+				<li><a href="/empAbilityInsert">직무 능력 추가</a></li>
+				<li><a href="/empAbilityManage" class="active">직무 능력 관리</a></li>
             </ul>
         </aside>
 
         <!-- MAIN CONTENT -->
         <main>
-            <h1 class="main-title">대시보드</h1>
-            <p class="main-subtitle">현재 진행중인 프로젝트 현황을 한눈에 확인하세요</p>
+            <h1 class="main-title">직무 능력 관리</h1>
+            <p class="main-subtitle">사원 코드를 입력해주세요</p>
 
-            <div class="content-grid">
+			<div class="content-grid">
                 <article class="content-card">
-                    <h3 class="card-title">최근 진행 중인 프로젝트1</h3>
-					<div class="card-content">프로젝트 코드 : ${dashboard_projectCd1}</div>
-					<div class="card-content">프로젝트 명 : ${dashboard_projectNm1}</div>
-                    <div class="card-date">${dashboard_startDate1} ~ ${dashboard_endDate1}</div>
-                </article>
-
-                <article class="content-card">
-                    <h3 class="card-title">최근 진행 중인 프로젝트2</h3>
-					<div class="card-content">프로젝트 코드 : ${dashboard_projectCd2}</div>
-					<div class="card-content">프로젝트 명 : ${dashboard_projectNm2}</div>
-                    <div class="card-date">${dashboard_startDate2} ~ ${dashboard_endDate2}</div>
-                </article>
-
-                <article class="content-card">
-                    <h3 class="card-title">최근 진행 중인 프로젝트3</h3>
-					<div class="card-content">프로젝트 코드 : ${dashboard_projectCd3}</div>
-					<div class="card-content">프로젝트 명 : ${dashboard_projectNm3}</div>
-                    <div class="card-date">${dashboard_startDate3} ~ ${dashboard_endDate3}</div>
-                </article>
-
-                <article class="content-card">
-                    <h3 class="card-title">최근 진행 중인 프로젝트4</h3>
-                    <div class="card-content">프로젝트 코드 : ${dashboard_projectCd4}</div>
-					<div class="card-content">프로젝트 명 : ${dashboard_projectNm4}</div>
-                    <div class="card-date">${dashboard_startDate4} ~ ${dashboard_endDate4}</div>
+					<form action="/selectData" method="post">
+						<div class="">
+							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
+							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
+	                    </div>
+						<div class="">
+						  <button type="submit">입력</button>
+						</div>
+					</form>
                 </article>
             </div>
         </main>

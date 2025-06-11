@@ -59,7 +59,7 @@
         <!-- MAIN CONTENT -->
         <main>
             <h1 class="main-title">프로젝트 입력</h1>
-            <p class="main-subtitle">신규 프로젝트 데이터를 입력해주세요</p>
+            <p class="main-subtitle">프로젝트 코드를 입력해주세요</p>
 
             <div class="content-grid">
                 <article class="content-card">
