@@ -23,7 +23,7 @@ public class SelectProject{
 		return "project/selectProject";
 	}
 	
-	@PostMapping("/selectData")
+	@PostMapping("/selectProjectData")
 	public String selectProject(String projectCd, RedirectAttributes redirectAttributes) {
 		System.out.println(projectCd);
 		if(projectCd.equals("*")) {

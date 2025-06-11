@@ -66,7 +66,7 @@
 					<div class="">
 						<p>수정할 프로젝트 코드를 입력해주세요</p>
 					</div>
-					<form action="/updateData" method="post">
+					<form action="/updateProjectData" method="post">
 						<div class="">
 							<c:choose>
 							    <c:when test="${projectCd != null}">

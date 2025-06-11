@@ -30,13 +30,13 @@ public class UpdateProject{
 		return "project/updateProject";
 	}
 	
-	@PostMapping("/updateButton")
+	@PostMapping("/updateProjectButton")
 	public String updateButton(@RequestParam String projectCd) {
 		System.out.println(projectCd);
 		return "redirect:/updateProjectWithCd?projectCd=" + projectCd;
 	}
 	
-	@PostMapping("/updateData")
+	@PostMapping("/updateProjectData")
 	public String updateProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
 		try {
 			int result = projectService.updateProject(projectDto);

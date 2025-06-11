@@ -31,7 +31,7 @@
                 <a href="/dashboard">대시보드</a>
             </div>
             <div class="nav-item">
-                <a href="#" class="active">프로젝트 관리</a>
+                <a href="/project" class="active">프로젝트 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/profile">사용자 관리</a>
@@ -64,7 +64,7 @@
             <div class="content-grid">
                 <article class="content-card">
                     <h3 class="card-title">신규 프로젝트</h3>
-					<form action="/insertData" method="post">
+					<form action="/insertProjectData" method="post">
 						<div class="">
 							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
 							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>

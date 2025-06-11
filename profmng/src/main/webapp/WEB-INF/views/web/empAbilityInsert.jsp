@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -66,15 +67,54 @@
 
 			<div class="content-grid">
                 <article class="content-card">
-					<form action="/selectData" method="post">
+					<form action="/insertEmpAbilityData" method="post">
 						<div class="">
-							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
-							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
+							<label for="searchInput">사원코드: <span class="required">*</span></label>
+							<input type="text" name="empCd" class="searchInput" placeholder="예: 0001" required>
 	                    </div>
+						<div class="">
+							<label for="searchInput">사원명: <span class="required">*</span></label>
+							<input type="text" name="empNm" class="searchInput" placeholder="예: 홍길동" required>
+						</div>
+						<div class="">
+							<label for="abilityType">직무능력형태: <span class="required">*</span></label>
+							<select class="abilityType" name="abilityType" required>
+							  	<option value="전체">전체</option>
+							  	<option value="자격증">자격증</option>
+								<option value="교육">교육</option>
+								<option value="기술">기술</option>
+							</select>
+						</div>
+						<div class="">
+							<label for="searchInput">직무능력명: </label>
+							<input type="text" name="abilityNm" class="searchInput" placeholder="예: 정보처리기사">
+						</div>
+						<div class="">
+							<label for="dateInput">시작일자: <span class="required">*</span></label>
+							<input type="date" name="startDate" class="dateInput" required>
+						</div>
+						<div class="">
+							<label for="dateInput">종료일자: </label>
+							<input type="date" name="endDate" class="dateInput">
+						</div>
 						<div class="">
 						  <button type="submit">입력</button>
 						</div>
 					</form>
+					<c:choose>
+					    <c:when test="${insertResult eq 'success'}">
+					        <div class="success-msg">✅ 사원 정보 등록에 성공했습니다.</div>
+					    </c:when>
+					    <c:when test="${insertResult eq 'fail'}">
+					        <div class="error-msg">❌ 등록 중 오류가 발생했습니다.</div>
+					    </c:when>
+					    <c:when test="${insertResult eq 'duplicate'}">
+					        <div class="error-msg">❌ 중복 데이터가 이미 존재합니다.</div>
+					    </c:when>
+					    <c:otherwise>
+					        <!-- 아무 메시지도 출력 안 함 -->
+					    </c:otherwise>
+					</c:choose>
                 </article>
             </div>
         </main>

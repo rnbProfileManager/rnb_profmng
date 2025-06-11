@@ -1,8 +1,6 @@
 package com.rnb.profmng.repository;
 
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,8 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.rnb.profmng.dto.ProjectDTO;
-
-import lombok.experimental.var;
 
 @Repository
 public class ProjectRepo {

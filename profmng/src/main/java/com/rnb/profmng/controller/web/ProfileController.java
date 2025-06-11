@@ -15,11 +15,6 @@ public class ProfileController{
 		return "web/selectProfile";
 	}
 	
-	@GetMapping("/empProfileInsert")
-	public String showEmpProfileInsertPage() {
-		return "web/empProfileInsert";
-	}
-	
 	@GetMapping("/empProfileManage")
 	public String showEmpProfileManagePage() {
 		return "web/empProfileManage";

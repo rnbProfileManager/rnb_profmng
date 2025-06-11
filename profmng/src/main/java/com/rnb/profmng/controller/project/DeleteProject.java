@@ -15,7 +15,7 @@ public class DeleteProject{
 	@Autowired
 	private ProjectService projectService;
 
-	@PostMapping("/deleteButton")
+	@PostMapping("/deleteProjectButton")
 	public String deleteProject(@RequestParam String projectCd, RedirectAttributes redirectAttributes) {
 		try {
 			int result = projectService.deleteProject(projectCd);

@@ -36,7 +36,7 @@ public class InsertProject{
 	}
 	
     // 데이터 작업 form 매핑	
-	@PostMapping("/insertData")
+	@PostMapping("/insertProjectData")
 	public String insertProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
 		try {
 			int result = projectService.insertProject(projectDto);

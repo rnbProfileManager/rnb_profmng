@@ -64,7 +64,7 @@
             <div class="content-grid">
                 <article class="content-card">
                     <h3 class="card-title">신규 프로젝트</h3>
-					<form action="/selectData" method="post">
+					<form action="/selectProjectData" method="post">
 						<div class="">
 							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
 							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
@@ -153,7 +153,7 @@
 							<div class="">
 								<label for="departmentSelect">프로젝트 유형 선택: ${projectType}</label>
 							</div>
-							<form action="/updateButton" method="post">
+							<form action="/updateProjectButton" method="post">
 								<div class="">
 									<c:choose>
 										<c:when test="${projectCd != null}">
@@ -166,7 +166,7 @@
 									</c:choose>    
 								</div>
 							</form>
-							<form action="/deleteButton" method="post" onsubmit="return confirmDelete();">
+							<form action="/deleteProjectButton" method="post" onsubmit="return confirmDelete();">
 								<div class="">
 									<input type="hidden" name="projectCd" value="${projectCd}" />
 									<button type="submit">삭제</button>
