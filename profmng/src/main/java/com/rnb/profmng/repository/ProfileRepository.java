@@ -25,7 +25,7 @@ public interface ProfileRepository extends JpaRepository<EmpAbilityEntity, EmpAb
 		       "FROM EmpAbilityEntity a " +
 		       "JOIN EmpNoEntity b ON a.empCd = b.empCd " +
 		       "LEFT JOIN ProfileFileInfoEntity c ON a.empCd = c.empCd " +
-		       "WHERE (:empNm IS NULL OR a.empNm LIKE %:empNm%) " +
+		       "WHERE (:empNm IS NULL OR a.empNm = :empNm) " +
 		       "AND (:startDate IS NULL OR a.startDate >= :startDate) " +
 		       "AND (:endDate IS NULL OR a.startDate <= :endDate)")
 		List<ProfiledbDto> searchProfiles(
