@@ -33,9 +33,18 @@ public class AzureStorageService {
 
 	    public String uploadProfileFile(String empCd, String empNm, MultipartFile file) {
 
+	    	
+	    	 String fileName = file.getOriginalFilename();
+	    	 String ext = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+	    	    // 파일 확장자 추출
+	    	    if (fileName == null || !ext.equals("doc") && !ext.equals("docx")) {
+	    	        return "doc 또는 docx 파일만 업로드 가능합니다.";
+	    	    }
+
+	    	
 	        String today = LocalDate.now().toString().replace("-", "");
-	        String fileName = "알앤비_" + empNm + "_" + today + ".pdf";
-	        String filePath = "/pod/" + fileName;
+	        String fileNames = "알앤비_" + empNm + "_" + today + "."+ ext;
+	        String filePath = "/pod/" + fileNames;
 	        try {
 	        	// Azure Blob Upload
 		        BlobClient blobClient = blobContainerClient.getBlobClient(filePath);
@@ -47,7 +56,7 @@ public class AzureStorageService {
 	        	// DB Insert
 		        ProfileFileInfoEntity entity = new ProfileFileInfoEntity();
 		        entity.setEmpCd(empCd);
-		        entity.setFileName(fileName);
+		        entity.setFileName(fileNames);
 		        entity.setFilePath(filePath);
 		        entity.setFileSize(file.getSize());
 		        entity.setUploadDt(LocalDateTime.now());

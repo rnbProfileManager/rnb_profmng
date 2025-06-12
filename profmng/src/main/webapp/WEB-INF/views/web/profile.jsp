@@ -63,12 +63,13 @@
         <!-- MAIN CONTENT -->
         <main>
             <h1 class="main-title">프로필 조회</h1>
-            <p class="main-subtitle">직원명, 입사기간을 조회해 주세요.</p>
+            <p class="main-subtitle">직원명, 입사기간을 조회해 주세요. <br> doc,docx 파일만 업로드 가능합니다.</p>
 
 			<section class="search-area">
 			    <h2>프로필 조회</h2>
 
-			    <form class="search-form" method="get" action="/profile/manage">	<div class="form-group">
+			    <form class="search-form" method="get" action="/profile/manage">	
+					<div class="form-group">
 					    <label for="empNm">직원명</label>
 					    <input type="text" id="empNm" name="empNm" value="${param.empNm}">
 					</div>
@@ -98,7 +99,6 @@
 						    <tbody>
 								<h3>직원수: ${fn:length(employeeList)}</h3>
 									<c:forEach var="emp" items="${employeeList}">
-										${emp}
 										<tr>
 										   <td><input type="checkbox" name="empChk" value="${emp.empCd}" /></td>
 										    <td>${emp.empNm}</td>

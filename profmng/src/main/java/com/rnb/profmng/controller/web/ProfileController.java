@@ -67,8 +67,8 @@ public class ProfileController{
 	    /**
 	     * 파일 다운로드 API
 	     */
-	    @GetMapping("/download/{fileName}")
-	    public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
+	    @GetMapping("/download")
+	    public ResponseEntity<byte[]> downloadFile(@RequestParam("file") String fileName) {
 	        return azureStorageService.downloadFile(fileName);
 	    }
 
