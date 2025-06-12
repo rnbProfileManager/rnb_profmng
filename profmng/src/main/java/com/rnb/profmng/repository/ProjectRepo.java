@@ -4,8 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.rnb.profmng.dto.ProjectDTO;
 import com.rnb.profmng.entity.project.Project;
 import com.rnb.profmng.entity.project.ProjectPK;
 
@@ -21,53 +26,9 @@ public interface ProjectRepo extends JpaRepository<Project, ProjectPK>{
     // ProjectCd 기준 Update
     Optional<Project> findByProjectPk_ProjectCd(String projectCd);
     
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Project p WHERE p.projectPk.projectCd = :projectCd")
+    int deleteByProjectCd(@Param("projectCd") String projectCd);
     
-    
-//    public int update(ProjectDTO projectDto) {
-//        String sql = "UPDATE PROJECT_TABLE SET "
-//        		+ "PROJECT_CD = NVL(?, PROJECT_CD),"
-//        		+ "PROJECT_NM = NVL(?, PROJECT_NM),"
-//        		+ "START_DATE = NVL(?, START_DATE),"
-//        		+ "END_DATE = NVL(?, END_DATE),"
-//        		+ "PM_ID = NVL(?, PM_ID),"
-//        		+ "CLIENT = NVL(?, CLIENT),"
-//        		+ "CONTRACTOR = NVL(?, CONTRACTOR),"
-//        		+ "MAN_MONTH = NVL(?, MAN_MONTH),"
-//        		+ "TOT_AMT = NVL(?, TOT_AMT),"
-//        		+ "PROJECT_TYPE = NVL(?, PROJECT_TYPE),"
-//        		+ "UPDATE_DATE = ?"
-//        		+ " WHERE PROJECT_CD = ?";
-//
-//        System.out.println(projectDto);
-//        System.out.println(projectDto.getStartDate());
-//        int result = jdbcTemplate.update(sql, 
-//        		projectDto.getProjectCd(),
-//        		projectDto.getProjectNm(),
-//        		projectDto.getStartDate(),
-//        		projectDto.getEndDate(),
-//        		projectDto.getPmId(),
-//        		projectDto.getClient(),
-//        		projectDto.getContractor(),
-//        		projectDto.getManMonth(),
-//        		projectDto.getTotAmt(),
-//        		projectDto.getProjectType(),
-//        		LocalDate.now(),
-//        		projectDto.getProjectCd());
-//        
-//        return result;
-//    }
-//    
-//    public int delete(String projectCd) {
-//        String sql = "DELETE FROM PROJECT_TABLE WHERE PROJECT_CD = ?";
-//		
-//        int result = jdbcTemplate.update(sql, projectCd);
-//        
-//        if (result > 0) {
-//            System.out.println("삭제 성공!");
-//        } else {
-//            System.out.println("삭제 대상 없음.");
-//        }
-//        
-//        return result;
-//    }
 }

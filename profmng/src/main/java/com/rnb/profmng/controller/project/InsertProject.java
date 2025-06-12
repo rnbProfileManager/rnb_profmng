@@ -17,18 +17,9 @@ import com.rnb.profmng.service.ProjectService;
 @Controller
 public class InsertProject{
 
-    private final ProfmngApplication profmngApplication;
-
-    private final SystemController systemController;
-	
 	@Autowired
 	private ProjectService projectService;
 
-	InsertProject(SystemController systemController, ProfmngApplication profmngApplication) {
-        this.systemController = systemController;
-        this.profmngApplication = profmngApplication;
-    }
-	
 	@GetMapping("/insertProject")
 	public String showInsertProjectPage() {
 		return "project/insertProject";
@@ -38,7 +29,7 @@ public class InsertProject{
 	@PostMapping("/insertProjectData")
 	public String insertProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
 		try {
-			Project result = projectService.insert(projectDto);
+			Project result = projectService.insertProject(projectDto);
 		    if (result != null) {
 		        redirectAttributes.addFlashAttribute("insertResult", "success");
 		    } else {

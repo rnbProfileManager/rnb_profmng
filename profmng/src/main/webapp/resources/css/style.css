@@ -391,6 +391,30 @@ footer {
     border-radius: 4px;
 }
 
+.edit-form {
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.edit-form .edit-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.edit-form .edit-group label {
+	width: 120px;
+    color: black;
+    margin-right: 10px;
+}
+
+.edit-form .edit-group input {
+	flex: 1;
+	padding: 5px;
+}
+
 /* 버튼 공통 */
 .btn {
     padding: 6px 12px;
@@ -478,4 +502,12 @@ footer {
     text-align: center;
     color: #999;
     font-style: italic;
+}
+
+.result-area {
+	flex: 1.2;
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }

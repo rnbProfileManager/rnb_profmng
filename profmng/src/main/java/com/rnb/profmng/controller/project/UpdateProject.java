@@ -28,32 +28,31 @@ public class UpdateProject{
 	@GetMapping("/updateProjectWithCd")
 	public String showUpdateProjectPage(@RequestParam String projectCd, Model model) {
 		model.addAttribute("projectCd", projectCd);
-		return "project/updateProject";
+		return "project/project";
 	}
 	
 	@PostMapping("/updateProjectButton")
 	public String updateButton(@RequestParam String projectCd) {
-		System.out.println(projectCd);
 		return "redirect:/updateProjectWithCd?projectCd=" + projectCd;
 	}
 	
-	@PostMapping("/updateProjectData")
-	public String updateProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
-		try {
-			Project result = projectService.update(projectDto);
-		    if (result != null) {
-		        redirectAttributes.addFlashAttribute("insertResult", "success");
-		    } else {
-		        redirectAttributes.addFlashAttribute("insertResult", "fail");
-		    }
-		}catch (DuplicateKeyException e) {
-	        // 중복 키 오류 발생 시
-	        redirectAttributes.addFlashAttribute("insertResult", "duplicate");
-	    } catch (Exception e) {
-	        // 기타 예외
-	    	System.out.println(e);
-	        redirectAttributes.addFlashAttribute("insertResult", "fail");
-	    }
-		return "redirect:/updateProject";
-	}
+//	@PostMapping("/updateProjectData")
+//	public String updateProject(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
+//		try {
+//			Boolean result = projectService.updateProject(projectDto);
+//		    if (result != null) {
+//		        redirectAttributes.addFlashAttribute("insertResult", "success");
+//		    } else {
+//		        redirectAttributes.addFlashAttribute("insertResult", "fail");
+//		    }
+//		}catch (DuplicateKeyException e) {
+//	        // 중복 키 오류 발생 시
+//	        redirectAttributes.addFlashAttribute("insertResult", "duplicate");
+//	    } catch (Exception e) {
+//	        // 기타 예외
+//	    	System.out.println(e);
+//	        redirectAttributes.addFlashAttribute("insertResult", "fail");
+//	    }
+//		return "redirect:/updateProject";
+//	}
 }

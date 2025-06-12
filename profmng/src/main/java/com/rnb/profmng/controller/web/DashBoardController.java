@@ -18,7 +18,7 @@ public class DashBoardController{
 	
 	@GetMapping("/dashboard")
 	public String showProjectPage(Model model) {
-		List<ProjectDTO> result = projectService.selectAll();
+		List<ProjectDTO> result = projectService.allProjects();
 		System.out.println(result);
 		
 		// DESC 정렬. 최신순으로 번호 역순
@@ -30,17 +30,17 @@ public class DashBoardController{
 		model.addAttribute("dashboard_projectCd1", project1.getProjectCd());
 		model.addAttribute("dashboard_projectNm1", project1.getProjectNm());
 		model.addAttribute("dashboard_startDate1", project1.getStartDate());
-		model.addAttribute("dashboard_endDate1", project1.getEndDate() == null ? "9999-12-31" : project4.getEndDate());
+		model.addAttribute("dashboard_endDate1", project1.getEndDate() == null ? "9999-12-31" : project1.getEndDate());
 
 		model.addAttribute("dashboard_projectCd2", project2.getProjectCd());
 		model.addAttribute("dashboard_projectNm2", project2.getProjectNm());
 		model.addAttribute("dashboard_startDate2", project2.getStartDate());
-		model.addAttribute("dashboard_endDate2", project2.getEndDate() == null ? "9999-12-31" : project4.getEndDate());
+		model.addAttribute("dashboard_endDate2", project2.getEndDate() == null ? "9999-12-31" : project2.getEndDate());
 
 		model.addAttribute("dashboard_projectCd3", project3.getProjectCd());
 		model.addAttribute("dashboard_projectNm3", project3.getProjectNm());
 		model.addAttribute("dashboard_startDate3", project3.getStartDate());
-		model.addAttribute("dashboard_endDate3", project3.getEndDate() == null ? "9999-12-31" : project4.getEndDate());
+		model.addAttribute("dashboard_endDate3", project3.getEndDate() == null ? "9999-12-31" : project3.getEndDate());
 
 		model.addAttribute("dashboard_projectCd4", project4.getProjectCd());
 		model.addAttribute("dashboard_projectNm4", project4.getProjectNm());

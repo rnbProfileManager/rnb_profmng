@@ -1,9 +1,11 @@
 package com.rnb.profmng.entity.project;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,5 +23,21 @@ public class ProjectPK implements Serializable {
     private String projectNm;
 
     @Column(name = "START_DATE", nullable = false)
-    private LocalDate startDate;
+//    @Convert(converter = LocalDateAttributeConverter.class)
+    private LocalDateTime startDate;
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProjectPK that = (ProjectPK) o;
+        return projectCd.equals(that.projectCd) &&
+               projectNm.equals(that.projectNm) &&
+               startDate.equals(that.startDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(projectCd, projectNm, startDate);
+    }
 }

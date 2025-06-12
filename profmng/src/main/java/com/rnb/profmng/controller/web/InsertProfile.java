@@ -21,7 +21,7 @@ public class InsertProfile{
     private final ProjectEmpInfoRepo projectEmpInfoRepo;
 
 	@Autowired
-	private ProfileService profileService;
+	private ProfileService profileInsertService;
 
     InsertProfile(ProjectEmpInfoRepo projectEmpInfoRepo) {
         this.projectEmpInfoRepo = projectEmpInfoRepo;
@@ -36,7 +36,7 @@ public class InsertProfile{
 	@PostMapping("/insertProfileData")
 	public String insertEmpNo(@ModelAttribute ProfileDTO profileDto, RedirectAttributes redirectAttributes) {
 		try {
-			EmpNo result = profileService.insertEmpNo(profileDto);
+			EmpNo result = profileInsertService.insertEmpNo(profileDto);
 		    if (result != null) {
 		        redirectAttributes.addFlashAttribute("insertResult", "success");
 		    } else {
@@ -56,7 +56,7 @@ public class InsertProfile{
 	@PostMapping("/insertEmpAbilityData")
 	public String insertEmpAbility(@ModelAttribute ProfileDTO profileDto, RedirectAttributes redirectAttributes) {
 		try {
-			EmpAbility result = profileService.insertEmpAbility(profileDto);
+			EmpAbility result = profileInsertService.insertEmpAbility(profileDto);
 		    if (result != null) {
 		        redirectAttributes.addFlashAttribute("insertResult", "success");
 		    } else {
@@ -77,7 +77,7 @@ public class InsertProfile{
 	public String insertProjectEmpInfo(@ModelAttribute ProfileDTO profileDto, RedirectAttributes redirectAttributes) {
 		System.out.println(profileDto);
 		try {
-			ProjectEmpInfo result = profileService.insertProjectEmpNo(profileDto);
+			ProjectEmpInfo result = profileInsertService.insertProjectEmpNo(profileDto);
 		    if (result != null) {
 		        redirectAttributes.addFlashAttribute("insertResult", "success");
 		    } else {

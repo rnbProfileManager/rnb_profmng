@@ -1,10 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <script src=""></script>
     <title>R&B 알앤비소프트 - 사내프로젝트</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -50,89 +52,90 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="/insertProject" class="active">프로젝트 추가</a></li>
-                <li><a href="/selectProject">프로젝트 조회</a></li>
+				<li><a href="/project" class="active">프로젝트 조회</a></li>
+                <li><a href="/insertProject">신규 프로젝트 추가</a></li>
             </ul>
         </aside>
 
         <!-- MAIN CONTENT -->
         <main>
-            <h1 class="main-title">프로젝트 추가</h1>
-            <p class="main-subtitle">신규 프로젝트 데이터를 입력해주세요</p>
+            <h1 class="main-title">프로젝트 조회</h1>
+            <p class="main-subtitle">프로젝트 코드를 입력해주세요</p>
 
-            <div class="content-grid">
-                <article class="content-card">
-                    <h3 class="card-title">신규 프로젝트</h3>
-					<form action="/insertProjectData" method="post">
-						<div class="">
-							<label for="searchInput">프로젝트 코드: <span class="required">*</span></label>
-							<input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
-	                    </div>
-						<div class="">
-							<label for="searchInput">프로젝트 명: <span class="required">*</span></label>
-							<input type="text" name="projectNm" class="searchInput" placeholder="예: ICIS-TR 프로젝트" required>
-						</div>
-						<div class="">
-							<label for="dateInput">시작 일자 선택: <span class="required">*</span></label>
-							<input type="date" name="startDate" class="dateInput" required>
-						</div>
-						<div class="">
-							<label for="dateInput">종료 일자 선택:</label>
-							<input type="date" name="endDate" class="dateInput">
-						</div>
-						<div class="">
-							<label for="searchInput">PM 명:</label>
-							<input type="text" name="pmId" class="searchInput" placeholder="예: 김상수">
-						</div>
-						<div class="">
-							<label for="searchInput">발주기관:</label>
-							<input type="text" name="client" class="searchInput" placeholder="예: KT">
-						</div>
-						<div class="">
-							<label for="searchInput">주 수행사:</label>
-							<input type="text" name="contractor" class="searchInput" placeholder="예: KT DS">
-						</div>
-						<div class="">
-							<label for="number">총 투입 공수 입력:</label>
-							<input type="number" name="manMonth" class="price" name="price" step="any">
-						</div>
-						<div class="">
-							<label for="number">총 수주 금액 입력:</label>
-							<input type="number" name="totAmt" class="price" name="price" step="any">
-						</div>
-						<div class="">
-							<label for="departmentSelect">프로젝트 유형 선택:</label>
-							<select class="departmentSelect" name="projectType">
-							  <option value="전체">전체</option>
-							  <option value="솔루션">솔루션</option>
-							  <option value="컨설팅">컨설팅</option>
-							  <option value="ITO">ITO</option>
-							  <option value="PoC">PoC</option>
-							  <option value="SI">SI</option>
-							  <option value="SA">SA</option>
-							  <option value="SM">SM</option>
-							</select>
-						</div>
-						<div class="">
-						  <button type="submit">입력</button>
-						</div>
+			<section class="search-area">
+			    <h2>프로젝트 조회</h2>
+
+			    <form class="search-form" method="get" action="/project/manage">	
+					<div class="form-group">
+					    <label for="projectCd">프로젝트 코드</label>
+					    <input type="text" id="projectCd" name="projectCd" value="${param.projectCd}">
+					</div>
+			        <button type="submit" class="btn search">조회</button>
+			    </form>
+			    <!-- 리스트 영역 -->
+			    <div class="grid-area">
+					<table class="data-grid">
+					    <thead>
+					        <tr>
+					            <th><input type="checkbox" id="checkAll" /></th>
+					            <th>프로젝트코드</th>
+					            <th>프로젝트명</th>
+					            <th>시작일자</th>
+					            <th>종료일자</th>
+					            <th>PM</th>
+								<th>발주기관</th>
+								<th>주수행사</th>
+								<th>M/M</th>
+								<th>총 수주금액</th>
+								<th>유형</th>
+					        </tr>
+					    </thead>
+						    <tbody>
+								<h3>프로젝트코드: ${fn:length(projectList)}</h3>
+									<c:forEach var="project" items="${projectList}">
+										<tr>
+										   <td><input type="checkbox" name="projectCd" value="${project.projectCd}"
+												data-projectcd="${project.projectCd}"
+									       		data-projectnm="${project.projectNm}"
+											    data-startdate="${project.startDate}" /></td>
+										    <td>${project.projectCd}</td>
+										    <td>${project.projectNm}</td>
+										    <td>${fn:substring(project.startDate, 0, 10)}</td>
+										    <td>${fn:substring(project.endDate, 0, 10)}</td>
+											<td>${project.pmId}</td>
+											<td>${project.client}</td>
+											<td>${project.contractor}</td>
+											<td>${project.manMonth}</td>
+											<td>${project.totAmt}</td>
+											<td>${project.projectType}</td>
+										</tr>
+									</c:forEach>
+						    </tbody>
+						</table>
+			        <div class="grid-buttons">
+			            <button type="button" onclick="location.href='/project/insertProject'" class="btn new">신규</button>
+			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
+			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
+			        </div>
+					<form id="editForm" method="POST" action="/project/edit">
+					    <input type="hidden" name="projectCd" id="editProjectCd" />
+					</form>
+					<form id="deleteForm" method="POST" action="/project/delete">
+					    <input type="hidden" name="projectCd" id="deleteProjectCd" />
 					</form>
 					<c:choose>
-					    <c:when test="${insertResult eq 'success'}">
-					        <div class="success-msg">✅ 프로젝트 등록에 성공했습니다.</div>
-					    </c:when>
-					    <c:when test="${insertResult eq 'fail'}">
-					        <div class="error-msg">❌ 등록 중 오류가 발생했습니다.</div>
-					    </c:when>
-					    <c:when test="${insertResult eq 'duplicate'}">
-					        <div class="error-msg">❌ 프로젝트 코드가 이미 존재합니다.</div>
-					    </c:when>
+						<c:when test="${deleteResult eq 'success'}">
+						    <div class="result-area">✅ 프로젝트 삭제에 성공했습니다.</div>
+						</c:when>
+						<c:when test="${deleteResult eq 'exception'}">
+						    <div class="result-area">❌ 프로젝트 삭제에 실패했습니다.</div>
+						</c:when>
 					    <c:otherwise>
 					        <!-- 아무 메시지도 출력 안 함 -->
 					    </c:otherwise>
 					</c:choose>
-                </article>
-            </div>
+			    </div>
+			</section>
         </main>
     </div>
 
@@ -150,5 +153,59 @@
             </div>
         </div>
     </footer>
+	<script>
+	$(document).ready(function () {
+	    // 전체 선택/해제 처리
+	    $('#checkAll').on('change', function () {
+	        const isChecked = $(this).is(':checked');
+	        $('input[name="projectCd"]').prop('checked', isChecked);
+	    });
+	});
+	function editSelected() {
+	    const checkedItems = document.querySelectorAll('input[name="projectCd"]:checked');
+
+	    if (checkedItems.length === 0) {
+	        alert("프로젝트를 선택하세요.");
+	        return;
+	    }
+
+	    if (checkedItems.length > 1) {
+	        alert("하나의 프로젝트만 선택해주세요.");
+	        return;
+	    }
+		
+		const item = checkedItems[0];
+	    const projectCd = item.dataset.projectcd;
+	    const projectNm = item.dataset.projectnm;
+	    const startDate = item.dataset.startdate;
+			
+		if (!projectCd || !projectNm || !startDate) {
+		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
+		    return;
+		}
+
+		window.location.href = "/project/edit"
+		    + "?projectCd=" + encodeURIComponent(projectCd)
+		    + "&projectNm=" + encodeURIComponent(projectNm)
+		    + "&startDate=" + encodeURIComponent(startDate);
+	}
+	function deleteSelected() {
+	    const checkedItems = document.querySelectorAll('input[name="projectCd"]:checked');
+
+	    if (checkedItems.length === 0) {
+	        alert("프로젝트를 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("정말 삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    const projectCds = Array.from(checkedItems).map(item => item.value);
+	    const param = projectCds.map(cd => "projectCd=" + encodeURIComponent(cd)).join("&");
+
+	    window.location.href = "/project/delete?" + param;
+	}
+	</script>
 </body>
 </html>
