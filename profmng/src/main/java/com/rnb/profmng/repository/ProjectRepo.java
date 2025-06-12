@@ -20,12 +20,6 @@ public interface ProjectRepo extends JpaRepository<Project, ProjectPK>{
 	// 전체 검색
     List<Project> findAll();
 
-    // 특정 문자열 검색
-    List<Project> findByProjectPk_ProjectCdContaining(String projectCd);
-    
-    // ProjectCd 기준 Update
-    Optional<Project> findByProjectPk_ProjectCd(String projectCd);
-    
     @Modifying
     @Transactional
     @Query("DELETE FROM Project p WHERE p.projectPk.projectCd = :projectCd")

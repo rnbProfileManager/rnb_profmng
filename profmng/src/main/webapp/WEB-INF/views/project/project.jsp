@@ -53,7 +53,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
 				<li><a href="/project" class="active">프로젝트 조회</a></li>
-                <li><a href="/insertProject">신규 프로젝트 추가</a></li>
+                <li><a href="/project/addProject">신규 프로젝트 추가</a></li>
             </ul>
         </aside>
 
@@ -113,7 +113,7 @@
 						    </tbody>
 						</table>
 			        <div class="grid-buttons">
-			            <button type="button" onclick="location.href='/project/insertProject'" class="btn new">신규</button>
+			            <button type="button" onclick="location.href='/project/addProject'" class="btn new">신규</button>
 			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
 			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
 			        </div>

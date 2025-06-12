@@ -75,7 +75,6 @@ public class InsertProfile{
     // 데이터 작업 form 매핑	
 	@PostMapping("/insertProjectEmpInfoData")
 	public String insertProjectEmpInfo(@ModelAttribute ProfileDTO profileDto, RedirectAttributes redirectAttributes) {
-		System.out.println(profileDto);
 		try {
 			ProjectEmpInfo result = profileInsertService.insertProjectEmpNo(profileDto);
 		    if (result != null) {

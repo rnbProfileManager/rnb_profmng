@@ -17,10 +17,8 @@ import com.rnb.profmng.dto.ProjectDTO;
 import com.rnb.profmng.entity.project.Project;
 import com.rnb.profmng.entity.project.ProjectPK;
 import com.rnb.profmng.repository.ProjectRepo;
-import com.rnb.profmng.service.ProjectMapper;
 import com.rnb.profmng.service.ProjectService;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -32,18 +30,28 @@ public class ProjectController{
     @Autowired
     private final ProjectRepo projectRepo;
     
-    @Autowired
-    private final ProjectMapper projectMapper;
-
     // API용 전체조회
     @GetMapping("/api/projects")
     public List<ProjectDTO> getProjects() {
         return projectService.allProjects();
     }
     
-    @GetMapping("/project/insertProject")
-    public String showInsertProjectPage() {
-        return "project/insertProject";
+    @GetMapping("/project/addProject")
+    public String showAddProjectPage() {
+        return "project/addProject";
+    }
+    
+    @PostMapping("/project/add")
+    public String addProjectPage(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
+
+        try {
+            projectService.save(projectDto);
+            redirectAttributes.addFlashAttribute("addResult", "success");
+        } catch (Exception e) {
+        	System.out.println(e);
+        	redirectAttributes.addFlashAttribute("addResult", "exception");
+        }
+        return "redirect:/project/addProject";
     }
 
 //    // API용 검색
@@ -83,9 +91,6 @@ public class ProjectController{
             Model model) {
 
     	
-        System.out.println("projectCd: " + projectCd);
-        System.out.println("projectNm: " + projectNm);
-        System.out.println("projectNm: " + startDate);
         ProjectPK pk = new ProjectPK(projectCd, projectNm, startDate);
         Project project = projectService.findByPk(pk);
         model.addAttribute("projectCd", projectCd);
@@ -96,9 +101,6 @@ public class ProjectController{
     
     @PostMapping("/project/edit")
     public String editProjectPage(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
-        System.out.println("editProjectPage");
-        System.out.println(projectDto);
-
         try {
             // 복합키 생성
             ProjectPK pk = new ProjectPK(
@@ -110,10 +112,8 @@ public class ProjectController{
             Project existingProject = projectService.findByPk(pk);
 
             projectService.updateProjectFromDto(projectDto, existingProject);
-            System.out.println("success");
             redirectAttributes.addFlashAttribute("editResult", "success");
         } catch (Exception e) {
-        	System.out.println("exception");
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 

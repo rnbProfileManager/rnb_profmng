@@ -50,8 +50,8 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="/project" class="active">프로젝트 조회</a></li>
-                <li><a href="/project/addProject">신규 프로젝트 추가</a></li>
+                <li><a href="/project">프로젝트 조회</a></li>
+                <li><a href="/project/addProject" class="active">신규 프로젝트 추가</a></li>
             </ul>
         </aside>
 
@@ -66,16 +66,16 @@
 					    <h2>프로젝트 조회</h2>
 					    <form class="edit-form" method="post" action="/project/manage">
 							<div class="edit-group">
-							    <label for="projectCd">프로젝트 코드: </label>
-							    <input type="text" id="projectCd" name="projectCd" value="${param.projectCd}" readonly>
+							    <label for="projectCd">프로젝트 코드: <span class="required">*</span></label>
+							    <input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
 							</div>
 							<div class="edit-group">
-								<label for="searchInput">프로젝트 명: </label>
-								<input type="text" id="projectNm" name="projectNm" value="${param.projectNm}" readonly>
+								<label for="searchInput">프로젝트 명: <span class="required">*</span></label>
+								<input type="text"  name="projectNm" class="searchInput" placeholder="예: ICIS-TR" required>
 							</div>
 							<div class="edit-group">
-								<label for="dateInput">시작 일자 선택: </label>
-								<input type="date" id="startDate" name="startDate" value="${param.startDate}" readonly>
+								<label for="dateInput">시작 일자 선택: <span class="required">*</span></label>
+								<input type="date" name="startDate" class="dateInput" required>
 							</div>
 							<div class="edit-group">
 								<label for="dateInput">종료 일자 선택:</label>
@@ -115,17 +115,17 @@
 								</select>
 							</div>
 							<div class="grid-buttons">
-							  <button type="button" onclick="edit()" class="btn edit">수정</button>
+							  <button type="button" onclick="add()" class="btn edit">추가</button>
 							</div>
 						</form>
 					    <!-- 리스트 영역 -->
 					    <div class="grid-area">
 							<c:choose>
-								<c:when test="${editResult eq 'success'}">
-								    <div class="result-area">✅ 프로젝트 수정에 성공했습니다.</div>
+								<c:when test="${addResult eq 'success'}">
+								    <div class="result-area">✅ 프로젝트 추가에 성공했습니다.</div>
 								</c:when>
-								<c:when test="${editResult eq 'exception'}">
-								    <div class="result-area">❌ 프로젝트 수정에 실패했습니다.</div>
+								<c:when test="${addResult eq 'exception'}">
+								    <div class="result-area">❌ 프로젝트 추가에 실패했습니다.</div>
 								</c:when>
 							    <c:otherwise>
 							        <!-- 아무 메시지도 출력 안 함 -->
@@ -153,7 +153,7 @@
         </div>
     </footer>
 	<script>
-	function edit() {
+	function add() {
 		const form = document.querySelector('.edit-form');
 
 		if (!form.checkValidity()) {
@@ -161,7 +161,7 @@
 		    return;
 		}
 
-		form.action = "/project/edit";
+		form.action = "/project/add";
 		form.method = "post";
 
 		form.submit();
