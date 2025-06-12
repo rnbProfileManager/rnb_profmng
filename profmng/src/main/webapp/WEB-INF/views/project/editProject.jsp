@@ -31,7 +31,7 @@
                 <a href="/dashboard">대시보드</a>
             </div>
             <div class="nav-item">
-                <a href="#" class="active">프로젝트 관리</a>
+                <a href="/project" class="active">프로젝트 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/profile">사용자 관리</a>
@@ -50,8 +50,8 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="/insertProject" class="active">프로젝트 조회</a></li>
-                <li><a href="/selectProject">신규 프로젝트 추가</a></li>
+                <li><a href="/project" class="active">프로젝트 조회</a></li>
+                <li><a href="/insertProject">신규 프로젝트 추가</a></li>
             </ul>
         </aside>
 
@@ -124,11 +124,8 @@
 								<c:when test="${editResult eq 'success'}">
 								    <div class="result-area">✅ 프로젝트 수정에 성공했습니다.</div>
 								</c:when>
-								<c:when test="${editResult eq 'fail'}">
-								    <div class="result-area">❌ 프로젝트 수정에 실패했습니다.</div>
-								</c:when>
 								<c:when test="${editResult eq 'exception'}">
-								    <div class="result-area">❌ 프로젝트 수정 중 오류가 발생했습니다.</div>
+								    <div class="result-area">❌ 프로젝트 수정에 실패했습니다.</div>
 								</c:when>
 							    <c:otherwise>
 							        <!-- 아무 메시지도 출력 안 함 -->

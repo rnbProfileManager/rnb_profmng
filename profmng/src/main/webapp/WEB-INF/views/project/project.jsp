@@ -100,8 +100,8 @@
 											    data-startdate="${project.startDate}" /></td>
 										    <td>${project.projectCd}</td>
 										    <td>${project.projectNm}</td>
-										    <td>${fn:substring(project.startDate, 0, 10)}</td>
-										    <td>${fn:substring(project.endDate, 0, 10)}</td>
+										    <td>${project.startDate}</td>
+										    <td>${project.endDate}</td>
 											<td>${project.pmId}</td>
 											<td>${project.client}</td>
 											<td>${project.contractor}</td>

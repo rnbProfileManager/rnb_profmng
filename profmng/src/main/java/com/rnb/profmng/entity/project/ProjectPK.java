@@ -1,11 +1,10 @@
 package com.rnb.profmng.entity.project;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +23,7 @@ public class ProjectPK implements Serializable {
 
     @Column(name = "START_DATE", nullable = false)
 //    @Convert(converter = LocalDateAttributeConverter.class)
-    private LocalDateTime startDate;
+    private LocalDate startDate;
     
     @Override
     public boolean equals(Object o) {

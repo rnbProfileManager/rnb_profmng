@@ -1,7 +1,7 @@
 package com.rnb.profmng.entity.project;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -22,10 +22,10 @@ public class Project {
     private ProjectPK projectPk;
 	
     @Column(name = "END_DATE")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Column(name = "UPDATE_DATE")
-    private LocalDateTime updateDate;
+    private LocalDate updateDate;
 
     @Column(name = "PM_ID", length = 20)
     private String pmId;

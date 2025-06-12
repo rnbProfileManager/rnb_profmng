@@ -1,6 +1,7 @@
 package com.rnb.profmng.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.rnb.profmng.entity.project.Project;
@@ -15,9 +16,9 @@ public class ProjectDTO implements ProjectView {
 	// PROJECT_TABLE
 	private String projectCd;
     private String projectNm;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private LocalDateTime updateDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private LocalDate updateDate;
     private String pmId;
     private String client;
     private String contractor;
@@ -25,8 +26,8 @@ public class ProjectDTO implements ProjectView {
     private BigDecimal totAmt;
     private String projectType;
     
-	public ProjectDTO(String projectCd, String projectNm, LocalDateTime startDate, LocalDateTime endDate,
-			LocalDateTime updateDate, String pmId, String client, String contractor, BigDecimal manMonth,
+	public ProjectDTO(String projectCd, String projectNm, LocalDate startDate, LocalDate endDate,
+			LocalDate updateDate, String pmId, String client, String contractor, BigDecimal manMonth,
 			BigDecimal totAmt, String projectType) {
 		this.projectCd = projectCd;
 		this.projectNm = projectNm;

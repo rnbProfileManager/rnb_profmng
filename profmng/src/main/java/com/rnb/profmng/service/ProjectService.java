@@ -1,6 +1,6 @@
 package com.rnb.profmng.service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +25,7 @@ public class ProjectService {
     @Autowired
     private ProjectRepo projectRepo;
     
+    @Autowired
     private final ProjectMapper projectMapper;  
     
     public Project findByCode(String projectCd) {
@@ -167,7 +168,7 @@ public class ProjectService {
         entity.setPmId(dto.getPmId());
         entity.setProjectType(dto.getProjectType());
         entity.setTotAmt(dto.getTotAmt());
-        entity.setUpdateDate(LocalDateTime.now());
+        entity.setUpdateDate(LocalDate.now());
         // 저장은 안 해도 @Transactional 로 커밋됨
     }
 }

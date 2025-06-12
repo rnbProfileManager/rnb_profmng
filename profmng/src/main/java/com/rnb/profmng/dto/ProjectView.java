@@ -1,14 +1,14 @@
 package com.rnb.profmng.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public interface ProjectView {
     String getProjectCd();
     String getProjectNm();
-    LocalDateTime getStartDate();
-    LocalDateTime getEndDate();
-    LocalDateTime getUpdateDate();
+    LocalDate getStartDate();
+    LocalDate getEndDate();
+    LocalDate getUpdateDate();
     String getPmId();
     String getClient();
     String getContractor();

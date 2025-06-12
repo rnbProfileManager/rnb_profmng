@@ -1,11 +1,10 @@
 package com.rnb.profmng.controller.project;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,19 +79,18 @@ public class ProjectController{
     public String editProjectForm(
             @RequestParam("projectCd") String projectCd,
             @RequestParam("projectNm") String projectNm,
-            @RequestParam("startDate") String startDateStr,
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
             Model model) {
 
     	
-    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    	LocalDateTime startDateTime = LocalDate.parse(startDateStr, formatter).atStartOfDay();
-    	
         System.out.println("projectCd: " + projectCd);
         System.out.println("projectNm: " + projectNm);
-        System.out.println("startDate: " + startDateTime);
-        ProjectPK pk = new ProjectPK(projectCd, projectNm, startDateTime);
+        System.out.println("projectNm: " + startDate);
+        ProjectPK pk = new ProjectPK(projectCd, projectNm, startDate);
         Project project = projectService.findByPk(pk);
-        model.addAttribute("project", project);
+        model.addAttribute("projectCd", projectCd);
+        model.addAttribute("projectNm", projectNm);
+        model.addAttribute("startDate", startDate);
         return "project/editProject";
     }
     
@@ -114,12 +112,9 @@ public class ProjectController{
             projectService.updateProjectFromDto(projectDto, existingProject);
             System.out.println("success");
             redirectAttributes.addFlashAttribute("editResult", "success");
-        } catch (EntityNotFoundException e) {
-        	System.out.println("not_found");
-            redirectAttributes.addFlashAttribute("editResult", "not_found");
         } catch (Exception e) {
         	System.out.println("exception");
-            redirectAttributes.addFlashAttribute("editResult", "exception: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
         // PRG 패턴: 새로고침 시 중복방지
@@ -129,14 +124,14 @@ public class ProjectController{
     }
     
     @GetMapping("/project/delete")
-    public String deleteProjectPage(@RequestParam("projectCd") List<String> projectCds, Model model) {
+    public String deleteProjectPage(@RequestParam("projectCd") List<String> projectCds, RedirectAttributes redirectAttributes) {
         try {
             for (String projectCd : projectCds) {
                 projectService.deleteProject(projectCd);  // 서비스에서 개별 삭제 수행
             }
-            model.addAttribute("deleteResult", "success");
+            redirectAttributes.addFlashAttribute("deleteResult", "success");
         } catch (Exception e) {
-            model.addAttribute("deleteResult", "exception");
+        	redirectAttributes.addFlashAttribute("deleteResult", "exception");
         }
         return "redirect:/project";
     }
