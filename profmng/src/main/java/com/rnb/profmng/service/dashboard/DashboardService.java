@@ -1,12 +1,12 @@
-package com.rnb.profmng.service;
+package com.rnb.profmng.service.dashboard;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rnb.profmng.dto.ProjectDTO;
-import com.rnb.profmng.repository.ProjectRepo;
+import com.rnb.profmng.dto.project.ProjectDTO;
+import com.rnb.profmng.repository.project.ProjectRepo;
 
 @Service
 public class DashboardService {

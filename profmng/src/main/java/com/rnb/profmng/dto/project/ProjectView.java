@@ -1,4 +1,4 @@
-package com.rnb.profmng.dto;
+package com.rnb.profmng.dto.project;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

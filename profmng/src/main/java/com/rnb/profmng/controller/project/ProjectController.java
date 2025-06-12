@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rnb.profmng.dto.ProjectDTO;
+import com.rnb.profmng.dto.project.ProjectDTO;
 import com.rnb.profmng.entity.project.Project;
 import com.rnb.profmng.entity.project.ProjectPK;
-import com.rnb.profmng.repository.ProjectRepo;
-import com.rnb.profmng.service.ProjectService;
+import com.rnb.profmng.repository.project.ProjectRepo;
+import com.rnb.profmng.service.project.ProjectService;
 
 import lombok.AllArgsConstructor;
 
@@ -25,17 +25,29 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProjectController{
 
+	@Autowired
     private final ProjectService projectService;
     
     @Autowired
     private final ProjectRepo projectRepo;
     
-    // API용 전체조회
-    @GetMapping("/api/projects")
-    public List<ProjectDTO> getProjects() {
-        return projectService.allProjects();
+    // 프로젝트 탭
+    @GetMapping("/project")
+    public String project(Model model) {
+        List<ProjectDTO> projectList = projectService.allProjects();
+        model.addAttribute("projectList", projectList);
+        return "project/project";
+    }
+
+    // 특정 프로젝트 조회
+    @GetMapping("/project/manage")
+    public String selectProject(@RequestParam("projectCd") String projectCd, Model model) {
+        List<Project> result = projectRepo.findByProjectPk_ProjectCd(projectCd);
+        model.addAttribute("projectList", result); // ✅ JSP로 넘김
+        return "project/selectProject"; // 🔁 현재 JSP 파일 이름
     }
     
+    // 신규 프로젝트 추가
     @GetMapping("/project/addProject")
     public String showAddProjectPage() {
         return "project/addProject";
@@ -45,6 +57,17 @@ public class ProjectController{
     public String addProjectPage(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
 
         try {
+            ProjectPK pk = new ProjectPK(
+                    projectDto.getProjectCd(),
+                    projectDto.getProjectNm(),
+                    projectDto.getStartDate()
+                );
+
+            if (projectService.existsByPk(pk)) {
+                redirectAttributes.addFlashAttribute("addResult", "duplicate");
+                return "redirect:/project/addProject";
+            }
+        	
             projectService.save(projectDto);
             redirectAttributes.addFlashAttribute("addResult", "success");
         } catch (Exception e) {
@@ -54,35 +77,7 @@ public class ProjectController{
         return "redirect:/project/addProject";
     }
 
-//    // API용 검색
-//    @GetMapping("/api/projects/search")
-//    public List<ProjectDTO> searchProjects(
-//            @RequestParam(required = false) String empNm,
-//            @RequestParam(required = false) String startDate,
-//            @RequestParam(required = false) String endDate) {
-//        return projectService.searchProjects(empNm, startDate, endDate);
-//    }
-    
-    @GetMapping("/project")
-    public String project(Model model) {
-        List<ProjectDTO> projectList = projectService.allProjects();
-        model.addAttribute("projectList", projectList);
-        return "project/project";
-    }
-
-//    // 화면 진입 + 검색
-//    @GetMapping("/project/manage")
-//    public String manage(
-//            @RequestParam(required = false) String empNm,
-//            @RequestParam(required = false) String startDate,
-//            @RequestParam(required = false) String endDate,
-//            Model model) {
-//
-//        List<ProjectDTO> employeeList = projectService.searchProjects(empNm, startDate, endDate);
-//        model.addAttribute("employeeList", employeeList);
-//        return "web/project";
-//    }
-    
+    // 프로젝트 수정
     @GetMapping("/project/edit")
     public String editProjectForm(
             @RequestParam("projectCd") String projectCd,
@@ -123,6 +118,7 @@ public class ProjectController{
              + "&startDate=" + projectDto.getStartDate();
     }
     
+    // 프로젝트 삭제
     @GetMapping("/project/delete")
     public String deleteProjectPage(@RequestParam("projectCd") List<String> projectCds, RedirectAttributes redirectAttributes) {
         try {

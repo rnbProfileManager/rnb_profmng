@@ -8,18 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import com.rnb.profmng.dto.ProfileDTO;
 import com.rnb.profmng.dto.ProfiledbDto;
+import com.rnb.profmng.dto.profile.ProfileDTO;
 import com.rnb.profmng.entity.profile.EmpAbility;
 import com.rnb.profmng.entity.profile.EmpAbilityPK;
 import com.rnb.profmng.entity.profile.EmpNo;
 import com.rnb.profmng.entity.profile.EmpNoPK;
 import com.rnb.profmng.entity.profile.ProjectEmpInfo;
 import com.rnb.profmng.entity.profile.ProjectEmpInfoPK;
-import com.rnb.profmng.repository.EmpAbilityRepo;
-import com.rnb.profmng.repository.EmpNoRepo;
 import com.rnb.profmng.repository.ProfileRepository;
-import com.rnb.profmng.repository.ProjectEmpInfoRepo;
+import com.rnb.profmng.repository.profile.EmpAbilityRepo;
+import com.rnb.profmng.repository.profile.EmpNoRepo;
+import com.rnb.profmng.repository.profile.ProjectEmpInfoRepo;
 
 import lombok.RequiredArgsConstructor;
 

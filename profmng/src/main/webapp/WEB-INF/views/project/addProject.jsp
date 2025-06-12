@@ -15,7 +15,7 @@
     <header>
         <div class="header-content">
             <div class="logo-header">
-                <img class="logo-circle" src="images/rnbsoft_logo.png">
+				<img class="logo-circle" src="${pageContext.request.contextPath}/images/rnbsoft_logo.png">
                 <h1>알앤비소프트</h1>
             </div>
             <div id="userInfoArea" class="user-info">
@@ -123,6 +123,9 @@
 							<c:choose>
 								<c:when test="${addResult eq 'success'}">
 								    <div class="result-area">✅ 프로젝트 추가에 성공했습니다.</div>
+								</c:when>
+								<c:when test="${addResult eq 'duplicate'}">
+								    <div class="result-area">❌ 중복된 프로젝트 코드가 있습니다.</div>
 								</c:when>
 								<c:when test="${addResult eq 'exception'}">
 								    <div class="result-area">❌ 프로젝트 추가에 실패했습니다.</div>

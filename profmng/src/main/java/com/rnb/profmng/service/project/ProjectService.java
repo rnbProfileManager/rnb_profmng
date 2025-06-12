@@ -1,4 +1,4 @@
-package com.rnb.profmng.service;
+package com.rnb.profmng.service.project;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,10 +10,10 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rnb.profmng.dto.ProjectDTO;
+import com.rnb.profmng.dto.project.ProjectDTO;
 import com.rnb.profmng.entity.project.Project;
 import com.rnb.profmng.entity.project.ProjectPK;
-import com.rnb.profmng.repository.ProjectRepo;
+import com.rnb.profmng.repository.project.ProjectRepo;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +25,10 @@ public class ProjectService {
     @Autowired
     private ProjectRepo projectRepo;
     
+    // 신규 프로젝트 추가
     public void save(ProjectDTO dto) {
         Project project = new Project();
 
-        // ⚠️ projectPk 객체 먼저 생성 후 값 설정
         ProjectPK pk = new ProjectPK();
         pk.setProjectCd(dto.getProjectCd());
         pk.setProjectNm(dto.getProjectNm());
@@ -36,7 +36,6 @@ public class ProjectService {
 
         project.setProjectPk(pk);
 
-        // DTO → Entity 수동 매핑
         project.setEndDate(dto.getEndDate());
         project.setPmId(dto.getPmId());
         project.setClient(dto.getClient());
@@ -45,27 +44,35 @@ public class ProjectService {
         project.setTotAmt(dto.getTotAmt());
         project.setProjectType(dto.getProjectType());
 
-        projectRepo.save(project);  // INSERT
+        projectRepo.save(project);
     }
     
+    // 모든 프로젝트 조회
     public List<ProjectDTO> allProjects() {
         return projectRepo.findAll().stream()
                 .map(ProjectDTO::new)
                 .collect(Collectors.toList());
     }
     
+    // 프로젝트 삭제
     public int deleteProject(String projectCd) {
         return projectRepo.deleteByProjectCd(projectCd);
     }
     
+    // 프로젝트 수정 - PK 체크    
     public Project findByPk(ProjectPK pk) {
         return projectRepo.findById(pk)
                 .orElseThrow(() -> new EntityNotFoundException("Project not found"));
     }
     
+    // 프로젝트 추가 - PK 체크
+    public boolean existsByPk(ProjectPK pk) {
+        return projectRepo.existsById(pk);
+    }
+    
+    // 프로젝트 수정
     @Transactional
     public void updateProjectFromDto(ProjectDTO dto, Project entity) {
-        // 필드 null 체크해서 업데이트
         entity.setClient(dto.getClient());
         entity.setContractor(dto.getContractor());
         entity.setEndDate(dto.getEndDate());
@@ -74,7 +81,6 @@ public class ProjectService {
         entity.setProjectType(dto.getProjectType());
         entity.setTotAmt(dto.getTotAmt());
         entity.setUpdateDate(LocalDate.now());
-        // 저장은 안 해도 @Transactional 로 커밋됨
     }
 }
 

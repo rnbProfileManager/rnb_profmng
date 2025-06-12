@@ -1,4 +1,4 @@
-package com.rnb.profmng.dto;
+package com.rnb.profmng.dto.profile;
 
 import java.time.LocalDate;
 

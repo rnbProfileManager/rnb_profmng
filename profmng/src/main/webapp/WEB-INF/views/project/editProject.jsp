@@ -15,7 +15,7 @@
     <header>
         <div class="header-content">
             <div class="logo-header">
-                <img class="logo-circle" src="images/rnbsoft_logo.png">
+                <img class="logo-circle" src="${pageContext.request.contextPath}/images/rnbsoft_logo.png">
                 <h1>알앤비소프트</h1>
             </div>
             <div id="userInfoArea" class="user-info">

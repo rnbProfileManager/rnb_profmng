@@ -1,4 +1,4 @@
-package com.rnb.profmng.controller.web;
+package com.rnb.profmng.controller.profile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rnb.profmng.dto.ProfileDTO;
+import com.rnb.profmng.dto.profile.ProfileDTO;
 import com.rnb.profmng.entity.profile.EmpAbility;
 import com.rnb.profmng.entity.profile.EmpNo;
 import com.rnb.profmng.entity.profile.ProjectEmpInfo;
-import com.rnb.profmng.repository.ProjectEmpInfoRepo;
+import com.rnb.profmng.repository.profile.ProjectEmpInfoRepo;
 import com.rnb.profmng.service.ProfileService;
 
 @Controller

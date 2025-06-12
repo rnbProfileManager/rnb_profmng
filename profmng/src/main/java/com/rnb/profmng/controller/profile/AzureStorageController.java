@@ -1,4 +1,4 @@
-package com.rnb.profmng.controller.profile.controller;
+package com.rnb.profmng.controller.profile;
 
 import java.util.List;
 

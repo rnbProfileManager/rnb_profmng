@@ -1,4 +1,4 @@
-package com.rnb.profmng.repository;
+package com.rnb.profmng.repository.profile;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

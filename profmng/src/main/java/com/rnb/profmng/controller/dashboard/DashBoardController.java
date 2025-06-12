@@ -1,4 +1,4 @@
-package com.rnb.profmng.controller.web;
+package com.rnb.profmng.controller.dashboard;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.rnb.profmng.dto.ProjectDTO;
-import com.rnb.profmng.service.ProjectService;
+import com.rnb.profmng.dto.project.ProjectDTO;
+import com.rnb.profmng.service.project.ProjectService;
 
 @Controller
 public class DashBoardController{
