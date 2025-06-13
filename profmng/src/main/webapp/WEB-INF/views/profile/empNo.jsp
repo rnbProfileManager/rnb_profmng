@@ -90,7 +90,7 @@
 								<th>직위</th>
 								<th>주소</th>
 								<th>전화번호</th>
-								<th>그룹</th>
+								<th>부서</th>
 								<th>고용형태</th>
 					        </tr>
 					    </thead>

@@ -1,5 +1,7 @@
 package com.rnb.profmng.controller.web;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -148,7 +150,6 @@ public class ProfileController{
     @GetMapping("/profile/empNo/manage")
     public String selectEmpNo(@RequestParam("empCd") String empCd, Model model) {
         List<EmpNo> result = empNoRepo.findByEmpNoPk_EmpCd(empCd);
-        System.out.println(result);
         model.addAttribute("empNoList", result);
         return "profile/empNo";
     }
@@ -216,8 +217,8 @@ public class ProfileController{
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
-        return "redirect:/profile/editEmpNo?empCd=" + empNoDto.getEmpCd()
-             + "&empNm=" + empNoDto.getEmpNm()
+        return "redirect:/profile/editEmpNo?empCd=" + URLEncoder.encode(empNoDto.getEmpCd(), StandardCharsets.UTF_8)
+             + "&empNm=" + URLEncoder.encode(empNoDto.getEmpNm(), StandardCharsets.UTF_8)
              + "&startDate=" + empNoDto.getStartDate();
     }
     
@@ -324,9 +325,9 @@ public class ProfileController{
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
-        return "redirect:/profile/editProjectEmpInfo?projectCd=" + projectEmpInfoDto.getProjectCd()
-             + "&empCd=" + projectEmpInfoDto.getEmpCd()
-             + "&projectNm=" + projectEmpInfoDto.getProjectNm()
+        return "redirect:/profile/editProjectEmpInfo?projectCd=" + URLEncoder.encode(projectEmpInfoDto.getProjectCd(), StandardCharsets.UTF_8)
+             + "&empCd=" + URLEncoder.encode(projectEmpInfoDto.getEmpCd(), StandardCharsets.UTF_8)
+             + "&projectNm=" + URLEncoder.encode(projectEmpInfoDto.getProjectNm(), StandardCharsets.UTF_8)
              + "&startDate=" + projectEmpInfoDto.getStartDate();
     }
     
@@ -439,10 +440,10 @@ public class ProfileController{
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
-        return "redirect:/profile/editEmpAbility?empCd=" + empAbilityDto.getEmpCd()
-             + "&empNm=" + empAbilityDto.getEmpNm()
-             + "&abilityType=" + empAbilityDto.getAbilityType()
-             + "&abilityNm=" + empAbilityDto.getAbilityNm()
+        return "redirect:/profile/editEmpAbility?empCd=" + URLEncoder.encode(empAbilityDto.getEmpCd(), StandardCharsets.UTF_8)
+             + "&empNm=" + URLEncoder.encode(empAbilityDto.getEmpNm(), StandardCharsets.UTF_8)
+             + "&abilityType=" + URLEncoder.encode(empAbilityDto.getAbilityType(), StandardCharsets.UTF_8)
+             + "&abilityNm=" + URLEncoder.encode(empAbilityDto.getAbilityNm(), StandardCharsets.UTF_8)
              + "&startDate=" + empAbilityDto.getStartDate();
     }
     

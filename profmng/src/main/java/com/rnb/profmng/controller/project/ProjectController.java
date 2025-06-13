@@ -1,5 +1,7 @@
 package com.rnb.profmng.controller.project;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -110,8 +112,8 @@ public class ProjectController{
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
-        return "redirect:/project/edit?projectCd=" + projectDto.getProjectCd()
-             + "&projectNm=" + projectDto.getProjectNm()
+        return "redirect:/project/edit?projectCd=" + URLEncoder.encode(projectDto.getProjectCd(), StandardCharsets.UTF_8)
+             + "&projectNm=" + URLEncoder.encode(projectDto.getProjectNm(), StandardCharsets.UTF_8)
              + "&startDate=" + projectDto.getStartDate();
     }
     

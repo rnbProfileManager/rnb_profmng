@@ -117,10 +117,9 @@
 								<input type="tel" name="callNumber" class="searchInput" placeholder="예: 010-1234-5678">
 							</div>
 							<div class="edit-group">
-								<label for="department">부서:</label>
-								<select class="department" name="department">
+								<label for="departmentSelect">부서:</label>
+								<select class="departmentSelect" name="orgNm">
 								  	<option value="전체">전체</option>
-								  	<option value="경영부문">경영부문</option>
 								  	<option value="사업개발실">사업개발실</option>
 								  	<option value="경영지원실">경영지원실</option>
 								  	<option value="AICT 본부">AICT 본부</option>

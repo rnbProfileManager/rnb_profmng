@@ -2,11 +2,9 @@ package com.rnb.profmng.service.project;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +12,7 @@ import com.rnb.profmng.dto.project.ProjectDTO;
 import com.rnb.profmng.entity.project.Project;
 import com.rnb.profmng.entity.project.ProjectPK;
 import com.rnb.profmng.repository.project.ProjectRepo;
+import com.rnb.profmng.service.NullAwareBeanUtilsBean;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -73,14 +72,12 @@ public class ProjectService {
     // 프로젝트 수정
     @Transactional
     public void updateProjectFromDto(ProjectDTO dto, Project entity) {
-        entity.setClient(dto.getClient());
-        entity.setContractor(dto.getContractor());
-        entity.setEndDate(dto.getEndDate());
-        entity.setManMonth(dto.getManMonth());
-        entity.setPmId(dto.getPmId());
-        entity.setProjectType(dto.getProjectType());
-        entity.setTotAmt(dto.getTotAmt());
-        entity.setUpdateDate(LocalDate.now());
+        try {
+            new NullAwareBeanUtilsBean().copyProperties(entity, dto);
+            entity.setUpdateDate(LocalDate.now());
+        } catch (Exception e) {
+            throw new RuntimeException("프로퍼티 복사 실패", e);
+        }
     }
 }
 

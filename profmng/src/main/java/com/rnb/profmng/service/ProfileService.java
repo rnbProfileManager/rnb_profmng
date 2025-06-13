@@ -204,14 +204,12 @@ public class ProfileService {
     // 직원 정보 수정
     @Transactional
     public void updateEmpNoFromDto(EmpNoDTO dto, EmpNo entity) {
-        entity.setEndDate(dto.getEndDate());
-        entity.setJobGrade(dto.getJobGrade());
-        entity.setJobTitle(dto.getJobTitle());
-        entity.setAddress(dto.getAddress());
-        entity.setCallNumber(dto.getCallNumber());
-        entity.setOrgNm(dto.getOrgNm());
-        entity.setEmpType(dto.getEmpType());
-        entity.setUpdateDate(LocalDate.now());
+        try {
+            new NullAwareBeanUtilsBean().copyProperties(entity, dto);
+            entity.setUpdateDate(LocalDate.now());
+        } catch (Exception e) {
+            throw new RuntimeException("프로퍼티 복사 실패", e);
+        }
     }
     
     
@@ -265,8 +263,12 @@ public class ProfileService {
     // 직무 능력 수정
     @Transactional
     public void updateEmpAbilityFromDto(EmpAbilityDTO dto, EmpAbility entity) {
-        entity.setEndDate(dto.getEndDate());
-        entity.setUpdateDate(LocalDate.now());
+        try {
+            new NullAwareBeanUtilsBean().copyProperties(entity, dto);
+            entity.setUpdateDate(LocalDate.now());
+        } catch (Exception e) {
+            throw new RuntimeException("프로퍼티 복사 실패", e);
+        }
     }
     
     
@@ -320,9 +322,12 @@ public class ProfileService {
     // 투입 인력 수정
     @Transactional
     public void updateProjectEmpInfoFromDto(ProjectEmpInfoDTO dto, ProjectEmpInfo entity) {
-        entity.setEndDate(dto.getEndDate());
-        entity.setUserRole(dto.getUserRole());
-        entity.setUpdateDate(LocalDate.now());
+        try {
+            new NullAwareBeanUtilsBean().copyProperties(entity, dto);
+            entity.setUpdateDate(LocalDate.now());
+        } catch (Exception e) {
+            throw new RuntimeException("프로퍼티 복사 실패", e);
+        }
     }
     
 
