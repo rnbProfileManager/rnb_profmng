@@ -20,6 +20,13 @@ public class EmpAbility {
 	
     @EmbeddedId
     private EmpAbilityPK empAbilityPk;
+    
+    public String getEmpCd() { return empAbilityPk != null ? empAbilityPk.getEmpCd() : null; }
+    public String getEmpNm() { return empAbilityPk != null ? empAbilityPk.getEmpNm() : null; }
+    public String getAbilityType() { return empAbilityPk != null ? empAbilityPk.getAbilityType() : null; }
+    public String getAbilityNm() { return empAbilityPk != null ? empAbilityPk.getAbilityNm() : null; }
+    public LocalDate getStartDate() { return empAbilityPk != null ? empAbilityPk.getStartDate() : null; }
+
 
     @Column(name = "END_DATE")
     private LocalDate endDate;

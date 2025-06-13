@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -53,8 +52,8 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
-				<li><a href="/profile/empCd">직원 정보</a></li>
-				<li><a href="/profile/projectEmpCd">투입 관리</a></li>
+				<li><a href="/profile/empNo">직원 정보</a></li>
+				<li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbility" class="active">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
 				<li><a href="#">파일 관리</a></li>
@@ -68,12 +67,12 @@
             <p class="main-subtitle">사원 코드를 입력해주세요</p>
 
 			<section class="search-area">
-			    <h2>프로젝트 조회</h2>
+			    <h2>직무 능력 조회</h2>
 
-			    <form class="search-form" method="get" action="/profile/empAbility">	
+			    <form class="search-form" method="get" action="/profile/empAbility/manage">	
 					<div class="form-group">
-					    <label for="projectCd">사원 코드</label>
-					    <input type="text" id="projectCd" name="projectCd" value="${param.projectCd}">
+					    <label for="empCd">사원 코드</label>
+					    <input type="text" id="empCd" name="empCd" value="${param.empCd}">
 					</div>
 			        <button type="submit" class="btn search">조회</button>
 			    </form>
@@ -83,50 +82,44 @@
 					    <thead>
 					        <tr>
 					            <th><input type="checkbox" id="checkAll" /></th>
-					            <th>프로젝트코드</th>
-					            <th>프로젝트명</th>
+					            <th>사원코드</th>
+					            <th>사원명</th>
+					            <th>직무능력유형</th>
+					            <th>직무능력명</th>
 					            <th>시작일자</th>
-					            <th>종료일자</th>
-					            <th>PM</th>
-								<th>발주기관</th>
-								<th>주수행사</th>
-								<th>M/M</th>
-								<th>총 수주금액</th>
-								<th>유형</th>
+								<th>종료일자</th>
 					        </tr>
 					    </thead>
 						    <tbody>
-								<h3>프로젝트코드: ${fn:length(projectList)}</h3>
-									<c:forEach var="project" items="${projectList}">
+								<h3>총 건수: ${fn:length(empAbilityList)}</h3>
+									<c:forEach var="empAbility" items="${empAbilityList}">
 										<tr>
-										   <td><input type="checkbox" name="projectCd" value="${project.projectCd}"
-												data-projectcd="${project.projectCd}"
-									       		data-projectnm="${project.projectNm}"
-											    data-startdate="${project.startDate}" /></td>
-										    <td>${project.projectCd}</td>
-										    <td>${project.projectNm}</td>
-										    <td>${project.startDate}</td>
-										    <td>${project.endDate}</td>
-											<td>${project.pmId}</td>
-											<td>${project.client}</td>
-											<td>${project.contractor}</td>
-											<td>${project.manMonth}</td>
-											<td>${project.totAmt}</td>
-											<td>${project.projectType}</td>
+										   <td><input type="checkbox" name="empCd" value="${empAbility.empCd}"
+												data-empcd="${empAbility.empCd}"
+									       		data-empnm="${empAbility.empNm}"
+												data-abilitytype="${empAbility.abilityType}"
+												data-abilitynm="${empAbility.abilityNm}"
+											    data-startdate="${empAbility.startDate}" /></td>
+										    <td>${empAbility.empCd}</td>
+										    <td>${empAbility.empNm}</td>
+											<td>${empAbility.abilityType}</td>
+											<td>${empAbility.abilityNm}</td>
+										    <td>${empAbility.startDate}</td>
+										    <td>${empAbility.endDate}</td>
 										</tr>
 									</c:forEach>
 						    </tbody>
 						</table>
 			        <div class="grid-buttons">
-			            <button type="button" onclick="location.href='/project/addProject'" class="btn new">신규</button>
+			            <button type="button" onclick="location.href='/profile/addEmpAbility'" class="btn new">신규</button>
 			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
 			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
 			        </div>
-					<form id="editForm" method="POST" action="/project/edit">
-					    <input type="hidden" name="projectCd" id="editProjectCd" />
+					<form id="editForm" method="POST" action="/profile/editEmpAbility">
+					    <input type="hidden" name="empCd" id="editEmpAbility" />
 					</form>
-					<form id="deleteForm" method="POST" action="/project/delete">
-					    <input type="hidden" name="projectCd" id="deleteProjectCd" />
+					<form id="deleteForm" method="POST" action="/profile/deleteEmpAbility">
+					    <input type="hidden" name="empCd" id="deleteEmpAbility" />
 					</form>
 					<c:choose>
 						<c:when test="${deleteResult eq 'success'}">
@@ -162,11 +155,11 @@
 	$(document).ready(function () {
 	    $('#checkAll').on('change', function () {
 	        const isChecked = $(this).is(':checked');
-	        $('input[name="projectCd"]').prop('checked', isChecked);
+	        $('input[name="empCd"]').prop('checked', isChecked);
 	    });
 	});
 	function editSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="projectCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="empCd"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -179,22 +172,26 @@
 	    }
 		
 		const item = checkedItems[0];
-	    const projectCd = item.dataset.projectcd;
-	    const projectNm = item.dataset.projectnm;
+	    const empCd = item.dataset.empcd;
+	    const empNm = item.dataset.empnm;
+		const abilityType = item.dataset.abilitytype;
+		const abilityNm = item.dataset.abilitynm;
 	    const startDate = item.dataset.startdate;
 			
-		if (!projectCd || !projectNm || !startDate) {
+		if (!empCd || !empNm || !abilityType || !abilityNm) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
 
-		window.location.href = "/project/edit"
-		    + "?projectCd=" + encodeURIComponent(projectCd)
-		    + "&projectNm=" + encodeURIComponent(projectNm)
+		window.location.href = "/profile/editEmpAbility"
+		    + "?empCd=" + encodeURIComponent(empCd)
+		    + "&empNm=" + encodeURIComponent(empNm)
+			+ "&abilityType=" + encodeURIComponent(abilityType)
+			+ "&abilityNm=" + encodeURIComponent(abilityNm)
 		    + "&startDate=" + encodeURIComponent(startDate);
 	}
 	function deleteSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="projectCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="empCd"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -205,10 +202,10 @@
 	        return;
 	    }
 
-	    const projectCds = Array.from(checkedItems).map(item => item.value);
-	    const param = projectCds.map(cd => "projectCd=" + encodeURIComponent(cd)).join("&");
+	    const empCds = Array.from(checkedItems).map(item => item.value);
+	    const param = empCds.map(cd => "empCd=" + encodeURIComponent(cd)).join("&");
 
-	    window.location.href = "/project/delete?" + param;
+	    window.location.href = "/profile/deleteEmpAbility?" + param;
 	}
 	</script>
 </body>

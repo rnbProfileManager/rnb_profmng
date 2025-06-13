@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class EmpNoDTO{
+public class EmpNoDTO implements EmpNoView{
     
 	private String empCd;
     private String empNm;

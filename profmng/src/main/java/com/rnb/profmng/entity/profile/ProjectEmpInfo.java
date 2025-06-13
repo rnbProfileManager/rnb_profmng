@@ -19,6 +19,12 @@ public class ProjectEmpInfo {
     @EmbeddedId
     private ProjectEmpInfoPK projectEmpInfoPk;
     
+    public String getProjectCd() { return projectEmpInfoPk != null ? projectEmpInfoPk.getProjectCd() : null; }
+    public String getEmpCd() { return projectEmpInfoPk != null ? projectEmpInfoPk.getEmpCd() : null; }
+    public String getProjectNm() { return projectEmpInfoPk != null ? projectEmpInfoPk.getProjectNm() : null; }
+    public LocalDate getStartDate() { return projectEmpInfoPk != null ? projectEmpInfoPk.getStartDate() : null; }
+
+    
     @Column(name = "END_DATE")
     private LocalDate endDate;
 

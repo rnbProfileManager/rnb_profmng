@@ -8,10 +8,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rnb.profmng.dto.ProfiledbDto;
+import com.rnb.profmng.dto.profile.EmpAbilityDTO;
 import com.rnb.profmng.dto.profile.EmpNoDTO;
 import com.rnb.profmng.dto.profile.ProfileDTO;
+import com.rnb.profmng.dto.profile.ProjectEmpInfoDTO;
 import com.rnb.profmng.dto.project.ProjectDTO;
 import com.rnb.profmng.entity.profile.EmpAbility;
 import com.rnb.profmng.entity.profile.EmpAbilityPK;
@@ -19,11 +22,14 @@ import com.rnb.profmng.entity.profile.EmpNo;
 import com.rnb.profmng.entity.profile.EmpNoPK;
 import com.rnb.profmng.entity.profile.ProjectEmpInfo;
 import com.rnb.profmng.entity.profile.ProjectEmpInfoPK;
+import com.rnb.profmng.entity.project.Project;
+import com.rnb.profmng.entity.project.ProjectPK;
 import com.rnb.profmng.repository.ProfileRepository;
 import com.rnb.profmng.repository.profile.EmpAbilityRepo;
 import com.rnb.profmng.repository.profile.EmpNoRepo;
 import com.rnb.profmng.repository.profile.ProjectEmpInfoRepo;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -41,12 +47,12 @@ public class ProfileService {
     
     private final ProfileRepository profileRepository;
 	 
-	 // 전체 조회
-	 public List<ProfiledbDto> getAllProfiles() {
-		 List<ProfiledbDto> dto = profileRepository.getAllProfiles();
+	// 전체 조회
+	public List<ProfiledbDto> getAllProfiles() {
+		List<ProfiledbDto> dto = profileRepository.getAllProfiles();
 
-	        return dto;
-	    }
+		return dto;
+	}
 	 
 	// 조회조건 조회   
 	 public List<ProfiledbDto> searchProfiles(String empNm, String startDateStr, String endDateStr) {
@@ -147,13 +153,179 @@ public class ProfileService {
     
     /*
      * 20250613
+     * 직원 정보
      */
-    // 모든 프로젝트 조회
-    public List<EmpNoDTO> allProfiles() {
+    
+    // 모든 직원 정보 조회
+    public List<EmpNoDTO> allEmpInfos() {
         return empNoRepo.findAll().stream()
                 .map(EmpNoDTO::new)
                 .collect(Collectors.toList());
     }
+    
+    // 신규 직원 정보 추가
+    public void saveEmpNo(EmpNoDTO dto) {
+        EmpNo entity = new EmpNo();
+
+        EmpNoPK pk = new EmpNoPK();
+        pk.setEmpCd(dto.getEmpCd());
+        pk.setEmpNm(dto.getEmpNm());
+        pk.setStartDate(dto.getStartDate());
+
+        entity.setEmpNoPk(pk);
+
+        entity.setEndDate(dto.getEndDate());
+        entity.setJobGrade(dto.getJobGrade());
+        entity.setJobTitle(dto.getJobTitle());
+        entity.setAddress(dto.getAddress());
+        entity.setCallNumber(dto.getCallNumber());
+        entity.setOrgNm(dto.getOrgNm());
+        entity.setEmpType(dto.getEmpType());
+
+        empNoRepo.save(entity);
+    }
+    
+    // 직원 정보 삭제
+    public int deleteEmpNo(String empCd) {
+        return empNoRepo.deleteByEmpCd(empCd);
+    }
+    
+    // 직원 정보 수정 - PK 체크    
+    public EmpNo findByPk(EmpNoPK pk) {
+        return empNoRepo.findById(pk)
+                .orElseThrow(() -> new EntityNotFoundException("Project not found"));
+    }
+    
+    // 직원 정보 추가 - PK 체크
+    public boolean existsByPk(EmpNoPK pk) {
+        return empNoRepo.existsById(pk);
+    }
+    
+    // 직원 정보 수정
+    @Transactional
+    public void updateEmpNoFromDto(EmpNoDTO dto, EmpNo entity) {
+        entity.setEndDate(dto.getEndDate());
+        entity.setJobGrade(dto.getJobGrade());
+        entity.setJobTitle(dto.getJobTitle());
+        entity.setAddress(dto.getAddress());
+        entity.setCallNumber(dto.getCallNumber());
+        entity.setOrgNm(dto.getOrgNm());
+        entity.setEmpType(dto.getEmpType());
+        entity.setUpdateDate(LocalDate.now());
+    }
+    
+    
+    
+    
+    /*
+     * 직무 능력
+     */
+
+    // 모든 직무 능력 조회
+    public List<EmpAbilityDTO> allEmpAbilitys() {
+        return empAbilityRepo.findAll().stream()
+                .map(EmpAbilityDTO::new)
+                .collect(Collectors.toList());
+    }
+    
+    // 신규 직무 능력 추가
+    public void saveEmpAbility(EmpAbilityDTO dto) {
+        EmpAbility entity = new EmpAbility();
+
+        EmpAbilityPK pk = new EmpAbilityPK();
+        pk.setEmpCd(dto.getEmpCd());
+        pk.setEmpNm(dto.getEmpNm());
+        pk.setAbilityType(dto.getAbilityType());
+        pk.setAbilityNm(dto.getAbilityNm());
+        pk.setStartDate(dto.getStartDate());
+
+        entity.setEmpAbilityPk(pk);
+
+        entity.setEndDate(dto.getEndDate());
+
+        empAbilityRepo.save(entity);
+    }
+    
+    // 직무 능력 삭제
+    public int deleteEmpAbility(String empCd) {
+        return empAbilityRepo.deleteByEmpCd(empCd);
+    }
+    
+    // 직무 능력 수정 - PK 체크    
+    public EmpAbility findByPk(EmpAbilityPK pk) {
+        return empAbilityRepo.findById(pk)
+                .orElseThrow(() -> new EntityNotFoundException("Project not found"));
+    }
+    
+    // 직무 능력 추가 - PK 체크
+    public boolean existsByPk(EmpAbilityPK pk) {
+        return empAbilityRepo.existsById(pk);
+    }
+    
+    // 직무 능력 수정
+    @Transactional
+    public void updateEmpAbilityFromDto(EmpAbilityDTO dto, EmpAbility entity) {
+        entity.setEndDate(dto.getEndDate());
+        entity.setUpdateDate(LocalDate.now());
+    }
+    
+    
+    
+    
+    /*
+     * 투입 인력
+     */
+    
+    // 모든 투입 인력 조회
+    public List<ProjectEmpInfoDTO> allProjectInfos() {
+        return projectEmpInfoRepo.findAll().stream()
+                .map(ProjectEmpInfoDTO::new)
+                .collect(Collectors.toList());
+    }
+    
+    // 신규 투입 인력 추가
+    public void saveProjectEmpInfo(ProjectEmpInfoDTO dto) {
+    	ProjectEmpInfo entity = new ProjectEmpInfo();
+
+    	ProjectEmpInfoPK pk = new ProjectEmpInfoPK();
+        pk.setProjectCd(dto.getProjectCd());
+        pk.setEmpCd(dto.getEmpCd());
+        pk.setProjectNm(dto.getProjectNm());
+        pk.setStartDate(dto.getStartDate());
+
+        entity.setProjectEmpInfoPk(pk);
+
+        entity.setEndDate(dto.getEndDate());
+        entity.setUserRole(dto.getUserRole());
+
+        projectEmpInfoRepo.save(entity);
+    }
+    
+    // 투입 인력 삭제
+    public int deleteProjectEmpInfo(String empCd) {
+        return projectEmpInfoRepo.deleteByEmpCd(empCd);
+    }
+    
+    // 투입 인력 수정 - PK 체크    
+    public ProjectEmpInfo findByPk(ProjectEmpInfoPK pk) {
+        return projectEmpInfoRepo.findById(pk)
+                .orElseThrow(() -> new EntityNotFoundException("Project not found"));
+    }
+    
+    // 투입 인력 추가 - PK 체크
+    public boolean existsByPk(ProjectEmpInfoPK pk) {
+        return projectEmpInfoRepo.existsById(pk);
+    }
+    
+    // 투입 인력 수정
+    @Transactional
+    public void updateProjectEmpInfoFromDto(ProjectEmpInfoDTO dto, ProjectEmpInfo entity) {
+        entity.setEndDate(dto.getEndDate());
+        entity.setUserRole(dto.getUserRole());
+        entity.setUpdateDate(LocalDate.now());
+    }
+    
+
 }
 
 

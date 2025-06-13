@@ -44,7 +44,7 @@ public class ProjectController{
     public String selectProject(@RequestParam("projectCd") String projectCd, Model model) {
         List<Project> result = projectRepo.findByProjectPk_ProjectCd(projectCd);
         model.addAttribute("projectList", result);
-        return "project/selectProject";
+        return "project/project";
     }
     
     // 신규 프로젝트 추가

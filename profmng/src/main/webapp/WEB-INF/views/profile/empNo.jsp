@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -53,8 +52,8 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
-				<li><a href="/profile/empCd" class="active">직원 정보</a></li>
-				<li><a href="/profile/projectEmpCd">투입 관리</a></li>
+				<li><a href="/profile/empNo" class="active">직원 정보</a></li>
+				<li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbility">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
 				<li><a href="#">파일 관리</a></li>
@@ -70,7 +69,7 @@
 			<section class="search-area">
 			    <h2>직원 정보 조회</h2>
 
-			    <form class="search-form" method="get" action="/profile/empCd">	
+			    <form class="search-form" method="get" action="/profile/empNo/manage">	
 					<div class="form-group">
 					    <label for="empCd">사원 코드</label>
 					    <input type="text" id="empCd" name="empCd" value="${param.empCd}">
@@ -96,37 +95,37 @@
 					        </tr>
 					    </thead>
 						    <tbody>
-								<h3>사원수: ${fn:length(projectList)}</h3>
-									<c:forEach var="profile" items="${profileList}">
+								<h3>총 사원수: ${fn:length(empNoList)}</h3>
+									<c:forEach var="empNo" items="${empNoList}">
 										<tr>
-										   <td><input type="checkbox" name="empCd" value="${profile.empCd}"
-												data-projectcd="${profile.empCd}"
-									       		data-projectnm="${profile.empNm}"
-											    data-startdate="${profile.startDate}" /></td>
-										    <td>${profile.empCd}</td>
-										    <td>${profile.empNm}</td>
-										    <td>${profile.startDate}</td>
-										    <td>${profile.endDate}</td>
-											<td>${profile.jobGrade}</td>
-											<td>${profile.jobTitle}</td>
-											<td>${profile.address}</td>
-											<td>${profile.callNumber}</td>
-											<td>${profile.orgNm}</td>
-											<td>${profile.empType}</td>
+										   <td><input type="checkbox" name="empCd" value="${empNo.empCd}"
+												data-empcd="${empNo.empCd}"
+									       		data-empnm="${empNo.empNm}"
+											    data-startdate="${empNo.startDate}" /></td>
+										    <td>${empNo.empCd}</td>
+										    <td>${empNo.empNm}</td>
+										    <td>${empNo.startDate}</td>
+										    <td>${empNo.endDate}</td>
+											<td>${empNo.jobGrade}</td>
+											<td>${empNo.jobTitle}</td>
+											<td>${empNo.address}</td>
+											<td>${empNo.callNumber}</td>
+											<td>${empNo.orgNm}</td>
+											<td>${empNo.empType}</td>
 										</tr>
 									</c:forEach>
 						    </tbody>
 						</table>
 			        <div class="grid-buttons">
-			            <button type="button" onclick="location.href='/project/addProject'" class="btn new">신규</button>
+			            <button type="button" onclick="location.href='/profile/addEmpNo'" class="btn new">신규</button>
 			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
 			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
 			        </div>
-					<form id="editForm" method="POST" action="/project/edit">
-					    <input type="hidden" name="projectCd" id="editProjectCd" />
+					<form id="editForm" method="POST" action="/project/editEmpNo">
+					    <input type="hidden" name="empCd" id="editEmpNo" />
 					</form>
-					<form id="deleteForm" method="POST" action="/project/delete">
-					    <input type="hidden" name="projectCd" id="deleteProjectCd" />
+					<form id="deleteForm" method="POST" action="/project/deleteEmpNo">
+					    <input type="hidden" name="empCd" id="deleteEmpNo" />
 					</form>
 					<c:choose>
 						<c:when test="${deleteResult eq 'success'}">
@@ -162,11 +161,11 @@
 	$(document).ready(function () {
 	    $('#checkAll').on('change', function () {
 	        const isChecked = $(this).is(':checked');
-	        $('input[name="projectCd"]').prop('checked', isChecked);
+	        $('input[name="empCd"]').prop('checked', isChecked);
 	    });
 	});
 	function editSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="projectCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="empCd"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -179,22 +178,22 @@
 	    }
 		
 		const item = checkedItems[0];
-	    const projectCd = item.dataset.projectcd;
-	    const projectNm = item.dataset.projectnm;
+	    const empCd = item.dataset.empcd;
+	    const empNm = item.dataset.empnm;
 	    const startDate = item.dataset.startdate;
 			
-		if (!projectCd || !projectNm || !startDate) {
+		if (!empCd || !empNm || !startDate) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
 
-		window.location.href = "/project/edit"
-		    + "?projectCd=" + encodeURIComponent(projectCd)
-		    + "&projectNm=" + encodeURIComponent(projectNm)
+		window.location.href = "/profile/editEmpNo"
+		    + "?empCd=" + encodeURIComponent(empCd)
+		    + "&empNm=" + encodeURIComponent(empNm)
 		    + "&startDate=" + encodeURIComponent(startDate);
 	}
 	function deleteSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="projectCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="empCd"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -205,10 +204,10 @@
 	        return;
 	    }
 
-	    const projectCds = Array.from(checkedItems).map(item => item.value);
-	    const param = projectCds.map(cd => "projectCd=" + encodeURIComponent(cd)).join("&");
+	    const empCds = Array.from(checkedItems).map(item => item.value);
+	    const param = empCds.map(cd => "empCd=" + encodeURIComponent(cd)).join("&");
 
-	    window.location.href = "/project/delete?" + param;
+	    window.location.href = "/profile/deleteEmpNo?" + param;
 	}
 	</script>
 </body>

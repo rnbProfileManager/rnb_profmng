@@ -20,6 +20,10 @@ public class EmpNo {
     @EmbeddedId
     private EmpNoPK empNoPk;
     
+    public String getEmpCd() { return empNoPk != null ? empNoPk.getEmpCd() : null; }
+    public String getEmpNm() { return empNoPk != null ? empNoPk.getEmpNm() : null; }
+    public LocalDate getStartDate() { return empNoPk != null ? empNoPk.getStartDate() : null; }
+    
     @Column(name = "END_DATE")
     private LocalDate endDate;
 
