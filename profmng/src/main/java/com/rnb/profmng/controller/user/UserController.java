@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rnb.profmng.dto.UserDTO;
 import com.rnb.profmng.service.user.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -32,16 +33,18 @@ public class UserController {
     public String showLoginPage() {
 	        return "user/login";
     }
-	
+    
 	// 로그인
     @PostMapping("/login")
     public String processLogin(@ModelAttribute UserDTO loginRequestDto,	// UserDTO 객체로 폼 데이터 바인딩
-                               HttpSession session) {
+    		HttpServletRequest request, HttpSession session) {
     		
 	    	Optional<UserDTO> authenticatedUserDto = userService.login(loginRequestDto);
 	    	
 	    	if (authenticatedUserDto.isPresent()) {
 	    		UserDTO user = authenticatedUserDto.get();
+	    		
+	    		request.getSession().setAttribute("user", user);
 	    		
 	            session.setAttribute("loggedInUser", user.getUserId());
 	            session.setAttribute("loggedInUserNm", user.getUserNm());
