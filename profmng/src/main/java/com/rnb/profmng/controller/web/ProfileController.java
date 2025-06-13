@@ -6,13 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rnb.profmng.dto.ProfiledbDto;
+import com.rnb.profmng.dto.profile.EmpNoDTO;
 import com.rnb.profmng.service.AzureStorageService;
 import com.rnb.profmng.service.ProfileService;
 
@@ -22,10 +22,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProfileController{
 	
-	   private final ProfileService profileService;
+	    private final ProfileService profileService;
 	    private final AzureStorageService azureStorageService;
-
-
 
 	    // API용 전체조회
 	    @GetMapping("/api/profiles")
@@ -80,13 +78,6 @@ public class ProfileController{
 	        return azureStorageService.listFiles();
 	    }
 
-//	    // 화면 진입
-//	    @GetMapping("/profile")
-//	    public String showProjectPage() {
-//	        return "web/profile";  // 여기 주의!!
-//	    }
-	    
-	    
 	    @GetMapping("/profile")
 	    public String profile(Model model) {
 	        List<ProfiledbDto> employeeList = profileService.getAllProfiles();
@@ -108,25 +99,47 @@ public class ProfileController{
 	        return "web/profile";
 	    }
 	
-//	@GetMapping("/profile")
-//	public String showProjectPage() {
-//		return "web/profile";
+	
+	/*
+	 * 직원 정보
+	 */
+//	@GetMapping("/profile/empCd")
+//	public String showSelectProfilePage() {
+//		return "profile/empInfo";
 //	}
 	
-	@GetMapping("/selectProfile")
-	public String showSelectProfilePage() {
-		return "web/selectProfile";
-	}
+    // 프로젝트 탭
+    @GetMapping("/profile/empCd")
+    public String allEmpInfo(Model model) {
+        List<EmpNoDTO> profileList = profileService.allProfiles();
+        model.addAttribute("profileList", profileList);
+        return "profile/empNo";
+    }
 	
-	@GetMapping("/empProfileManage")
+	
+	
+	/*
+	 * 투입 관리
+	 */
+	@GetMapping("/profile/projectEmpCd")
 	public String showEmpProfileManagePage() {
-		return "web/empProfileManage";
+		return "profile/projectEmpInfo";
 	}
 	
-	@GetMapping("/empProjectInsert")
+	
+	
+	
+	/*
+	 * 직무 능력
+	 */
+	@GetMapping("/profile/empAbility")
 	public String showEmpProjectInsertPage() {
-		return "web/empProjectInsert";
+		return "profile/empAbility";
 	}
+	
+	
+	
+	
 	
 	@GetMapping("/empProjectManage")
 	public String showEmpProjectManagePage() {

@@ -43,8 +43,8 @@ public class ProjectController{
     @GetMapping("/project/manage")
     public String selectProject(@RequestParam("projectCd") String projectCd, Model model) {
         List<Project> result = projectRepo.findByProjectPk_ProjectCd(projectCd);
-        model.addAttribute("projectList", result); // ✅ JSP로 넘김
-        return "project/selectProject"; // 🔁 현재 JSP 파일 이름
+        model.addAttribute("projectList", result);
+        return "project/selectProject";
     }
     
     // 신규 프로젝트 추가
@@ -71,7 +71,6 @@ public class ProjectController{
             projectService.save(projectDto);
             redirectAttributes.addFlashAttribute("addResult", "success");
         } catch (Exception e) {
-        	System.out.println(e);
         	redirectAttributes.addFlashAttribute("addResult", "exception");
         }
         return "redirect:/project/addProject";
@@ -97,7 +96,6 @@ public class ProjectController{
     @PostMapping("/project/edit")
     public String editProjectPage(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
         try {
-            // 복합키 생성
             ProjectPK pk = new ProjectPK(
                 projectDto.getProjectCd(),
                 projectDto.getProjectNm(),
@@ -112,7 +110,6 @@ public class ProjectController{
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
-        // PRG 패턴: 새로고침 시 중복방지
         return "redirect:/project/edit?projectCd=" + projectDto.getProjectCd()
              + "&projectNm=" + projectDto.getProjectNm()
              + "&startDate=" + projectDto.getStartDate();
@@ -123,7 +120,7 @@ public class ProjectController{
     public String deleteProjectPage(@RequestParam("projectCd") List<String> projectCds, RedirectAttributes redirectAttributes) {
         try {
             for (String projectCd : projectCds) {
-                projectService.deleteProject(projectCd);  // 서비스에서 개별 삭제 수행
+                projectService.deleteProject(projectCd);
             }
             redirectAttributes.addFlashAttribute("deleteResult", "success");
         } catch (Exception e) {

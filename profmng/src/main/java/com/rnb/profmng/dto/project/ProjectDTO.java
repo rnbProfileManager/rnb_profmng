@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProjectDTO implements ProjectView {
     
-	// PROJECT_TABLE
 	private String projectCd;
     private String projectNm;
     private LocalDate startDate;
@@ -42,7 +41,6 @@ public class ProjectDTO implements ProjectView {
 		this.projectType = projectType;
 	}
     
-    // User 엔티티를 DTO로 변환하기 위한 생성자( 응답 )
     public ProjectDTO(Project project) {
     	this.projectCd = project.getProjectPk().getProjectCd();
     	this.projectNm = project.getProjectPk().getProjectNm();

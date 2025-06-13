@@ -22,7 +22,6 @@ public class ProjectPK implements Serializable {
     private String projectNm;
 
     @Column(name = "START_DATE", nullable = false)
-//    @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate startDate;
     
     @Override

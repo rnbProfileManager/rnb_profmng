@@ -155,7 +155,6 @@
     </footer>
 	<script>
 	$(document).ready(function () {
-	    // 전체 선택/해제 처리
 	    $('#checkAll').on('change', function () {
 	        const isChecked = $(this).is(':checked');
 	        $('input[name="projectCd"]').prop('checked', isChecked);

@@ -33,10 +33,10 @@
                 <a href="/dashboard">대시보드</a>
             </div>
             <div class="nav-item">
-                <a href="/project" class="active">프로젝트 관리</a>
+                <a href="/project">프로젝트 관리</a>
             </div>
             <div class="nav-item">
-                <a href="/profile">사용자 관리</a>
+                <a href="/profile" class="active">사용자 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/system">시스템 설정</a>
@@ -52,22 +52,27 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-				<li><a href="/project" class="active">프로젝트 조회</a></li>
-                <li><a href="/project/addProject">신규 프로젝트 추가</a></li>
-            </ul>
+				<li><a href="/profile/manage">프로필 조회</a></li>
+				<li><a href="/profile/empCd">직원 정보</a></li>
+				<li><a href="/profile/projectEmpCd">투입 관리</a></li>
+				<li><a href="/profile/empAbility" class="active">직무 능력</a></li>
+				<li><a href="#">캘린더</a></li>
+				<li><a href="#">파일 관리</a></li>
+				<li><a href="#">설정</a></li>            
+			</ul>
         </aside>
 
         <!-- MAIN CONTENT -->
         <main>
-            <h1 class="main-title">프로젝트 조회</h1>
-            <p class="main-subtitle">프로젝트 코드를 입력해주세요</p>
+            <h1 class="main-title">직무능력 조회</h1>
+            <p class="main-subtitle">사원 코드를 입력해주세요</p>
 
 			<section class="search-area">
 			    <h2>프로젝트 조회</h2>
 
-			    <form class="search-form" method="get" action="/project/manage">	
+			    <form class="search-form" method="get" action="/profile/empAbility">	
 					<div class="form-group">
-					    <label for="projectCd">프로젝트 코드</label>
+					    <label for="projectCd">사원 코드</label>
 					    <input type="text" id="projectCd" name="projectCd" value="${param.projectCd}">
 					</div>
 			        <button type="submit" class="btn search">조회</button>
@@ -92,26 +97,24 @@
 					    </thead>
 						    <tbody>
 								<h3>프로젝트코드: ${fn:length(projectList)}</h3>
-								<c:forEach var="project" items="${projectList}">
-								    <tr>
-								        <td>
-								            <input type="checkbox" name="projectCd" value="${project.projectPk.projectCd}"
-								                data-projectcd="${project.projectPk.projectCd}"
-								                data-projectnm="${project.projectPk.projectNm}"
-								                data-startdate="${project.projectPk.startDate}" />
-								        </td>
-								        <td>${project.projectPk.projectCd}</td>
-								        <td>${project.projectPk.projectNm}</td>
-								        <td>${project.projectPk.startDate}</td>
-								        <td>${project.endDate}</td>
-								        <td>${project.pmId}</td>
-								        <td>${project.client}</td>
-								        <td>${project.contractor}</td>
-								        <td>${project.manMonth}</td>
-								        <td>${project.totAmt}</td>
-								        <td>${project.projectType}</td>
-								    </tr>
-								</c:forEach>
+									<c:forEach var="project" items="${projectList}">
+										<tr>
+										   <td><input type="checkbox" name="projectCd" value="${project.projectCd}"
+												data-projectcd="${project.projectCd}"
+									       		data-projectnm="${project.projectNm}"
+											    data-startdate="${project.startDate}" /></td>
+										    <td>${project.projectCd}</td>
+										    <td>${project.projectNm}</td>
+										    <td>${project.startDate}</td>
+										    <td>${project.endDate}</td>
+											<td>${project.pmId}</td>
+											<td>${project.client}</td>
+											<td>${project.contractor}</td>
+											<td>${project.manMonth}</td>
+											<td>${project.totAmt}</td>
+											<td>${project.projectType}</td>
+										</tr>
+									</c:forEach>
 						    </tbody>
 						</table>
 			        <div class="grid-buttons">

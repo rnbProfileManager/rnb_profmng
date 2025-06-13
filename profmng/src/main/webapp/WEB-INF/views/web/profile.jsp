@@ -51,9 +51,10 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="/profile/manage">프로필 조회</a></li>
-                <li><a href="#">직원 정보</a></li>
-                <li><a href="#">팀 관리</a></li>
+                <li><a href="/profile/manage" class="active">프로필 조회</a></li>
+                <li><a href="/profile/empCd">직원 정보</a></li>
+                <li><a href="/profile/projectEmpCd">투입 관리</a></li>
+				<li><a href="/profile/empAbility">직무 능력</a></li>
                 <li><a href="#">캘린더</a></li>
                 <li><a href="#">파일 관리</a></li>
                 <li><a href="#">설정</a></li>

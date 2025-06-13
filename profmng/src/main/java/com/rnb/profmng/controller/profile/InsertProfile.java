@@ -32,7 +32,6 @@ public class InsertProfile{
 		return "web/empProfileInsert";
 	}
 	
-    // 데이터 작업 form 매핑	
 	@PostMapping("/insertProfileData")
 	public String insertEmpNo(@ModelAttribute ProfileDTO profileDto, RedirectAttributes redirectAttributes) {
 		try {
@@ -43,16 +42,13 @@ public class InsertProfile{
 		        redirectAttributes.addFlashAttribute("insertResult", "fail");
 		    }
 		}catch (DuplicateKeyException e) {
-	        // 중복 키 오류 발생 시
 	        redirectAttributes.addFlashAttribute("insertResult", "duplicate");
 	    } catch (Exception e) {
-	        // 기타 예외
 	        redirectAttributes.addFlashAttribute("insertResult", "fail");
 	    }
 		return "redirect:/empProfileInsert";
 	}
 	
-    // 데이터 작업 form 매핑	
 	@PostMapping("/insertEmpAbilityData")
 	public String insertEmpAbility(@ModelAttribute ProfileDTO profileDto, RedirectAttributes redirectAttributes) {
 		try {
@@ -63,16 +59,13 @@ public class InsertProfile{
 		        redirectAttributes.addFlashAttribute("insertResult", "fail");
 		    }
 		}catch (DuplicateKeyException e) {
-	        // 중복 키 오류 발생 시
 	        redirectAttributes.addFlashAttribute("insertResult", "duplicate");
 	    } catch (Exception e) {
-	        // 기타 예외
 	        redirectAttributes.addFlashAttribute("insertResult", "fail");
 	    }
 		return "redirect:/empAbilityInsert";
 	}
 	
-    // 데이터 작업 form 매핑	
 	@PostMapping("/insertProjectEmpInfoData")
 	public String insertProjectEmpInfo(@ModelAttribute ProfileDTO profileDto, RedirectAttributes redirectAttributes) {
 		try {
@@ -83,10 +76,8 @@ public class InsertProfile{
 		        redirectAttributes.addFlashAttribute("insertResult", "fail");
 		    }
 		}catch (DuplicateKeyException e) {
-	        // 중복 키 오류 발생 시
 	        redirectAttributes.addFlashAttribute("insertResult", "duplicate");
 	    } catch (Exception e) {
-	        // 기타 예외
 	        redirectAttributes.addFlashAttribute("insertResult", "fail");
 	    }
 		return "redirect:/empProjectInsert";

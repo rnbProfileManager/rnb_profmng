@@ -3,13 +3,16 @@ package com.rnb.profmng.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.rnb.profmng.dto.ProfiledbDto;
+import com.rnb.profmng.dto.profile.EmpNoDTO;
 import com.rnb.profmng.dto.profile.ProfileDTO;
+import com.rnb.profmng.dto.project.ProjectDTO;
 import com.rnb.profmng.entity.profile.EmpAbility;
 import com.rnb.profmng.entity.profile.EmpAbilityPK;
 import com.rnb.profmng.entity.profile.EmpNo;
@@ -141,6 +144,16 @@ public class ProfileService {
         return projectEmpInfoRepo.save(projectEmpInfo);
     }
     
+    
+    /*
+     * 20250613
+     */
+    // 모든 프로젝트 조회
+    public List<EmpNoDTO> allProfiles() {
+        return empNoRepo.findAll().stream()
+                .map(EmpNoDTO::new)
+                .collect(Collectors.toList());
+    }
 }
 
 

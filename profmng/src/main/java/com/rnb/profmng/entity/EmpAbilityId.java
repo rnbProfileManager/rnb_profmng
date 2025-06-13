@@ -10,12 +10,10 @@ public class EmpAbilityId implements Serializable {
 	private String empCd;
     private String empNm;
     private String abilityNm;
-    private LocalDateTime startDate;  // PK 컬럼명에 맞게!
+    private LocalDateTime startDate;
 
-    // 기본 생성자 필수
     public EmpAbilityId() {}
 
-    // equals, hashCode 필수!
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
