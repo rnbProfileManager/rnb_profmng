@@ -17,7 +17,7 @@ public class ProjectDTO implements ProjectView {
     private String projectNm;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalDate updateDate;
+    //private LocalDate updateDate;
     private String pmId;
     private String client;
     private String contractor;
@@ -32,7 +32,7 @@ public class ProjectDTO implements ProjectView {
 		this.projectNm = projectNm;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.updateDate = updateDate;
+		//this.updateDate = updateDate;
 		this.pmId = pmId;
 		this.client = client;
 		this.contractor = contractor;
@@ -46,7 +46,7 @@ public class ProjectDTO implements ProjectView {
     	this.projectNm = project.getProjectPk().getProjectNm();
     	this.startDate = project.getProjectPk().getStartDate();
     	this.endDate = project.getEndDate();
-    	this.updateDate = project.getUpdateDate();
+    	//this.updateDate = project.getUpdateDate();
     	this.pmId = project.getPmId();
     	this.client = project.getClient();
     	this.contractor = project.getContractor();

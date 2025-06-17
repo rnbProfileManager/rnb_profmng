@@ -74,7 +74,7 @@ public class ProjectService {
     public void updateProjectFromDto(ProjectDTO dto, Project entity) {
         try {
             new NullAwareBeanUtilsBean().copyProperties(entity, dto);
-            entity.setUpdateDate(LocalDate.now());
+            //entity.setUpdateDate(LocalDate.now());
         } catch (Exception e) {
             throw new RuntimeException("프로퍼티 복사 실패", e);
         }

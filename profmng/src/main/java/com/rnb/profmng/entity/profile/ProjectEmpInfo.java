@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "PROJECT_EMP_INFO")
+@Table(name = "PJT_HMN_RESRC_INFO")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,12 +25,12 @@ public class ProjectEmpInfo {
     public LocalDate getStartDate() { return projectEmpInfoPk != null ? projectEmpInfoPk.getStartDate() : null; }
 
     
-    @Column(name = "END_DATE")
+    @Column(name = "efct_end_date")
     private LocalDate endDate;
 
-    @Column(name = "UPDATE_DATE")
+    @Column(name = "sys_updtr_id")
     private LocalDate updateDate;
 
-    @Column(name = "USER_ROLE", length = 10)
+    @Column(name = "user_role_cd", length = 10)
     private String userRole;
 }

@@ -15,7 +15,7 @@ public class EmpNoDTO implements EmpNoView{
     private String empNm;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalDate updateDate;
+    //private LocalDate updateDate;
     private String jobGrade;
     private String jobTitle;
     private String address;
@@ -31,7 +31,7 @@ public class EmpNoDTO implements EmpNoView{
 		this.empNm = empNm;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.updateDate = updateDate;
+		//this.updateDate = updateDate;
 		this.jobGrade = jobGrade;
 		this.jobTitle = jobTitle;
 		this.address = address;
@@ -45,7 +45,7 @@ public class EmpNoDTO implements EmpNoView{
     	this.empNm = empNo.getEmpNoPk().getEmpNm();
     	this.startDate = empNo.getEmpNoPk().getStartDate();
     	this.endDate = empNo.getEndDate();
-    	this.updateDate = empNo.getUpdateDate();
+    	//this.updateDate = empNo.getUpdateDate();
     	this.jobGrade = empNo.getJobGrade();
     	this.jobTitle = empNo.getJobTitle();
     	this.address = empNo.getAddress();

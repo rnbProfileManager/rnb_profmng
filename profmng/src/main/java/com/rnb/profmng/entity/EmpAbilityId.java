@@ -8,7 +8,7 @@ public class EmpAbilityId implements Serializable {
 
     private static final long serialVersionUID = -5164275620127845543L;
 	private String empCd;
-    private String empNm;
+    //private String empNm;
     private String abilityNm;
     private LocalDateTime startDate;
 
@@ -20,13 +20,13 @@ public class EmpAbilityId implements Serializable {
         if (!(o instanceof EmpAbilityId)) return false;
         EmpAbilityId that = (EmpAbilityId) o;
         return Objects.equals(empCd, that.empCd) &&
-                Objects.equals(empNm, that.empNm) &&
+        		//Objects.equals(empNm, that.empNm) &&
                 Objects.equals(abilityNm, that.abilityNm) &&
                 Objects.equals(startDate, that.startDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(empCd, empNm, abilityNm, startDate);
+        return Objects.hash(empCd, abilityNm, startDate);
     }
 }

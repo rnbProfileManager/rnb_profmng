@@ -47,7 +47,7 @@ public class ProfileDTO {
     	this.empNm = profile.getEmpNo().getEmpNoPk().getEmpNm();
     	this.startDate = profile.getEmpNo().getEmpNoPk().getStartDate();
     	this.endDate = profile.getEmpNo().getEndDate();
-    	this.updateDate = profile.getEmpNo().getUpdateDate();
+    	//this.updateDate = profile.getEmpNo().getUpdateDate();
     	this.jobGrade = profile.getEmpNo().getJobGrade();
     	this.jobTitle = profile.getEmpNo().getJobTitle();
     	this.address = profile.getEmpNo().getAddress();

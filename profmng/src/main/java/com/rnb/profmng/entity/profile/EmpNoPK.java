@@ -18,12 +18,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class EmpNoPK implements Serializable {
-    @Column(name = "EMP_CD", length = 4, nullable = false)
+    @Column(name = "emp_id", length = 4, nullable = false)
     private String empCd;
 
-    @Column(name = "EMP_NM", length = 10, nullable = false)
+    @Column(name = "emp_nm", length = 20, nullable = false)
     private String empNm;
 
-    @Column(name = "START_DATE", nullable = false)
+    @Column(name = "efct_start_date", nullable = false)
     private LocalDate startDate;
 }

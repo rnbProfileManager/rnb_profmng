@@ -8,7 +8,7 @@ public interface ProjectView {
     String getProjectNm();
     LocalDate getStartDate();
     LocalDate getEndDate();
-    LocalDate getUpdateDate();
+    //LocalDate getUpdateDate();
     String getPmId();
     String getClient();
     String getContractor();

@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "EMP_ABILITY")
+@Table(name = "EMP_ABILITY_INFO")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,15 +22,20 @@ public class EmpAbility {
     private EmpAbilityPK empAbilityPk;
     
     public String getEmpCd() { return empAbilityPk != null ? empAbilityPk.getEmpCd() : null; }
-    public String getEmpNm() { return empAbilityPk != null ? empAbilityPk.getEmpNm() : null; }
+    //public String getEmpNm() { return empAbilityPk != null ? empAbilityPk.getEmpNm() : null; }
     public String getAbilityType() { return empAbilityPk != null ? empAbilityPk.getAbilityType() : null; }
     public String getAbilityNm() { return empAbilityPk != null ? empAbilityPk.getAbilityNm() : null; }
     public LocalDate getStartDate() { return empAbilityPk != null ? empAbilityPk.getStartDate() : null; }
 
+    @Column(name = "sys_updtr_id", length = 20)
+    private String sysUpdtrId;
 
-    @Column(name = "END_DATE")
-    private LocalDate endDate;
+    @Column(name = "sys_svc_id", length = 20)
+    private String sysSvcId;
 
-    @Column(name = "UPDATE_DATE")
+    //@Column(name = "END_DATE")
+    //private LocalDate endDate;
+
+    @Column(name = "sys_updt_date")
     private LocalDate updateDate;
 }

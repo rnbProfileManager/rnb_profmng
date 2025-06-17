@@ -7,7 +7,7 @@ public interface EmpNoView {
     String getEmpNm();
     LocalDate getStartDate();
     LocalDate getEndDate();
-    LocalDate getUpdateDate();
+    //LocalDate getUpdateDate();
     String getJobGrade();
     String getJobTitle();
     String getAddress();

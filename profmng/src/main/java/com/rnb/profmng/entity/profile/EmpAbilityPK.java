@@ -14,18 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmpAbilityPK implements Serializable {
-    @Column(name = "EMP_CD", length = 4, nullable = false)
+    @Column(name = "emp_id", length = 4, nullable = false)
     private String empCd;
 
-    @Column(name = "EMP_NM", length = 20, nullable = false)
-    private String empNm;
+    //@Column(name = "EMP_NM", length = 20, nullable = false)
+    //private String empNm;
 
-    @Column(name = "ABILITY_TYPE", length = 20, nullable = false)
+    @Column(name = "ability_type", length = 20, nullable = false)
     private String abilityType;
 
-    @Column(name = "ABILITY_NM", length = 1000)
+    @Column(name = "ability_nm", length = 255)
     private String abilityNm;
-
-    @Column(name = "START_DATE", nullable = false)
+    
+    @Column(name = "sys_cret_date", nullable = false)
     private LocalDate startDate;
 }

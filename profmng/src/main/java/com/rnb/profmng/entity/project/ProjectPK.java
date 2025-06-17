@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectPK implements Serializable {
-    @Column(name = "PROJECT_CD", length = 4, nullable = false)
+    @Column(name = "pjt_cd", length = 4, nullable = false)
     private String projectCd;
 
-    @Column(name = "PROJECT_NM", length = 100, nullable = false)
+    @Column(name = "pjt_nm", length = 255, nullable = false)
     private String projectNm;
 
-    @Column(name = "START_DATE", nullable = false)
+    @Column(name = "efct_start_date", nullable = false)
     private LocalDate startDate;
     
     @Override

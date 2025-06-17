@@ -13,14 +13,14 @@ import com.rnb.profmng.entity.EmpAbilityId;
 
 public interface ProfileRepository extends JpaRepository<EmpAbilityEntity, EmpAbilityId> {
 
-	@Query("SELECT new com.rnb.profmng.dto.ProfiledbDto(a.empCd, a.empNm, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath , c.fileName) "
+	@Query("SELECT new com.rnb.profmng.dto.ProfiledbDto(a.empCd, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath , c.fileName) "
 			+ "FROM EmpAbilityEntity a " + "JOIN EmpNoEntity b ON a.empCd = b.empCd "
 			+ "LEFT JOIN ProfileFileInfoEntity c ON a.empCd = c.empCd ")
 	List<ProfiledbDto> findAllProfiles();
 
 	@Query("""
 			SELECT new com.rnb.profmng.dto.ProfiledbDto(
-			    a.empCd, a.empNm, a.abilityType, a.abilityNm,
+			    a.empCd, a.abilityType, a.abilityNm,
 			    b.jobTitle, b.callNumber,
 			    c.filePath, c.fileName
 			)
@@ -33,19 +33,18 @@ public interface ProfileRepository extends JpaRepository<EmpAbilityEntity, EmpAb
 			      FROM ProfileFileInfoEntity c2
 			      WHERE c2.empCd = a.empCd
 			  )
-			WHERE (:empNm IS NULL OR a.empNm = :empNm)
-			  AND (:startDate IS NULL OR a.startDate >= :startDate)
+			WHERE (:startDate IS NULL OR a.startDate >= :startDate)
 			  AND (:endDate IS NULL OR a.endDate <= :endDate)
 			""")
 			List<ProfiledbDto> searchProfiles(
-			    @Param("empNm") String empNm,
+			    @Param("empCd") String empCd,
 			    @Param("startDate") LocalDateTime startDate,
 			    @Param("endDate") LocalDateTime endDate
 			);
 
 	@Query("""
 			SELECT new com.rnb.profmng.dto.ProfiledbDto(
-			    a.empCd, a.empNm, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath,c.fileName
+			    a.empCd, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath,c.fileName
 			)
 			FROM EmpAbilityEntity a
 			JOIN EmpNoEntity b ON a.empCd = b.empCd

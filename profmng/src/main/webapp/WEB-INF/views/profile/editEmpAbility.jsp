@@ -75,10 +75,6 @@
 							    <input type="text" name="empCd" class="searchInput" value="${param.empCd}" readonly>
 							</div>
 							<div class="edit-group">
-								<label for="searchInput">사원명:</label>
-								<input type="text"  name="empNm" class="searchInput" value="${param.empNm}" readonly>
-							</div>
-							<div class="edit-group">
 								<label for="departmentSelect">직무능력유형:</label>
 								<input type="text"  name="abilityType" class="searchInput" value="${param.abilityType}" readonly>
 							</div>
@@ -89,10 +85,6 @@
 							<div class="edit-group">
 								<label for="dateInput">시작 일자 선택:</label>
 								<input type="date" name="startDate" class="dateInput" value="${param.startDate}" readonly>
-							</div>
-							<div class="edit-group">
-								<label for="dateInput">종료 일자 선택:</label>
-								<input type="date" name="endDate" class="dateInput">
 							</div>
 							<div class="grid-buttons">
 							  <button type="button" onclick="edit()" class="btn edit">수정</button>

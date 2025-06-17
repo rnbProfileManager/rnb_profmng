@@ -83,11 +83,9 @@
 					        <tr>
 					            <th><input type="checkbox" id="checkAll" /></th>
 					            <th>사원코드</th>
-					            <th>사원명</th>
 					            <th>직무능력유형</th>
 					            <th>직무능력명</th>
 					            <th>시작일자</th>
-								<th>종료일자</th>
 					        </tr>
 					    </thead>
 						    <tbody>
@@ -96,16 +94,13 @@
 										<tr>
 										   <td><input type="checkbox" name="empCd" value="${empAbility.empCd}"
 												data-empcd="${empAbility.empCd}"
-									       		data-empnm="${empAbility.empNm}"
-												data-abilitytype="${empAbility.abilityType}"
+									       		data-abilitytype="${empAbility.abilityType}"
 												data-abilitynm="${empAbility.abilityNm}"
 											    data-startdate="${empAbility.startDate}" /></td>
 										    <td>${empAbility.empCd}</td>
-										    <td>${empAbility.empNm}</td>
 											<td>${empAbility.abilityType}</td>
 											<td>${empAbility.abilityNm}</td>
 										    <td>${empAbility.startDate}</td>
-										    <td>${empAbility.endDate}</td>
 										</tr>
 									</c:forEach>
 						    </tbody>
@@ -173,19 +168,17 @@
 		
 		const item = checkedItems[0];
 	    const empCd = item.dataset.empcd;
-	    const empNm = item.dataset.empnm;
-		const abilityType = item.dataset.abilitytype;
+	    const abilityType = item.dataset.abilitytype;
 		const abilityNm = item.dataset.abilitynm;
 	    const startDate = item.dataset.startdate;
 			
-		if (!empCd || !empNm || !abilityType || !abilityNm) {
+		if (!empCd || !abilityType || !abilityNm) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
 
 		window.location.href = "/profile/editEmpAbility"
 		    + "?empCd=" + encodeURIComponent(empCd)
-		    + "&empNm=" + encodeURIComponent(empNm)
 			+ "&abilityType=" + encodeURIComponent(abilityType)
 			+ "&abilityNm=" + encodeURIComponent(abilityNm)
 		    + "&startDate=" + encodeURIComponent(startDate);

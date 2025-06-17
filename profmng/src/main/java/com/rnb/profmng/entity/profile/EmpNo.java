@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "EMP_NO")
+@Table(name = "EMP_BAS")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,27 +24,27 @@ public class EmpNo {
     public String getEmpNm() { return empNoPk != null ? empNoPk.getEmpNm() : null; }
     public LocalDate getStartDate() { return empNoPk != null ? empNoPk.getStartDate() : null; }
     
-    @Column(name = "END_DATE")
+    @Column(name = "efct_end_date")
     private LocalDate endDate;
 
-    @Column(name = "UPDATE_DATE")
-    private LocalDate updateDate;
+    //@Column(name = "sys_updt_date")
+    //private LocalDate updateDate;
 
-    @Column(name = "JOB_GRADE", length = 10)
+    @Column(name = "job_grade", length = 10)
     private String jobGrade;
 
-    @Column(name = "JOB_TITLE", length = 10)
+    @Column(name = "job_title", length = 10)
     private String jobTitle;
 
-    @Column(name = "ADDRESS", length = 100)
+    @Column(name = "home_addr", length = 100)
     private String address;
     
-    @Column(name = "CALL_NUMBER", length = 15)
+    @Column(name = "call_number", length = 15)
     private String callNumber;
 
-    @Column(name = "ORG_NM", length = 30)
+    @Column(name = "org_nm", length = 30)
     private String orgNm;
 
-    @Column(name = "EMP_TYPE", length = 20)
+    @Column(name = "emp_type_cd", length = 20)
     private String empType;
 }

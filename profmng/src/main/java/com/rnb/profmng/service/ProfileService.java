@@ -55,8 +55,8 @@ public class ProfileService {
 	}
 	 
 	// 조회조건 조회   
-	 public List<ProfiledbDto> searchProfiles(String empNm, String startDateStr, String endDateStr) {
-	        if ((empNm == null || empNm.isEmpty()) 
+	 public List<ProfiledbDto> searchProfiles(String empCd, String startDateStr, String endDateStr) {
+	        if ((empCd == null || empCd.isEmpty()) 
 	            && (startDateStr == null || startDateStr.isEmpty()) 
 	            && (endDateStr == null || endDateStr.isEmpty())) {
 	            return getAllProfiles();
@@ -70,7 +70,7 @@ public class ProfileService {
 	                ? LocalDate.parse(endDateStr).atTime(23, 59, 59)
 	                : null;
 
-	        return profileRepository.searchProfiles(empNm, parsedStartDate, parsedEndDate);
+	        return profileRepository.searchProfiles(empCd, parsedStartDate, parsedEndDate);
 	    }
     
 
@@ -91,7 +91,7 @@ public class ProfileService {
         empNo.setEmpNoPk(empNoId);
         
         empNo.setEndDate(profileDto.getEndDate());
-        empNo.setUpdateDate(profileDto.getUpdateDate());
+        //empNo.setUpdateDate(profileDto.getUpdateDate());
         empNo.setJobGrade(profileDto.getJobGrade());
         empNo.setJobTitle(profileDto.getJobTitle());
         empNo.setAddress(profileDto.getAddress());
@@ -104,7 +104,9 @@ public class ProfileService {
     
     public EmpAbility insertEmpAbility(ProfileDTO profileDto) {
     	
-        EmpAbilityPK id = new EmpAbilityPK(profileDto.getEmpCd(), profileDto.getEmpNm(), profileDto.getAbilityType(), profileDto.getAbilityNm(), profileDto.getStartDate());
+        EmpAbilityPK id = new EmpAbilityPK(profileDto.getEmpCd(), 
+        		//profileDto.getEmpNm(), 
+        		profileDto.getAbilityType(), profileDto.getAbilityNm(), profileDto.getStartDate());
 
         if (empAbilityRepo.existsById(id)) {
             throw new DuplicateKeyException("Duplicate");
@@ -112,7 +114,7 @@ public class ProfileService {
     	
         EmpAbilityPK empAbilityPk = new EmpAbilityPK();
         empAbilityPk.setEmpCd(profileDto.getEmpCd());
-        empAbilityPk.setEmpNm(profileDto.getEmpNm());
+        //empAbilityPk.setEmpNm(profileDto.getEmpNm());
         empAbilityPk.setAbilityType(profileDto.getAbilityType());
         empAbilityPk.setAbilityNm(profileDto.getAbilityNm());
         empAbilityPk.setStartDate(profileDto.getStartDate());
@@ -120,7 +122,7 @@ public class ProfileService {
         EmpAbility empAbility = new EmpAbility();
         empAbility.setEmpAbilityPk(empAbilityPk);
         
-        empAbility.setEndDate(profileDto.getEndDate());
+        //empAbility.setEndDate(profileDto.getEndDate());
         empAbility.setUpdateDate(profileDto.getUpdateDate());
 
         return empAbilityRepo.save(empAbility);
@@ -206,7 +208,7 @@ public class ProfileService {
     public void updateEmpNoFromDto(EmpNoDTO dto, EmpNo entity) {
         try {
             new NullAwareBeanUtilsBean().copyProperties(entity, dto);
-            entity.setUpdateDate(LocalDate.now());
+            //entity.setUpdateDate(LocalDate.now());
         } catch (Exception e) {
             throw new RuntimeException("프로퍼티 복사 실패", e);
         }
@@ -232,14 +234,14 @@ public class ProfileService {
 
         EmpAbilityPK pk = new EmpAbilityPK();
         pk.setEmpCd(dto.getEmpCd());
-        pk.setEmpNm(dto.getEmpNm());
+        //pk.setEmpNm(dto.getEmpNm());
         pk.setAbilityType(dto.getAbilityType());
         pk.setAbilityNm(dto.getAbilityNm());
         pk.setStartDate(dto.getStartDate());
 
         entity.setEmpAbilityPk(pk);
 
-        entity.setEndDate(dto.getEndDate());
+        //entity.setEndDate(dto.getEndDate());
 
         empAbilityRepo.save(entity);
     }

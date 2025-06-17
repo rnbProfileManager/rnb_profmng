@@ -5,41 +5,41 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "EMP_NO")
+@Table(name = "EMP_BAS")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class EmpNoEntity {
 
     @Id
-    @Column(name = "EMP_CD")
+    @Column(name = "emp_id")
     private String empCd;
 
-    @Column(name = "EMP_NM")
+    @Column(name = "emp_nm")
     private String empNm;
 
-    @Column(name = "START_DATE")
+    @Column(name = "efct_start_date")
     private LocalDateTime startDate;
 
-    @Column(name = "END_DATE")
+    @Column(name = "efct_end_date")
     private LocalDateTime endDate;
 
-    @Column(name = "UPDATE_DATE")
-    private LocalDateTime updateDate;
+    //@Column(name = "UPDATE_DATE")
+    //private LocalDateTime updateDate;
 
-    @Column(name = "JOB_GRADE")
+    @Column(name = "job_grade")
     private String jobGrade;
 
-    @Column(name = "JOB_TITLE")
+    @Column(name = "job_title")
     private String jobTitle;
 
-    @Column(name = "ADDRESS")
+    @Column(name = "home_addr")
     private String address;
 
-    @Column(name = "CALL_NUMBER")
+    @Column(name = "call_number")
     private String callNumber;
 
-    @Column(name = "ORG_NM")
+    @Column(name = "org_nm")
     private String orgNm;
 
-    @Column(name = "EMP_TYPE")
+    @Column(name = "emp_type_cd")
     private String empType;
 }

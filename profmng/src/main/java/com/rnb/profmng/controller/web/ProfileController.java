@@ -68,10 +68,10 @@ public class ProfileController{
     // API용 검색
     @GetMapping("/api/profiles/search")
     public List<ProfiledbDto> searchProfiles(
-            @RequestParam(required = false) String empNm,
+            @RequestParam(required = false) String empCd,
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate) {
-        return profileService.searchProfiles(empNm, startDate, endDate);
+        return profileService.searchProfiles(empCd, startDate, endDate);
     }
     
     /**
@@ -123,12 +123,12 @@ public class ProfileController{
     // 화면 진입 + 검색
     @GetMapping("/profile/manage")
     public String manage(
-            @RequestParam(required = false) String empNm,
+            @RequestParam(required = false) String empCd,
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
             Model model) {
 
-        List<ProfiledbDto> employeeList = profileService.searchProfiles(empNm, startDate, endDate);
+        List<ProfiledbDto> employeeList = profileService.searchProfiles(empCd, startDate, endDate);
         model.addAttribute("employeeList", employeeList);
         return "web/profile";
     }
@@ -381,7 +381,7 @@ public class ProfileController{
         try {
             EmpAbilityPK pk = new EmpAbilityPK(
             		empAbilityDto.getEmpCd(),
-            		empAbilityDto.getEmpNm(),
+            		//empAbilityDto.getEmpNm(),
             		empAbilityDto.getAbilityType(),
             		empAbilityDto.getAbilityNm(),
             		empAbilityDto.getStartDate()
@@ -404,17 +404,19 @@ public class ProfileController{
     @GetMapping("/profile/editEmpAbility")
     public String editEmpAbilityForm(
             @RequestParam("empCd") String empCd,
-            @RequestParam("empNm") String empNm,
+            //@RequestParam("empNm") String empNm,
             @RequestParam("abilityType") String abilityType,
             @RequestParam("abilityNm") String abilityNm,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
             Model model) {
 
     	
-    	EmpAbilityPK pk = new EmpAbilityPK(empCd, empNm, abilityType, abilityNm, startDate);
+    	EmpAbilityPK pk = new EmpAbilityPK(empCd, 
+    			//empNm, 
+    			abilityType, abilityNm, startDate);
     	EmpAbility empAbility = profileService.findByPk(pk);
         model.addAttribute("empCd", empCd);
-        model.addAttribute("empNm", empNm);
+        //model.addAttribute("empNm", empNm);
         model.addAttribute("abilityType", abilityType);
         model.addAttribute("abilityNm", abilityNm);
         model.addAttribute("startDate", startDate);
@@ -426,7 +428,7 @@ public class ProfileController{
         try {
         	EmpAbilityPK pk = new EmpAbilityPK(
         			empAbilityDto.getEmpCd(),
-        			empAbilityDto.getEmpNm(),
+        			//empAbilityDto.getEmpNm(),
         			empAbilityDto.getAbilityType(),
         			empAbilityDto.getAbilityNm(),
         			empAbilityDto.getStartDate()
@@ -441,7 +443,7 @@ public class ProfileController{
         }
 
         return "redirect:/profile/editEmpAbility?empCd=" + URLEncoder.encode(empAbilityDto.getEmpCd(), StandardCharsets.UTF_8)
-             + "&empNm=" + URLEncoder.encode(empAbilityDto.getEmpNm(), StandardCharsets.UTF_8)
+        //+ "&empNm=" + URLEncoder.encode(empAbilityDto.getEmpNm(), StandardCharsets.UTF_8)
              + "&abilityType=" + URLEncoder.encode(empAbilityDto.getAbilityType(), StandardCharsets.UTF_8)
              + "&abilityNm=" + URLEncoder.encode(empAbilityDto.getAbilityNm(), StandardCharsets.UTF_8)
              + "&startDate=" + empAbilityDto.getStartDate();

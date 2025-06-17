@@ -14,7 +14,7 @@ public class UserDTO {
 	private String userId;
     private String userPwd;
     private String userNm;
-    private String userCd;
+    //private String userCd;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
@@ -29,7 +29,7 @@ public class UserDTO {
     	this.userId = user.getUserId();
     	this.userPwd = user.getUserPwd();
     	this.userNm = user.getUserNm();
-    	this.userCd = user.getUserCd();
+    	//this.userCd = user.getUserCd();
     	this.createDate = user.getCreateDate();
     	this.updateDate = user.getUpdateDate();
     }
