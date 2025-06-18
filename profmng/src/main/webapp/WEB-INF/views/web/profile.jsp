@@ -64,15 +64,15 @@
         <!-- MAIN CONTENT -->
         <main>
             <h1 class="main-title">프로필 조회</h1>
-            <p class="main-subtitle">직원명, 입사기간을 조회해 주세요. <br> doc,docx 파일만 업로드 가능합니다.</p>
+            <p class="main-subtitle">사원코드, 입사기간을 조회해 주세요. <br> doc,docx 파일만 업로드 가능합니다.</p>
 
 			<section class="search-area">
 			    <h2>프로필 조회</h2>
 
 			    <form class="search-form" method="get" action="/profile/manage">	
 					<div class="form-group">
-					    <label for="empNm">직원명</label>
-					    <input type="text" id="empNm" name="empNm" value="${param.empNm}">
+					    <label for="empCd">사원코드</label>
+					    <input type="text" id="empCd" name="empCd" value="${param.empCd}">
 					</div>
 			        <div class="form-group">
 			            <label for="startDate">기간</label>
@@ -89,7 +89,7 @@
 					    <thead>
 					        <tr>
 					            <th><input type="checkbox" /></th>
-					            <th>직원명</th>
+					            <th>사원코드</th>
 					            <th>이력서</th>
 					            <th>경력</th>
 					            <th>휴대폰번호</th>
@@ -102,7 +102,7 @@
 									<c:forEach var="emp" items="${employeeList}">
 										<tr>
 										   <td><input type="checkbox" name="empChk" value="${emp.empCd}" /></td>
-										    <td>${emp.empNm}</td>
+										    <td>${emp.empCd}</td>
 										    <td>
 												<c:choose>
 												    <c:when test="${not empty emp.filePath}">
@@ -114,7 +114,6 @@
 										    <td>${emp.callNumber}</td>
 										    <td>
 												<input type="hidden" class="empCd" value="${emp.empCd}" />
-												<input type="hidden" class="empNm" value="${emp.empNm}" />
 												<input type="file" id="fileInput_${emp.empCd}" style="display:none;" />
 												<button type="button" onclick="$('#fileInput_${emp.empCd}').click();" class="btn">파일 선택</button>
 										    </td>
@@ -129,12 +128,10 @@
 							    if (!file) return;
 							    const $tr = $(this).closest('tr');
 							    const empCd = $tr.find('.empCd').val();
-							    const empNm = $tr.find('.empNm').val();
 
 							    const formData = new FormData();
 							    formData.append("file", file);
 							    formData.append("empCd", empCd);
-							    formData.append("empNm", empNm);
 
 							    $.ajax({
 							        url: "/upload",

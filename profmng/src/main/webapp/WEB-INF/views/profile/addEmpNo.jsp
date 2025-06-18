@@ -89,7 +89,6 @@
 									<option value="부사장">부사장</option>
 									<option value="전무">전무</option>
 								  	<option value="상무">상무</option>
-									<option value="팀원">팀원</option>
 									<option value="이사">이사</option>
 									<option value="부장">부장</option>
 									<option value="차장">차장</option>
