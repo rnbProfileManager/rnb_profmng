@@ -4,10 +4,14 @@ import java.time.LocalDate;
 
 import com.rnb.profmng.entity.profile.EmpBas;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class EmpBasDTO{
     
@@ -22,20 +26,6 @@ public class EmpBasDTO{
     private String callNumber;
     private String orgCd;
     private String empTypeCd;
-    
-	public EmpBasDTO(String empId, LocalDate efctStartDate, String empNm, LocalDate efctEndDate, String jobGradeCd,
-			String jobTitleCd, String homeAddr, String callNumber, String orgCd, String empTypeCd) {
-		this.empId = empId;
-		this.efctStartDate = efctStartDate;
-		this.empNm = empNm;
-		this.efctEndDate = efctEndDate;
-		this.jobGradeCd = jobGradeCd;
-		this.jobTitleCd = jobTitleCd;
-		this.homeAddr = homeAddr;
-		this.callNumber = callNumber;
-		this.orgCd = orgCd;
-		this.empTypeCd = empTypeCd;
-	}
     
     public EmpBasDTO(EmpBas empBas) {
     	this.empId = empBas.getEmpBasPk().getEmpId();

@@ -4,12 +4,17 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.rnb.profmng.dto.profile.EmpAbilityInfoDTO;
 import com.rnb.profmng.entity.project.Project;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class ProjectDTO {
     
@@ -23,21 +28,6 @@ public class ProjectDTO {
     private BigDecimal manMonth;
     private BigDecimal totAmt;
     private String pjtTypeCd;
-    
-	public ProjectDTO(long pjtSeq, String pjtNm, LocalDate efctStartDate, LocalDate efctEndDate,
-			String pmId, String client, String contractor, BigDecimal manMonth,
-			BigDecimal totAmt, String pjtTypeCd) {
-		this.pjtSeq = pjtSeq;
-		this.pjtNm = pjtNm;
-		this.efctStartDate = efctStartDate;
-		this.efctEndDate = efctEndDate;
-		this.pmId = pmId;
-		this.client = client;
-		this.contractor = contractor;
-		this.manMonth = manMonth;
-		this.totAmt = totAmt;
-		this.pjtTypeCd = pjtTypeCd;
-	}
     
     public ProjectDTO(Project project) {
     	this.pjtSeq = project.getProjectPk().getPjtSeq();

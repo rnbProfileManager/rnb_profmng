@@ -4,10 +4,14 @@ import java.time.LocalDate;
 
 import com.rnb.profmng.entity.profile.PjtHmnResrcInfo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class PjtHmnResrcInfoDTO{
     
@@ -21,19 +25,6 @@ public class PjtHmnResrcInfoDTO{
     private LocalDate sysCretDate;
     private LocalDate sysUpdtDate;
     private String userRoleCd;
-    
-	public PjtHmnResrcInfoDTO(long pjtSeq, String empId, LocalDate efctStartDate, LocalDate efctEndDate,
-			String sysUpdtrId, String sysSvcId, LocalDate sysCretDate, LocalDate sysUpdtDate, String userRoleCd) {
-		this.pjtSeq = pjtSeq;
-		this.empId = empId;
-		this.efctStartDate = efctStartDate;
-		this.efctEndDate = efctEndDate;
-		this.sysUpdtrId = sysUpdtrId;
-		this.sysSvcId = sysSvcId;
-		this.sysCretDate = sysCretDate;
-		this.sysUpdtDate = sysUpdtDate;
-		this.userRoleCd = userRoleCd;
-	}
     
     public PjtHmnResrcInfoDTO(PjtHmnResrcInfo pjtHmnResrcInfo) {
     	this.pjtSeq = pjtHmnResrcInfo.getPjtHmnResrcInfoPk().getPjtSeq();
