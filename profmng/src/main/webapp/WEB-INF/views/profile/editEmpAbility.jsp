@@ -31,10 +31,10 @@
                 <a href="/dashboard">대시보드</a>
             </div>
             <div class="nav-item">
-                <a href="/project" class="active">프로젝트 관리</a>
+                <a href="/project">프로젝트 관리</a>
             </div>
             <div class="nav-item">
-                <a href="/profile">사용자 관리</a>
+                <a href="/profile" class="active">사용자 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/system">시스템 설정</a>
@@ -51,7 +51,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
 			<ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
-				<li><a href="/profile/empNo">직원 정보</a></li>
+				<li><a href="/profile/empBas">직원 정보</a></li>
 				<li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbility" class="active">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
@@ -72,7 +72,7 @@
 					    <form class="edit-form" method="post">
 							<div class="edit-group">
 							    <label for="searchInput">사원코드:</label>
-							    <input type="text" name="empCd" class="searchInput" value="${param.empCd}" readonly>
+							    <input type="text" name="empId" class="searchInput" value="${param.empId}" readonly>
 							</div>
 							<div class="edit-group">
 								<label for="departmentSelect">직무능력유형:</label>

@@ -31,10 +31,10 @@
                 <a href="/dashboard">대시보드</a>
             </div>
             <div class="nav-item">
-                <a href="/project" class="active">프로젝트 관리</a>
+                <a href="/project">프로젝트 관리</a>
             </div>
             <div class="nav-item">
-                <a href="/profile">사용자 관리</a>
+                <a href="/profile" class="active">사용자 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/system">시스템 설정</a>
@@ -51,7 +51,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
 			<ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
-				<li><a href="/profile/empNo" class="active">직원 정보</a></li>
+				<li><a href="/profile/empBas" class="active">직원 정보</a></li>
 				<li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbility">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
@@ -71,25 +71,24 @@
 					    <h2>직원정보</h2>
 					    <form class="edit-form" method="post">
 							<div class="edit-group">
-							    <label for="searchInput">사원코드: </label>
-							    <input type="text" name="empCd" class="searchInput" value="${param.empCd}" readonly>
+							    <label for="searchInput">사원아이디: <span class="required">*</span></label>
+							    <input type="text" name="empId" class="searchInput" placeholder="예: 0001" required>
 							</div>
 							<div class="edit-group">
-								<label for="searchInput">사원명: </label>
-								<input type="text"  name="empNm" class="searchInput" value="${param.empNm}" readonly>
+								<label for="searchInput">사원명: <span class="required">*</span></label>
+								<input type="text"  name="empNm" class="searchInput" placeholder="예: ICIS-TR" required>
 							</div>
 							<div class="edit-group">
-								<label for="dateInput">입사일자: </label>
-								<input type="date" name="startDate" class="dateInput" value="${param.startDate}" readonly>
+								<label for="dateInput">입사일자: <span class="required">*</span></label>
+								<input type="date" name="efctStartDate" class="dateInput" required>
 							</div>
 							<div class="edit-group">
-								<label for="jobGrade">직급:</label>
-								<select class="jobGrade" name="jobGrade">
+								<label for="jobGradeCd">직급:</label>
+								<select class="jobGradeCd" name="jobGradeCd">
 								  	<option value="전체">전체</option>
 									<option value="부사장">부사장</option>
 									<option value="전무">전무</option>
 								  	<option value="상무">상무</option>
-									<option value="팀원">팀원</option>
 									<option value="이사">이사</option>
 									<option value="부장">부장</option>
 									<option value="차장">차장</option>
@@ -99,8 +98,8 @@
 								</select>
 							</div>
 							<div class="edit-group">
-								<label for="jobTitle">직위:</label>
-								<select class="jobTitle" name="jobTitle">
+								<label for="jobTitleCd">직위:</label>
+								<select class="jobTitleCd" name="jobTitleCd">
 								  	<option value="전체">전체</option>
 								  	<option value="본부장">본부장</option>
 									<option value="실장">실장</option>
@@ -110,7 +109,7 @@
 							</div>
 							<div class="edit-group">
 								<label for="searchInput">주소:</label>
-								<input type="text" name="address" class="searchInput" placeholder="예: KT DS">
+								<input type="text" name="homeAddr" class="searchInput" placeholder="예: KT DS">
 							</div>
 							<div class="edit-group">
 								<label for="searchInput">전화번호:</label>
@@ -118,7 +117,7 @@
 							</div>
 							<div class="edit-group">
 								<label for="departmentSelect">부서:</label>
-								<select class="departmentSelect" name="orgNm">
+								<select class="departmentSelect" name="orgCd">
 								  	<option value="전체">전체</option>
 								  	<option value="사업개발실">사업개발실</option>
 								  	<option value="경영지원실">경영지원실</option>
@@ -134,7 +133,7 @@
 							</div>
 							<div class="edit-group">
 								<label for="departmentSelect">고용형태:</label>
-								<select class="departmentSelect" name="empType">
+								<select class="departmentSelect" name="empTypeCd">
 								  <option value="전체">전체</option>
 								  <option value="정직원">정직원</option>
 								  <option value="계약직">계약직</option>
@@ -142,17 +141,20 @@
 								</select>
 							</div>
 							<div class="grid-buttons">
-							  <button type="button" onclick="edit()" class="btn edit">수정</button>
+							  <button type="button" onclick="add()" class="btn edit">추가</button>
 							</div>
 						</form>
 					    <!-- 리스트 영역 -->
 					    <div class="grid-area">
 							<c:choose>
-								<c:when test="${editResult eq 'success'}">
-								    <div class="result-area">✅ 직원정보 수정에 성공했습니다.</div>
+								<c:when test="${addResult eq 'success'}">
+								    <div class="result-area">✅ 직원정보 추가에 성공했습니다.</div>
 								</c:when>
-								<c:when test="${editResult eq 'exception'}">
-								    <div class="result-area">❌ 직원정보 수정에 실패했습니다.</div>
+								<c:when test="${addResult eq 'duplicate'}">
+								    <div class="result-area">❌ 중복된 사원코드가 있습니다.</div>
+								</c:when>
+								<c:when test="${addResult eq 'exception'}">
+								    <div class="result-area">❌ 직원정보 추가에 실패했습니다.</div>
 								</c:when>
 							    <c:otherwise>
 							        <!-- 아무 메시지도 출력 안 함 -->
@@ -180,18 +182,18 @@
         </div>
     </footer>
 	<script>
-	function edit() {
-			const form = document.querySelector('.edit-form');
+	function add() {
+		const form = document.querySelector('.edit-form');
 
-			if (!form.checkValidity()) {
-			    form.reportValidity();
-			    return;
-			}
+		if (!form.checkValidity()) {
+		    form.reportValidity();
+		    return;
+		}
 
-			form.action = "/profile/editEmpNo";
-			form.method = "post";
+		form.action = "/profile/addEmpBas";
+		form.method = "post";
 
-			form.submit();
+		form.submit();
 	}
 	</script>
 </body>

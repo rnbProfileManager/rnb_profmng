@@ -51,7 +51,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
 			<ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
-				<li><a href="/profile/empNo">직원 정보</a></li>
+				<li><a href="/profile/empBas">직원 정보</a></li>
 				<li><a href="/profile/projectEmpInfo" class="active">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbility">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
@@ -76,7 +76,7 @@
 							</div>
 							<div class="edit-group">
 								<label for="searchInput">사원코드:</label>
-								<input type="text"  name="empCd" class="searchInput" value="${param.empCd}" readonly>
+								<input type="text"  name="empId" class="searchInput" value="${param.empId}" readonly>
 							</div>
 							<div class="edit-group">
 								<label for="searchInput">프로젝트명:</label>

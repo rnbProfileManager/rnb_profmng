@@ -11,23 +11,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rnb.profmng.dto.ProfiledbDto;
-import com.rnb.profmng.dto.profile.EmpAbilityDTO;
-import com.rnb.profmng.dto.profile.EmpNoDTO;
-import com.rnb.profmng.dto.profile.ProfileDTO;
-import com.rnb.profmng.dto.profile.ProjectEmpInfoDTO;
-import com.rnb.profmng.dto.project.ProjectDTO;
-import com.rnb.profmng.entity.profile.EmpAbility;
-import com.rnb.profmng.entity.profile.EmpAbilityPK;
-import com.rnb.profmng.entity.profile.EmpNo;
-import com.rnb.profmng.entity.profile.EmpNoPK;
-import com.rnb.profmng.entity.profile.ProjectEmpInfo;
-import com.rnb.profmng.entity.profile.ProjectEmpInfoPK;
-import com.rnb.profmng.entity.project.Project;
-import com.rnb.profmng.entity.project.ProjectPK;
+import com.rnb.profmng.dto.profile.EmpAbilityInfoDTO;
+import com.rnb.profmng.dto.profile.EmpBasDTO;
+import com.rnb.profmng.dto.profile.PjtHmnResrcInfoDTO;
+import com.rnb.profmng.entity.profile.EmpAbilityInfo;
+import com.rnb.profmng.entity.profile.EmpAbilityInfoPK;
+import com.rnb.profmng.entity.profile.EmpBas;
+import com.rnb.profmng.entity.profile.EmpBasPK;
+import com.rnb.profmng.entity.profile.PjtHmnResrcInfo;
+import com.rnb.profmng.entity.profile.PjtHmnResrcInfoPK;
 import com.rnb.profmng.repository.ProfileRepository;
-import com.rnb.profmng.repository.profile.EmpAbilityRepo;
-import com.rnb.profmng.repository.profile.EmpNoRepo;
-import com.rnb.profmng.repository.profile.ProjectEmpInfoRepo;
+import com.rnb.profmng.repository.profile.EmpAbilityInfoRepo;
+import com.rnb.profmng.repository.profile.EmpBasRepo;
+import com.rnb.profmng.repository.profile.PjtHmnResrcInfoRepo;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +33,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProfileService {
     @Autowired
-    private EmpNoRepo empNoRepo;
+    private EmpBasRepo empBasRepo;
 
     @Autowired
-    private EmpAbilityRepo empAbilityRepo;
+    private EmpAbilityInfoRepo empAbilityInfoRepo;
 
     @Autowired
-    private ProjectEmpInfoRepo projectEmpInfoRepo;
+    private PjtHmnResrcInfoRepo pjtHmnResrcInfoRepo;
     
     private final ProfileRepository profileRepository;
 	 
@@ -74,82 +70,84 @@ public class ProfileService {
 	    }
     
 
-    public EmpNo insertEmpNo(ProfileDTO profileDto) {
+    public EmpBas insertEmpBas(EmpBasDTO dto) {
     	
-        EmpNoPK id = new EmpNoPK(profileDto.getEmpCd(), profileDto.getEmpNm(), profileDto.getStartDate());
+        EmpBasPK id = new EmpBasPK(dto.getEmpId(), dto.getEfctStartDate());
 
-        if (empNoRepo.existsById(id)) {
+        if (empBasRepo.existsById(id)) {
             throw new DuplicateKeyException("Duplicate");
         }
     	
-        EmpNoPK empNoId = new EmpNoPK();
-        empNoId.setEmpCd(profileDto.getEmpCd());
-        empNoId.setEmpNm(profileDto.getEmpNm());
-        empNoId.setStartDate(profileDto.getStartDate());
+        EmpBasPK pk = new EmpBasPK();
+        pk.setEmpId(dto.getEmpId());
+        pk.setEfctStartDate(dto.getEfctStartDate());
         
-        EmpNo empNo = new EmpNo();
-        empNo.setEmpNoPk(empNoId);
+        EmpBas empBas = new EmpBas();
         
-        empNo.setEndDate(profileDto.getEndDate());
-        //empNo.setUpdateDate(profileDto.getUpdateDate());
-        empNo.setJobGrade(profileDto.getJobGrade());
-        empNo.setJobTitle(profileDto.getJobTitle());
-        empNo.setAddress(profileDto.getAddress());
-        empNo.setCallNumber(profileDto.getCallNumber());
-        empNo.setOrgNm(profileDto.getOrgNm());
-        empNo.setEmpType(profileDto.getEmpType());
+        empBas.setEmpBasPk(pk);
+        empBas.setEmpNm(dto.getEmpNm());
+        empBas.setEfctEndDate(dto.getEfctEndDate());
+        empBas.setJobGradeCd(dto.getJobGradeCd());
+        empBas.setJobTitleCd(dto.getJobTitleCd());
+        empBas.setHomeAddr(dto.getHomeAddr());
+        empBas.setCallNumber(dto.getCallNumber());
+        empBas.setOrgCd(dto.getOrgCd());
+        empBas.setEmpTypeCd(dto.getEmpTypeCd());
 
-        return empNoRepo.save(empNo);
+        return empBasRepo.save(empBas);
     }
     
-    public EmpAbility insertEmpAbility(ProfileDTO profileDto) {
+    public EmpAbilityInfo insertEmpAbilityInfo(EmpAbilityInfoDTO dto) {
     	
-        EmpAbilityPK id = new EmpAbilityPK(profileDto.getEmpCd(), 
-        		//profileDto.getEmpNm(), 
-        		profileDto.getAbilityType(), profileDto.getAbilityNm(), profileDto.getStartDate());
+        EmpAbilityInfoPK id = new EmpAbilityInfoPK(dto.getEmpId(), 
+        		dto.getAbilityNm());
 
-        if (empAbilityRepo.existsById(id)) {
+        if (empAbilityInfoRepo.existsById(id)) {
             throw new DuplicateKeyException("Duplicate");
         }
     	
-        EmpAbilityPK empAbilityPk = new EmpAbilityPK();
-        empAbilityPk.setEmpCd(profileDto.getEmpCd());
-        //empAbilityPk.setEmpNm(profileDto.getEmpNm());
-        empAbilityPk.setAbilityType(profileDto.getAbilityType());
-        empAbilityPk.setAbilityNm(profileDto.getAbilityNm());
-        empAbilityPk.setStartDate(profileDto.getStartDate());
+        EmpAbilityInfoPK pk = new EmpAbilityInfoPK();
+        pk.setEmpId(dto.getEmpId());
+        pk.setAbilityNm(dto.getAbilityNm());
         
-        EmpAbility empAbility = new EmpAbility();
-        empAbility.setEmpAbilityPk(empAbilityPk);
+        EmpAbilityInfo empAbility = new EmpAbilityInfo();
         
-        //empAbility.setEndDate(profileDto.getEndDate());
-        empAbility.setUpdateDate(profileDto.getUpdateDate());
+        empAbility.setEmpAbilityInfoPk(pk);
+        empAbility.setAbilityType(dto.getAbilityType());
+        empAbility.setSysUpdtrId(dto.getSysUpdtrId());
+        empAbility.setSysSvcId(dto.getSysSvcId());
+        empAbility.setSysCretDate(dto.getSysCretDate());
+        empAbility.setSysUpdtDate(dto.getSysUpdtDate());
 
-        return empAbilityRepo.save(empAbility);
+        return empAbilityInfoRepo.save(empAbility);
     }
     
-    public ProjectEmpInfo insertProjectEmpNo(ProfileDTO profileDto) {
+    public PjtHmnResrcInfo insertPjtHmnResrcInfo(PjtHmnResrcInfoDTO dto) {
     	
-        ProjectEmpInfoPK id = new ProjectEmpInfoPK(profileDto.getProjectCd(), profileDto.getEmpCd(), profileDto.getProjectNm(), profileDto.getStartDate());
+        PjtHmnResrcInfoPK id = new PjtHmnResrcInfoPK(dto.getPjtSeq(),
+        		dto.getEmpId(),
+        		dto.getEfctStartDate());
 
-        if (projectEmpInfoRepo.existsById(id)) {
+        if (pjtHmnResrcInfoRepo.existsById(id)) {
             throw new DuplicateKeyException("Duplicate");
         }
     	
-        ProjectEmpInfoPK projectEmpInfoPk = new ProjectEmpInfoPK();
-        projectEmpInfoPk.setProjectCd(profileDto.getProjectCd());
-        projectEmpInfoPk.setEmpCd(profileDto.getEmpCd());
-        projectEmpInfoPk.setProjectNm(profileDto.getProjectNm());
-        projectEmpInfoPk.setStartDate(profileDto.getStartDate());
+        PjtHmnResrcInfoPK pk = new PjtHmnResrcInfoPK();
+        pk.setPjtSeq(dto.getPjtSeq());
+        pk.setEmpId(dto.getEmpId());
+        pk.setEfctStartDate(dto.getEfctStartDate());
         
-        ProjectEmpInfo projectEmpInfo = new ProjectEmpInfo();
-        projectEmpInfo.setProjectEmpInfoPk(projectEmpInfoPk);
-        
-        projectEmpInfo.setEndDate(profileDto.getEndDate());
-        projectEmpInfo.setUpdateDate(profileDto.getUpdateDate());
-        projectEmpInfo.setUserRole(profileDto.getUserRole());
+        PjtHmnResrcInfo pjtHmnResrcInfo = new PjtHmnResrcInfo();
 
-        return projectEmpInfoRepo.save(projectEmpInfo);
+        pjtHmnResrcInfo.setPjtHmnResrcInfoPk(pk);
+        pjtHmnResrcInfo.setEfctEndDate(dto.getEfctEndDate());
+        pjtHmnResrcInfo.setSysUpdtrId(dto.getSysUpdtrId());
+        pjtHmnResrcInfo.setSysSvcId(dto.getSysSvcId());
+        pjtHmnResrcInfo.setSysCretDate(dto.getSysCretDate());
+        pjtHmnResrcInfo.setSysUpdtDate(dto.getSysUpdtDate());
+        pjtHmnResrcInfo.setUserRoleCd(dto.getUserRoleCd());
+
+        return pjtHmnResrcInfoRepo.save(pjtHmnResrcInfo);
     }
     
     
@@ -159,56 +157,55 @@ public class ProfileService {
      */
     
     // 모든 직원 정보 조회
-    public List<EmpNoDTO> allEmpInfos() {
-        return empNoRepo.findAll().stream()
-                .map(EmpNoDTO::new)
+    public List<EmpBasDTO> allEmpBas() {
+        return empBasRepo.findAll().stream()
+                .map(EmpBasDTO::new)
                 .collect(Collectors.toList());
     }
     
     // 신규 직원 정보 추가
-    public void saveEmpNo(EmpNoDTO dto) {
-        EmpNo entity = new EmpNo();
+    public void saveEmpBas(EmpBasDTO dto) {
+        EmpBas entity = new EmpBas();
 
-        EmpNoPK pk = new EmpNoPK();
-        pk.setEmpCd(dto.getEmpCd());
-        pk.setEmpNm(dto.getEmpNm());
-        pk.setStartDate(dto.getStartDate());
+        EmpBasPK pk = new EmpBasPK();
+        pk.setEmpId(dto.getEmpId());
+        pk.setEfctStartDate(dto.getEfctStartDate());
 
-        entity.setEmpNoPk(pk);
+        entity.setEmpBasPk(pk);
 
-        entity.setEndDate(dto.getEndDate());
-        entity.setJobGrade(dto.getJobGrade());
-        entity.setJobTitle(dto.getJobTitle());
-        entity.setAddress(dto.getAddress());
+        entity.setEmpNm(dto.getEmpNm());
+        entity.setEfctEndDate(dto.getEfctEndDate());
+        entity.setJobGradeCd(dto.getJobGradeCd());
+        entity.setJobTitleCd(dto.getJobTitleCd());
+        entity.setHomeAddr(dto.getHomeAddr());
         entity.setCallNumber(dto.getCallNumber());
-        entity.setOrgNm(dto.getOrgNm());
-        entity.setEmpType(dto.getEmpType());
+        entity.setOrgCd(dto.getOrgCd());
+        entity.setEmpTypeCd(dto.getEmpTypeCd());
 
-        empNoRepo.save(entity);
+        empBasRepo.save(entity);
     }
     
     // 직원 정보 삭제
-    public int deleteEmpNo(String empCd) {
-        return empNoRepo.deleteByEmpCd(empCd);
+    public int deleteEmpBas(String empId) {
+        return empBasRepo.deleteByEmpId(empId);
     }
     
     // 직원 정보 수정 - PK 체크    
-    public EmpNo findByPk(EmpNoPK pk) {
-        return empNoRepo.findById(pk)
+    public EmpBas findByPk(EmpBasPK pk) {
+        return empBasRepo.findById(pk)
                 .orElseThrow(() -> new EntityNotFoundException("Project not found"));
     }
     
     // 직원 정보 추가 - PK 체크
-    public boolean existsByPk(EmpNoPK pk) {
-        return empNoRepo.existsById(pk);
+    public boolean existsByPk(EmpBasPK pk) {
+        return empBasRepo.existsById(pk);
     }
     
     // 직원 정보 수정
     @Transactional
-    public void updateEmpNoFromDto(EmpNoDTO dto, EmpNo entity) {
+    public void updateEmpBasFromDto(EmpBasDTO dto, EmpBas entity) {
         try {
             new NullAwareBeanUtilsBean().copyProperties(entity, dto);
-            //entity.setUpdateDate(LocalDate.now());
         } catch (Exception e) {
             throw new RuntimeException("프로퍼티 복사 실패", e);
         }
@@ -222,52 +219,53 @@ public class ProfileService {
      */
 
     // 모든 직무 능력 조회
-    public List<EmpAbilityDTO> allEmpAbilitys() {
-        return empAbilityRepo.findAll().stream()
-                .map(EmpAbilityDTO::new)
+    public List<EmpAbilityInfoDTO> allEmpAbilityInfo() {
+        return empAbilityInfoRepo.findAll().stream()
+                .map(EmpAbilityInfoDTO::new)
                 .collect(Collectors.toList());
     }
     
     // 신규 직무 능력 추가
-    public void saveEmpAbility(EmpAbilityDTO dto) {
-        EmpAbility entity = new EmpAbility();
+    public void saveEmpAbilityInfo(EmpAbilityInfoDTO dto) {
+        EmpAbilityInfo entity = new EmpAbilityInfo();
 
-        EmpAbilityPK pk = new EmpAbilityPK();
-        pk.setEmpCd(dto.getEmpCd());
-        //pk.setEmpNm(dto.getEmpNm());
-        pk.setAbilityType(dto.getAbilityType());
+        EmpAbilityInfoPK pk = new EmpAbilityInfoPK();
+        pk.setEmpId(dto.getEmpId());
         pk.setAbilityNm(dto.getAbilityNm());
-        pk.setStartDate(dto.getStartDate());
 
-        entity.setEmpAbilityPk(pk);
+        entity.setEmpAbilityInfoPk(pk);
 
-        //entity.setEndDate(dto.getEndDate());
+        entity.setAbilityType(dto.getAbilityType());
+        entity.setSysUpdtrId(dto.getSysUpdtrId());
+        entity.setSysSvcId(dto.getSysSvcId());
+        entity.setSysCretDate(dto.getSysCretDate());
+        entity.setSysUpdtDate(dto.getSysUpdtDate());
 
-        empAbilityRepo.save(entity);
+        empAbilityInfoRepo.save(entity);
     }
     
     // 직무 능력 삭제
-    public int deleteEmpAbility(String empCd) {
-        return empAbilityRepo.deleteByEmpCd(empCd);
-    }
+//    public int deleteEmpAbilityInfo(String empNm) {
+//        return empAbilityInfoRepo.deleteByEmpNm(empNm);
+//    }
     
     // 직무 능력 수정 - PK 체크    
-    public EmpAbility findByPk(EmpAbilityPK pk) {
-        return empAbilityRepo.findById(pk)
+    public EmpAbilityInfo findByPk(EmpAbilityInfoPK pk) {
+        return empAbilityInfoRepo.findById(pk)
                 .orElseThrow(() -> new EntityNotFoundException("Project not found"));
     }
     
     // 직무 능력 추가 - PK 체크
-    public boolean existsByPk(EmpAbilityPK pk) {
-        return empAbilityRepo.existsById(pk);
+    public boolean existsByPk(EmpAbilityInfoPK pk) {
+        return empAbilityInfoRepo.existsById(pk);
     }
     
     // 직무 능력 수정
     @Transactional
-    public void updateEmpAbilityFromDto(EmpAbilityDTO dto, EmpAbility entity) {
+    public void updateEmpAbilityInfoFromDto(EmpAbilityInfoDTO dto, EmpAbilityInfo entity) {
         try {
             new NullAwareBeanUtilsBean().copyProperties(entity, dto);
-            entity.setUpdateDate(LocalDate.now());
+            entity.setSysUpdtDate(LocalDate.now());
         } catch (Exception e) {
             throw new RuntimeException("프로퍼티 복사 실패", e);
         }
@@ -281,52 +279,55 @@ public class ProfileService {
      */
     
     // 모든 투입 인력 조회
-    public List<ProjectEmpInfoDTO> allProjectInfos() {
-        return projectEmpInfoRepo.findAll().stream()
-                .map(ProjectEmpInfoDTO::new)
+    public List<PjtHmnResrcInfoDTO> allPjtHmnResrcInfo() {
+        return pjtHmnResrcInfoRepo.findAll().stream()
+                .map(PjtHmnResrcInfoDTO::new)
                 .collect(Collectors.toList());
     }
     
     // 신규 투입 인력 추가
-    public void saveProjectEmpInfo(ProjectEmpInfoDTO dto) {
-    	ProjectEmpInfo entity = new ProjectEmpInfo();
+    public void savePjtHmnResrcInfo(PjtHmnResrcInfoDTO dto) {
+    	PjtHmnResrcInfo entity = new PjtHmnResrcInfo();
 
-    	ProjectEmpInfoPK pk = new ProjectEmpInfoPK();
-        pk.setProjectCd(dto.getProjectCd());
-        pk.setEmpCd(dto.getEmpCd());
-        pk.setProjectNm(dto.getProjectNm());
-        pk.setStartDate(dto.getStartDate());
+    	PjtHmnResrcInfoPK pk = new PjtHmnResrcInfoPK();
+        pk.setPjtSeq(dto.getPjtSeq());
+        pk.setEmpId(dto.getEmpId());
+        pk.setEfctStartDate(dto.getEfctStartDate());
 
-        entity.setProjectEmpInfoPk(pk);
+        entity.setPjtHmnResrcInfoPk(pk);
 
-        entity.setEndDate(dto.getEndDate());
-        entity.setUserRole(dto.getUserRole());
+        entity.setEfctEndDate(dto.getEfctEndDate());
+        entity.setSysUpdtrId(dto.getSysUpdtrId());
+        entity.setSysSvcId(dto.getSysSvcId());
+        entity.setSysCretDate(dto.getSysCretDate());
+        entity.setSysUpdtDate(dto.getSysUpdtDate());
+        entity.setUserRoleCd(dto.getUserRoleCd());
 
-        projectEmpInfoRepo.save(entity);
+        pjtHmnResrcInfoRepo.save(entity);
     }
     
     // 투입 인력 삭제
-    public int deleteProjectEmpInfo(String empCd) {
-        return projectEmpInfoRepo.deleteByEmpCd(empCd);
-    }
+//    public int deletePjtHmnResrcInfo(String pjtSeq) {
+//        return pjtHmnResrcInfoRepo.deleteByPjtSeq(pjtSeq);
+//    }
     
     // 투입 인력 수정 - PK 체크    
-    public ProjectEmpInfo findByPk(ProjectEmpInfoPK pk) {
-        return projectEmpInfoRepo.findById(pk)
+    public PjtHmnResrcInfo findByPk(PjtHmnResrcInfoPK pk) {
+        return pjtHmnResrcInfoRepo.findById(pk)
                 .orElseThrow(() -> new EntityNotFoundException("Project not found"));
     }
     
     // 투입 인력 추가 - PK 체크
-    public boolean existsByPk(ProjectEmpInfoPK pk) {
-        return projectEmpInfoRepo.existsById(pk);
+    public boolean existsByPk(PjtHmnResrcInfoPK pk) {
+        return pjtHmnResrcInfoRepo.existsById(pk);
     }
     
     // 투입 인력 수정
     @Transactional
-    public void updateProjectEmpInfoFromDto(ProjectEmpInfoDTO dto, ProjectEmpInfo entity) {
+    public void updatePjtHmnResrcInfoFromDto(PjtHmnResrcInfoDTO dto, PjtHmnResrcInfo entity) {
         try {
             new NullAwareBeanUtilsBean().copyProperties(entity, dto);
-            entity.setUpdateDate(LocalDate.now());
+            entity.setSysUpdtDate(LocalDate.now());
         } catch (Exception e) {
             throw new RuntimeException("프로퍼티 복사 실패", e);
         }

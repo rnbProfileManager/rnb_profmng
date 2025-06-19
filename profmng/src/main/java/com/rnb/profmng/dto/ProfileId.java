@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class ProfileId implements Serializable {
 
     private String projectCd;
-    private String empNo;
+    private String empBas;
     private LocalDate updateDt;
 }

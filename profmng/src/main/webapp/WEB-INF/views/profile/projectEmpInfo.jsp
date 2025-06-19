@@ -52,7 +52,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
-				<li><a href="/profile/empNo">직원 정보</a></li>
+				<li><a href="/profile/empBas">직원 정보</a></li>
 				<li><a href="/profile/projectEmpInfo" class="active">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbility">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
@@ -71,8 +71,8 @@
 
 			    <form class="search-form" method="get" action="/profile/projectEmpInfo/manage">	
 					<div class="form-group">
-					    <label for="empCd">사원 코드</label>
-					    <input type="text" id="empCd" name="empCd" value="${param.empCd}">
+					    <label for="empId">사원 코드</label>
+					    <input type="text" id="empId" name="empId" value="${param.empId}">
 					</div>
 			        <button type="submit" class="btn search">조회</button>
 			    </form>
@@ -94,13 +94,13 @@
 								<h3>총 건수: ${fn:length(projectEmpInfoList)}</h3>
 									<c:forEach var="projectEmpInfo" items="${projectEmpInfoList}">
 										<tr>
-										   <td><input type="checkbox" name="empCd" value="${projectEmpInfo.empCd}"
+										   <td><input type="checkbox" name="empId" value="${projectEmpInfo.empId}"
 												data-projectcd="${projectEmpInfo.projectCd}"
-									       		data-empcd="${projectEmpInfo.empCd}"
+									       		data-empId="${projectEmpInfo.empId}"
 												data-projectnm="${projectEmpInfo.projectNm}"
 											    data-startdate="${projectEmpInfo.startDate}" /></td>
 											<td>${projectEmpInfo.projectCd}</td>
-										    <td>${projectEmpInfo.empCd}</td>
+										    <td>${projectEmpInfo.empId}</td>
 										    <td>${projectEmpInfo.projectNm}</td>
 										    <td>${projectEmpInfo.startDate}</td>
 										    <td>${projectEmpInfo.endDate}</td>
@@ -115,10 +115,10 @@
 			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
 			        </div>
 					<form id="editForm" method="POST" action="/profile/editProjectEmpInfo">
-					    <input type="hidden" name="empCd" id="editProjectEmpInfo" />
+					    <input type="hidden" name="empId" id="editProjectEmpInfo" />
 					</form>
 					<form id="deleteForm" method="POST" action="/profile/deleteProjectEmpInfo">
-					    <input type="hidden" name="empCd" id="deleteProjectEmpInfo" />
+					    <input type="hidden" name="empId" id="deleteProjectEmpInfo" />
 					</form>
 					<c:choose>
 						<c:when test="${deleteResult eq 'success'}">
@@ -154,11 +154,11 @@
 	$(document).ready(function () {
 	    $('#checkAll').on('change', function () {
 	        const isChecked = $(this).is(':checked');
-	        $('input[name="empCd"]').prop('checked', isChecked);
+	        $('input[name="empId"]').prop('checked', isChecked);
 	    });
 	});
 	function editSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="empCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="empId"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -172,23 +172,23 @@
 		
 		const item = checkedItems[0];
 	    const projectCd = item.dataset.projectcd;
-		const empCd = item.dataset.empcd;
+		const empId = item.dataset.empId;
 	    const projectNm = item.dataset.projectnm;
 	    const startDate = item.dataset.startdate;
 			
-		if (!projectCd || !empCd || !projectNm || !startDate) {
+		if (!projectCd || !empId || !projectNm || !startDate) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
 
 		window.location.href = "/profile/editProjectEmpInfo"
 		    + "?projectCd=" + encodeURIComponent(projectCd)
-			+ "&empCd=" + encodeURIComponent(empCd)
+			+ "&empId=" + encodeURIComponent(empId)
 		    + "&projectNm=" + encodeURIComponent(projectNm)
 		    + "&startDate=" + encodeURIComponent(startDate);
 	}
 	function deleteSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="empCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="empId"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -199,8 +199,8 @@
 	        return;
 	    }
 
-	    const empCds = Array.from(checkedItems).map(item => item.value);
-	    const param = empCds.map(cd => "empCd=" + encodeURIComponent(cd)).join("&");
+	    const empIds = Array.from(checkedItems).map(item => item.value);
+	    const param = empIds.map(cd => "empId=" + encodeURIComponent(cd)).join("&");
 
 	    window.location.href = "/profile/deleteProjectEmpInfo?" + param;
 	}

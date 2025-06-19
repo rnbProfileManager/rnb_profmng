@@ -16,7 +16,7 @@
     <header>
         <div class="header-content">
 			<div class="logo-header">
-			               <img class="logo-circle" src="images/rnbsoft_logo.png">
+			               <img class="logo-circle" src="${pageContext.request.contextPath}/images/rnbsoft_logo.png">
 			               <h1>알앤비소프트</h1>
 			           </div>
             <div id="userInfoArea" class="user-info">
@@ -52,7 +52,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
                 <li><a href="/profile/manage" class="active">프로필 조회</a></li>
-                <li><a href="/profile/empNo">직원 정보</a></li>
+                <li><a href="/profile/empBas">직원 정보</a></li>
                 <li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbility">직무 능력</a></li>
                 <li><a href="#">캘린더</a></li>
@@ -71,8 +71,8 @@
 
 			    <form class="search-form" method="get" action="/profile/manage">	
 					<div class="form-group">
-					    <label for="empCd">사원코드</label>
-					    <input type="text" id="empCd" name="empCd" value="${param.empCd}">
+					    <label for="empId">사원코드</label>
+					    <input type="text" id="empId" name="empId" value="${param.empId}">
 					</div>
 			        <div class="form-group">
 			            <label for="startDate">기간</label>
@@ -101,8 +101,8 @@
 								<h3>직원수: ${fn:length(employeeList)}</h3>
 									<c:forEach var="emp" items="${employeeList}">
 										<tr>
-										   <td><input type="checkbox" name="empChk" value="${emp.empCd}" /></td>
-										    <td>${emp.empCd}</td>
+										   <td><input type="checkbox" name="empChk" value="${emp.empId}" /></td>
+										    <td>${emp.empId}</td>
 										    <td>
 												<c:choose>
 												    <c:when test="${not empty emp.filePath}">
@@ -113,9 +113,9 @@
 										    <td>${emp.jobTitle}</td>
 										    <td>${emp.callNumber}</td>
 										    <td>
-												<input type="hidden" class="empCd" value="${emp.empCd}" />
-												<input type="file" id="fileInput_${emp.empCd}" style="display:none;" />
-												<button type="button" onclick="$('#fileInput_${emp.empCd}').click();" class="btn">파일 선택</button>
+												<input type="hidden" class="empId" value="${emp.empId}" />
+												<input type="file" id="fileInput_${emp.empId}" style="display:none;" />
+												<button type="button" onclick="$('#fileInput_${emp.empId}').click();" class="btn">파일 선택</button>
 										    </td>
 										</tr>
 									</c:forEach>
@@ -127,11 +127,11 @@
 							    const file = this.files[0];
 							    if (!file) return;
 							    const $tr = $(this).closest('tr');
-							    const empCd = $tr.find('.empCd').val();
+							    const empId = $tr.find('.empId').val();
 
 							    const formData = new FormData();
 							    formData.append("file", file);
-							    formData.append("empCd", empCd);
+							    formData.append("empId", empId);
 
 							    $.ajax({
 							        url: "/upload",

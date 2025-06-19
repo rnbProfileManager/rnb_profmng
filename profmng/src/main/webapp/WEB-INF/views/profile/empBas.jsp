@@ -52,7 +52,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
-				<li><a href="/profile/empNo" class="active">직원 정보</a></li>
+				<li><a href="/profile/empBas" class="active">직원 정보</a></li>
 				<li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbility">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
@@ -64,15 +64,15 @@
         <!-- MAIN CONTENT -->
         <main>
             <h1 class="main-title">직원 정보 조회</h1>
-            <p class="main-subtitle">사원 코드를 입력해주세요</p>
+            <p class="main-subtitle">사원명을 입력해주세요</p>
 
 			<section class="search-area">
 			    <h2>직원 정보 조회</h2>
 
-			    <form class="search-form" method="get" action="/profile/empNo/manage">	
+			    <form class="search-form" method="get" action="/profile/empBas/manage">	
 					<div class="form-group">
-					    <label for="empCd">사원 코드</label>
-					    <input type="text" id="empCd" name="empCd" value="${param.empCd}">
+					    <label for="empNm">사원명</label>
+					    <input type="text" id="empNm" name="empNm" value="${param.empNm}">
 					</div>
 			        <button type="submit" class="btn search">조회</button>
 			    </form>
@@ -82,7 +82,6 @@
 					    <thead>
 					        <tr>
 					            <th><input type="checkbox" id="checkAll" /></th>
-					            <th>사원코드</th>
 					            <th>사원명</th>
 					            <th>입사일</th>
 					            <th>퇴사일</th>
@@ -95,37 +94,36 @@
 					        </tr>
 					    </thead>
 						    <tbody>
-								<h3>총 사원수: ${fn:length(empNoList)}</h3>
-									<c:forEach var="empNo" items="${empNoList}">
+								<h3>총 사원수: ${fn:length(empBasList)}</h3>
+									<c:forEach var="empBas" items="${empBasList}">
 										<tr>
-										   <td><input type="checkbox" name="empCd" value="${empNo.empCd}"
-												data-empcd="${empNo.empCd}"
-									       		data-empnm="${empNo.empNm}"
-											    data-startdate="${empNo.startDate}" /></td>
-										    <td>${empNo.empCd}</td>
-										    <td>${empNo.empNm}</td>
-										    <td>${empNo.startDate}</td>
-										    <td>${empNo.endDate}</td>
-											<td>${empNo.jobGrade}</td>
-											<td>${empNo.jobTitle}</td>
-											<td>${empNo.address}</td>
-											<td>${empNo.callNumber}</td>
-											<td>${empNo.orgNm}</td>
-											<td>${empNo.empType}</td>
+										   <td><input type="checkbox" name="empId" value="${empBas.empId}"
+												data-empid="${empBas.empId}"
+												data-empnm="${empBas.empNm}"
+											    data-efctstartdate="${empBas.efctStartDate}" /></td>
+										    <td>${empBas.empNm}</td>
+										    <td>${empBas.efctStartDate}</td>
+										    <td>${empBas.efctEndDate}</td>
+											<td>${empBas.jobGradeCd}</td>
+											<td>${empBas.jobTitleCd}</td>
+											<td>${empBas.homeAddr}</td>
+											<td>${empBas.callNumber}</td>
+											<td>${empBas.orgCd}</td>
+											<td>${empBas.empTypeCd}</td>
 										</tr>
 									</c:forEach>
 						    </tbody>
 						</table>
 			        <div class="grid-buttons">
-			            <button type="button" onclick="location.href='/profile/addEmpNo'" class="btn new">신규</button>
+			            <button type="button" onclick="location.href='/profile/addEmpBas'" class="btn new">신규</button>
 			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
 			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
 			        </div>
-					<form id="editForm" method="POST" action="/project/editEmpNo">
-					    <input type="hidden" name="empCd" id="editEmpNo" />
+					<form id="editForm" method="POST" action="/project/editEmpBas">
+					    <input type="hidden" name="empNm" id="editEmpBas" />
 					</form>
-					<form id="deleteForm" method="POST" action="/project/deleteEmpNo">
-					    <input type="hidden" name="empCd" id="deleteEmpNo" />
+					<form id="deleteForm" method="POST" action="/project/deleteEmpBas">
+					    <input type="hidden" name="empId" id="deleteEmpBas" />
 					</form>
 					<c:choose>
 						<c:when test="${deleteResult eq 'success'}">
@@ -161,11 +159,11 @@
 	$(document).ready(function () {
 	    $('#checkAll').on('change', function () {
 	        const isChecked = $(this).is(':checked');
-	        $('input[name="empCd"]').prop('checked', isChecked);
+	        $('input[name="empId"]').prop('checked', isChecked);
 	    });
 	});
 	function editSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="empCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="empId"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -177,23 +175,25 @@
 	        return;
 	    }
 		
+		
 		const item = checkedItems[0];
-	    const empCd = item.dataset.empcd;
-	    const empNm = item.dataset.empnm;
-	    const startDate = item.dataset.startdate;
+	    
+		const empId = item.dataset.empid;
+		const empNm = item.dataset.empnm;
+	    const efctStartDate = item.dataset.efctstartdate;
 			
-		if (!empCd || !empNm || !startDate) {
+		if (!empNm || !efctStartDate) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
 
-		window.location.href = "/profile/editEmpNo"
-		    + "?empCd=" + encodeURIComponent(empCd)
-		    + "&empNm=" + encodeURIComponent(empNm)
-		    + "&startDate=" + encodeURIComponent(startDate);
+		window.location.href = "/profile/editEmpBas"
+		    + "?empId=" + encodeURIComponent(empId)
+			+ "&empNm=" + encodeURIComponent(empNm)
+		    + "&efctStartDate=" + encodeURIComponent(efctStartDate);
 	}
 	function deleteSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="empCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="empId"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -204,10 +204,10 @@
 	        return;
 	    }
 
-	    const empCds = Array.from(checkedItems).map(item => item.value);
-	    const param = empCds.map(cd => "empCd=" + encodeURIComponent(cd)).join("&");
+	    const empIds = Array.from(checkedItems).map(item => item.value);
+	    const param = empIds.map(cd => "empId=" + encodeURIComponent(cd)).join("&");
 
-	    window.location.href = "/profile/deleteEmpNo?" + param;
+	    window.location.href = "/profile/deleteEmpBas?" + param;
 	}
 	</script>
 </body>

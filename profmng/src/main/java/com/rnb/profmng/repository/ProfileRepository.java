@@ -14,7 +14,7 @@ import com.rnb.profmng.entity.EmpAbilityId;
 public interface ProfileRepository extends JpaRepository<EmpAbilityEntity, EmpAbilityId> {
 
 	@Query("SELECT new com.rnb.profmng.dto.ProfiledbDto(a.empCd, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath , c.fileName) "
-			+ "FROM EmpAbilityEntity a " + "JOIN EmpNoEntity b ON a.empCd = b.empCd "
+			+ "FROM EmpAbilityEntity a " + "JOIN EmpBasEntity b ON a.empCd = b.empCd "
 			+ "LEFT JOIN ProfileFileInfoEntity c ON a.empCd = c.empCd ")
 	List<ProfiledbDto> findAllProfiles();
 
@@ -25,7 +25,7 @@ public interface ProfileRepository extends JpaRepository<EmpAbilityEntity, EmpAb
 			    c.filePath, c.fileName
 			)
 			FROM EmpAbilityEntity a
-			JOIN EmpNoEntity b ON a.empCd = b.empCd
+			JOIN EmpBasEntity b ON a.empCd = b.empCd
 			LEFT JOIN ProfileFileInfoEntity c
 			  ON a.empCd = c.empCd
 			  AND c.uploadDt = (
@@ -47,7 +47,7 @@ public interface ProfileRepository extends JpaRepository<EmpAbilityEntity, EmpAb
 			    a.empCd, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath,c.fileName
 			)
 			FROM EmpAbilityEntity a
-			JOIN EmpNoEntity b ON a.empCd = b.empCd
+			JOIN EmpBasEntity b ON a.empCd = b.empCd
 			LEFT JOIN ProfileFileInfoEntity c ON a.empCd = c.empCd AND c.uploadDt = (
 			    SELECT MAX(c2.uploadDt) FROM ProfileFileInfoEntity c2 WHERE c2.empCd = a.empCd
 			)

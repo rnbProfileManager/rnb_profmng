@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "EMP_BAS")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class EmpNoEntity {
+public class EmpBasEntity {
 
     @Id
     @Column(name = "emp_id")

@@ -13,16 +13,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectEmpInfoPK implements Serializable {
-    @Column(name = "pjt_cd", length = 10, nullable = false)
-    private String projectCd;
+public class PjtHmnResrcInfoPK implements Serializable {
+    @Column(name = "pjt_seq", nullable = false)
+    private long pjtSeq;
 
-    @Column(name = "emp_id", length = 10, nullable = false)
-    private String empCd;
-
-    @Column(name = "pjt_nm", length = 20, nullable = false)
-    private String projectNm;
+    @Column(name = "emp_id", length = 20, nullable = false)
+    private String empId;
 
     @Column(name = "efct_start_date", nullable = false)
-    private LocalDate startDate;
+    private LocalDate efctStartDate;
 }

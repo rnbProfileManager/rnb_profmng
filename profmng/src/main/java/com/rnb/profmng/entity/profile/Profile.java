@@ -1,5 +1,7 @@
 package com.rnb.profmng.entity.profile;
 
+import com.rnb.profmng.entity.project.Project;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Profile {
 	
-    private EmpNo empNo;
+    private EmpBas empBas;
 
-    private EmpAbility empAbility;
+    private EmpAbilityInfo empAbilityInfo;
 
-    private ProjectEmpInfo projectEmpInfo;
-
+    private PjtHmnResrcInfo pjtHmnResrcInfo;
+    
+    private Project project;
 }
