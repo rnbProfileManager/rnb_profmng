@@ -55,9 +55,9 @@ public class AzureStorageService {
 	        try {
 	        	// DB Insert
 		        ProfileFileInfoEntity entity = new ProfileFileInfoEntity();
-		        entity.setEmpCd(empCd);
-		        entity.setFileName(fileNames);
-		        entity.setFilePath(filePath);
+		        entity.setEmpId(empCd);
+		        entity.setFileNm(fileNames);
+		        entity.setFileDir(filePath);
 		        entity.setFileSize(file.getSize());
 		        entity.setUploadDt(LocalDateTime.now());
 
