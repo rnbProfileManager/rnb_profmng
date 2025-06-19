@@ -21,15 +21,12 @@ public class Project {
 	@EmbeddedId
     private ProjectPK projectPk;
 	
-	public String getProjectCd() { return projectPk != null ? projectPk.getProjectCd() : null; }
-    public String getProjectNm() { return projectPk != null ? projectPk.getProjectNm() : null; }
-    public LocalDate getStartDate() { return projectPk != null ? projectPk.getStartDate() : null; }
+	public long getPjtSeq() { return projectPk != null ? projectPk.getPjtSeq() : null; }
+    public String getPjtNm() { return projectPk != null ? projectPk.getPjtNm() : null; }
+    public LocalDate getEfctStartDate() { return projectPk != null ? projectPk.getEfctStartDate() : null; }
 	
     @Column(name = "efct_end_date")
-    private LocalDate endDate;
-
-    //@Column(name = "sys_updt_date")
-    //private LocalDate updateDate;
+    private LocalDate efctEndDate;
 
     @Column(name = "pm_id", length = 20)
     private String pmId;
@@ -47,6 +44,6 @@ public class Project {
     private BigDecimal totAmt;
 
     @Column(name = "pjt_type_cd", length = 10)
-    private String projectType;
+    private String pjtTypeCd;
 
 }

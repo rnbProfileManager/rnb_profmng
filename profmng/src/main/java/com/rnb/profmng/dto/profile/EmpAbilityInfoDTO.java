@@ -4,10 +4,14 @@ import java.time.LocalDate;
 
 import com.rnb.profmng.entity.profile.EmpAbilityInfo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class EmpAbilityInfoDTO{
     
@@ -19,17 +23,6 @@ public class EmpAbilityInfoDTO{
     private String sysSvcId;
     private LocalDate sysCretDate;
     private LocalDate sysUpdtDate;
-    
-	public EmpAbilityInfoDTO(String empId, String abilityNm, String abilityType, String sysUpdtrId, String sysSvcId,
-			LocalDate sysCretDate, LocalDate sysUpdtDate) {
-		this.empId = empId;
-		this.abilityNm = abilityNm;
-		this.abilityType = abilityType;
-		this.sysUpdtrId = sysUpdtrId;
-		this.sysSvcId = sysSvcId;
-		this.sysCretDate = sysCretDate;
-		this.sysUpdtDate = sysUpdtDate;
-	}
     
     public EmpAbilityInfoDTO(EmpAbilityInfo empAbilityInfo) {
 		this.empId = empAbilityInfo.getEmpAbilityInfoPk().getEmpId();

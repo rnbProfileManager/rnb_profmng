@@ -52,7 +52,7 @@
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
 				<li><a href="/project" class="active">프로젝트 조회</a></li>
-                <li><a href="/project/addProject">신규 프로젝트 추가</a></li>
+                <li><a href="/project/addPjtBas">신규 프로젝트 추가</a></li>
             </ul>
         </aside>
 
@@ -66,8 +66,8 @@
 
 			    <form class="search-form" method="get" action="/project/manage">	
 					<div class="form-group">
-					    <label for="projectCd">프로젝트 코드</label>
-					    <input type="text" id="projectCd" name="projectCd" value="${param.projectCd}">
+					    <label for="pjtSeq">프로젝트 코드</label>
+					    <input type="text" id="pjtSeq" name="pjtSeq" value="${param.pjtSeq}">
 					</div>
 			        <button type="submit" class="btn search">조회</button>
 			    </form>
@@ -93,26 +93,26 @@
 								<h3>프로젝트코드: ${fn:length(projectList)}</h3>
 									<c:forEach var="project" items="${projectList}">
 										<tr>
-										   <td><input type="checkbox" name="projectCd" value="${project.projectCd}"
-												data-projectcd="${project.projectCd}"
-									       		data-projectnm="${project.projectNm}"
-											    data-startdate="${project.startDate}" /></td>
-										    <td>${project.projectCd}</td>
-										    <td>${project.projectNm}</td>
-										    <td>${project.startDate}</td>
-										    <td>${project.endDate}</td>
+										   <td><input type="checkbox" name="pjtSeq" value="${project.pjtSeq}"
+												data-pjtseq="${project.pjtSeq}"
+									       		data-pjtnm="${project.pjtNm}"
+											    data-efctstartdate="${project.efctStartDate}" /></td>
+										    <td>${project.pjtSeq}</td>
+										    <td>${project.pjtNm}</td>
+										    <td>${project.efctStartDate}</td>
+										    <td>${project.efctEndDate}</td>
 											<td>${project.pmId}</td>
 											<td>${project.client}</td>
 											<td>${project.contractor}</td>
 											<td>${project.manMonth}</td>
 											<td>${project.totAmt}</td>
-											<td>${project.projectType}</td>
+											<td>${project.pjtTypeCd}</td>
 										</tr>
 									</c:forEach>
 						    </tbody>
 						</table>
 			        <div class="grid-buttons">
-			            <button type="button" onclick="location.href='/project/addProject'" class="btn new">신규</button>
+			            <button type="button" onclick="location.href='/project/addPjtBas'" class="btn new">신규</button>
 			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
 			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
 			        </div>
@@ -160,7 +160,7 @@
 	    });
 	});
 	function editSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="projectCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="pjtSeq"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -173,22 +173,22 @@
 	    }
 		
 		const item = checkedItems[0];
-	    const projectCd = item.dataset.projectcd;
-	    const projectNm = item.dataset.projectnm;
-	    const startDate = item.dataset.startdate;
-			
-		if (!projectCd || !projectNm || !startDate) {
+	    const pjtSeq = item.dataset.pjtseq;
+	    const pjtNm = item.dataset.pjtnm;
+	    const efctStartDate = item.dataset.efctstartdate;
+		
+		if (!pjtSeq || !pjtNm || !efctStartDate) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
 
-		window.location.href = "/project/edit"
-		    + "?projectCd=" + encodeURIComponent(projectCd)
-		    + "&projectNm=" + encodeURIComponent(projectNm)
-		    + "&startDate=" + encodeURIComponent(startDate);
+		window.location.href = "/project/editPjtBas"
+		    + "?pjtSeq=" + encodeURIComponent(pjtSeq)
+		    + "&pjtNm=" + encodeURIComponent(pjtNm)
+		    + "&efctStartDate=" + encodeURIComponent(efctStartDate);
 	}
 	function deleteSelected() {
-	    const checkedItems = document.querySelectorAll('input[name="projectCd"]:checked');
+	    const checkedItems = document.querySelectorAll('input[name="pjtSeq"]:checked');
 
 	    if (checkedItems.length === 0) {
 	        alert("프로젝트를 선택하세요.");
@@ -200,9 +200,9 @@
 	    }
 
 	    const projectCds = Array.from(checkedItems).map(item => item.value);
-	    const param = projectCds.map(cd => "projectCd=" + encodeURIComponent(cd)).join("&");
+	    const param = projectCds.map(cd => "pjtSeq=" + encodeURIComponent(cd)).join("&");
 
-	    window.location.href = "/project/delete?" + param;
+	    window.location.href = "/project/deletePjtBas?" + param;
 	}
 	</script>
 </body>

@@ -35,7 +35,7 @@
                 <a href="/project">프로젝트 관리</a>
             </div>
             <div class="nav-item">
-                <a href="/profile/manage" class="active">사용자 관리</a>
+                <a href="/profile" class="active">사용자 관리</a>
             </div>
             <div class="nav-item">
                 <a href="/system">시스템 설정</a>
@@ -51,7 +51,7 @@
         <aside>
             <h2 class="sidebar-title">빠른 메뉴</h2>
             <ul class="sidebar-menu">
-                <li><a href="/profile/manage" class="active">프로필 조회</a></li>
+                <li><a href="/profile" class="active">프로필 조회</a></li>
                 <li><a href="/profile/empBas">직원 정보</a></li>
                 <li><a href="/profile/pjtHmnResrcInfo">투입 인력 관리</a></li>
 				<li><a href="/profile/empAbilityInfo">직무 능력</a></li>
@@ -74,12 +74,6 @@
 					    <label for="empId">사원코드</label>
 					    <input type="text" id="empId" name="empId" value="${param.empId}">
 					</div>
-			        <div class="form-group">
-			            <label for="startDate">기간</label>
-			            <input type="date" id="startDate" name="startDate" value="${param.startDate}">
-			            <span>~</span>
-			            <input type="date" id="endDate" name="endDate" value="${param.endDate}">
-			        </div>
 			        <button type="submit" class="btn search">조회</button>
 			    </form>
 
@@ -105,12 +99,12 @@
 										    <td>${emp.empId}</td>
 										    <td>
 												<c:choose>
-												    <c:when test="${not empty emp.filePath}">
-												      <a href="/download?file=${emp.filePath}">${emp.fileName}</a>
+												    <c:when test="${not empty emp.fileDir}">
+												      <a href="/download?file=${emp.fileDir}">${emp.fileNm}</a>
 												    </c:when>
 												    <c:otherwise>등록된 이력서 없음</c:otherwise>
 												  </c:choose></td>
-										    <td>${emp.jobTitle}</td>
+										    <td>${emp.jobTitleCd}</td>
 										    <td>${emp.callNumber}</td>
 										    <td>
 												<input type="hidden" class="empId" value="${emp.empId}" />

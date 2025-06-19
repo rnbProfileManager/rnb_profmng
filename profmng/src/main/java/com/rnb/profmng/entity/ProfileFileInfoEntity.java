@@ -8,22 +8,26 @@ import java.util.Date;
 
 @Entity
 @Table(name = "PROFILE_FILE_INFO")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProfileFileInfoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_seq")
-    private Long fileId;
+    private Long fileSeq;
 
     @Column(name = "emp_id")
-    private String empCd;
+    private String empId;
 
     @Column(name = "file_nm")
-    private String fileName;
+    private String fileNm;
 
     @Column(name = "file_dir")
-    private String filePath;
+    private String fileDir;
 
     @Column(name = "file_size")
     private Long fileSize;

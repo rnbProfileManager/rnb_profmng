@@ -1,7 +1,6 @@
 package com.rnb.profmng.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,30 +43,19 @@ public class ProfileService {
     private final ProfileRepository profileRepository;
 	 
 	// 전체 조회
-//	public List<ProfiledbDto> getAllProfiles() {
-//		List<ProfiledbDto> dto = profileRepository.getAllProfiles();
-//
-//		return dto;
-//	}
+	public List<ProfiledbDto> getAllProfiles() {
+		List<ProfiledbDto> dto = profileRepository.getAllProfiles();
+		return dto;
+	}
 	 
 	// 조회조건 조회   
-//	 public List<ProfiledbDto> searchProfiles(String empCd, String startDateStr, String endDateStr) {
-//	        if ((empCd == null || empCd.isEmpty()) 
-//	            && (startDateStr == null || startDateStr.isEmpty()) 
-//	            && (endDateStr == null || endDateStr.isEmpty())) {
-//	            return getAllProfiles();
-//	        }
-//
-//	        LocalDateTime parsedStartDate = (startDateStr != null && !startDateStr.isEmpty())
-//	                ? LocalDate.parse(startDateStr).atStartOfDay()
-//	                : null;
-//
-//	        LocalDateTime parsedEndDate = (endDateStr != null && !endDateStr.isEmpty())
-//	                ? LocalDate.parse(endDateStr).atTime(23, 59, 59)
-//	                : null;
-//
-//	        return profileRepository.searchProfiles(empCd, parsedStartDate, parsedEndDate);
-//	    }
+	 public List<ProfiledbDto> searchProfiles(String empId) {
+	        if (empId == null || empId.isEmpty()) { 
+	            return getAllProfiles();
+	        }
+
+	        return profileRepository.searchProfiles(empId);
+	    }
     
 
     public EmpBas insertEmpBas(EmpBasDTO dto) {

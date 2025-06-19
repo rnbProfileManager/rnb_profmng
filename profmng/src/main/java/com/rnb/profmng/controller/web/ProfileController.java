@@ -52,19 +52,16 @@ public class ProfileController{
      */
     
     // API용 전체조회
-//    @GetMapping("/api/profiles")
-//    public List<ProfiledbDto> getProfiles() {
-//        return profileService.getAllProfiles();
-//    }
+    @GetMapping("/api/profiles")
+    public List<ProfiledbDto> getProfiles() {
+        return profileService.getAllProfiles();
+    }
 
     // API용 검색
-//    @GetMapping("/api/profiles/search")
-//    public List<ProfiledbDto> searchProfiles(
-//            @RequestParam(required = false) String empId,
-//            @RequestParam(required = false) String startDate,
-//            @RequestParam(required = false) String endDate) {
-//        return profileService.searchProfiles(empId, startDate, endDate);
-//    }
+    @GetMapping("/api/profiles/search")
+    public List<ProfiledbDto> searchProfiles(@RequestParam(required = false) String empId) {
+        return profileService.searchProfiles(empId);
+    }
     
     /**
      * 파일 업로드 API
@@ -109,25 +106,22 @@ public class ProfileController{
 
     @GetMapping("/profile")
     public String profile(Model model) {
-//        List<ProfiledbDto> employeeList = profileService.getAllProfiles();
-    	List<ProfiledbDto> employeeList = null;
+        List<ProfiledbDto> employeeList = profileService.getAllProfiles();
         model.addAttribute("employeeList", employeeList);
-        return "web/profile";
+        return "profile/profile";
     }
     
 
     // 화면 진입 + 검색
-//    @GetMapping("/profile/manage")
-//    public String manage(
-//            @RequestParam(required = false) String empId,
-//            @RequestParam(required = false) String startDate,
-//            @RequestParam(required = false) String endDate,
-//            Model model) {
-//
-//        List<ProfiledbDto> employeeList = profileService.searchProfiles(empId, startDate, endDate);
-//        model.addAttribute("employeeList", employeeList);
-//        return "web/profile";
-//    }
+    @GetMapping("/profile/manage")
+    public String manage(
+            @RequestParam(required = false) String empId,
+            Model model) {
+
+        List<ProfiledbDto> employeeList = profileService.searchProfiles(empId);
+        model.addAttribute("employeeList", employeeList);
+        return "profile/profile";
+    }
 	
 	
 	/*

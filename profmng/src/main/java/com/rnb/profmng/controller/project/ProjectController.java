@@ -43,26 +43,26 @@ public class ProjectController{
 
     // 특정 프로젝트 조회
     @GetMapping("/project/manage")
-    public String selectProject(@RequestParam("projectCd") String projectCd, Model model) {
-        List<Project> result = projectRepo.findByProjectPk_ProjectCd(projectCd);
+    public String selectProject(@RequestParam("pjtSeq") long pjtSeq, Model model) {
+        List<Project> result = projectRepo.findByProjectPk_PjtSeq(pjtSeq);
         model.addAttribute("projectList", result);
         return "project/project";
     }
     
     // 신규 프로젝트 추가
-    @GetMapping("/project/addProject")
+    @GetMapping("/project/addPjtBas")
     public String showAddProjectPage() {
-        return "project/addProject";
+        return "project/addPjtBas";
     }
     
-    @PostMapping("/project/add")
+    @PostMapping("/project/addPjtBas")
     public String addProjectPage(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
 
         try {
             ProjectPK pk = new ProjectPK(
-                    projectDto.getProjectCd(),
-                    projectDto.getProjectNm(),
-                    projectDto.getStartDate()
+                    projectDto.getPjtSeq(),
+                    projectDto.getPjtNm(),
+                    projectDto.getEfctStartDate()
                 );
 
             if (projectService.existsByPk(pk)) {
@@ -75,33 +75,33 @@ public class ProjectController{
         } catch (Exception e) {
         	redirectAttributes.addFlashAttribute("addResult", "exception");
         }
-        return "redirect:/project/addProject";
+        return "redirect:/project/addPjtBas";
     }
 
     // 프로젝트 수정
-    @GetMapping("/project/edit")
+    @GetMapping("/project/editPjtBas")
     public String editProjectForm(
-            @RequestParam("projectCd") String projectCd,
-            @RequestParam("projectNm") String projectNm,
-            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
+            @RequestParam("pjtSeq") long pjtSeq,
+            @RequestParam("pjtNm") String pjtNm,
+            @RequestParam("efctStartDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate efctStartDate,
             Model model) {
 
     	
-        ProjectPK pk = new ProjectPK(projectCd, projectNm, startDate);
+        ProjectPK pk = new ProjectPK(pjtSeq, pjtNm, efctStartDate);
         Project project = projectService.findByPk(pk);
-        model.addAttribute("projectCd", projectCd);
-        model.addAttribute("projectNm", projectNm);
-        model.addAttribute("startDate", startDate);
-        return "project/editProject";
+        model.addAttribute("pjtSeq", pjtSeq);
+        model.addAttribute("pjtNm", pjtNm);
+        model.addAttribute("efctStartDate", efctStartDate);
+        return "project/editPjtBas";
     }
     
-    @PostMapping("/project/edit")
+    @PostMapping("/project/editPjtBas")
     public String editProjectPage(@ModelAttribute ProjectDTO projectDto, RedirectAttributes redirectAttributes) {
         try {
             ProjectPK pk = new ProjectPK(
-                projectDto.getProjectCd(),
-                projectDto.getProjectNm(),
-                projectDto.getStartDate()
+                projectDto.getPjtSeq(),
+                projectDto.getPjtNm(),
+                projectDto.getEfctStartDate()
             );
 
             Project existingProject = projectService.findByPk(pk);
@@ -112,17 +112,17 @@ public class ProjectController{
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
-        return "redirect:/project/edit?projectCd=" + URLEncoder.encode(projectDto.getProjectCd(), StandardCharsets.UTF_8)
-             + "&projectNm=" + URLEncoder.encode(projectDto.getProjectNm(), StandardCharsets.UTF_8)
-             + "&startDate=" + projectDto.getStartDate();
+        return "redirect:/project/editPjtBas?pjtSeq=" + projectDto.getPjtSeq()
+             + "&pjtNm=" + URLEncoder.encode(projectDto.getPjtNm(), StandardCharsets.UTF_8)
+             + "&efctStartDate=" + projectDto.getEfctStartDate();
     }
     
     // 프로젝트 삭제
-    @GetMapping("/project/delete")
-    public String deleteProjectPage(@RequestParam("projectCd") List<String> projectCds, RedirectAttributes redirectAttributes) {
+    @GetMapping("/project/deletePjtBas")
+    public String deleteProjectPage(@RequestParam("pjtSeq") List<String> pjtSeqs, RedirectAttributes redirectAttributes) {
         try {
-            for (String projectCd : projectCds) {
-                projectService.deleteProject(projectCd);
+            for (String pjtSeq : pjtSeqs) {
+                projectService.deleteProject(pjtSeq);
             }
             redirectAttributes.addFlashAttribute("deleteResult", "success");
         } catch (Exception e) {

@@ -11,14 +11,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProfiledbDto {
 	
-    private String empCd;
+	//EMP_BAS
     private String empId;
-    //private String empNm;
+    private String empNm;
+    private String jobGradeCd;
+    private String jobTitleCd;
+    private String homeAddr;
+    private String callNumber;
+    private String orgCd;
+    private String empTypeCd;
+    
+    //EMP_ABILITY_INFO
     private String abilityType;
     private String abilityNm;
-    private String jobTitle;
-    private String callNumber;
-    private String filePath;
-    private String fileName;
-
+    
+    //PJT_HMN_RESRC_INFO
+    private long pjtSeq;
+    private String userRoleCd;
+    
+    private String fileNm;
+    private String fileDir;
 }

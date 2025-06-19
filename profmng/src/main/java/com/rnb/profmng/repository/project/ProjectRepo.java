@@ -21,12 +21,12 @@ public interface ProjectRepo extends JpaRepository<Project, ProjectPK>{
     List<Project> findAll();
     
     // 특정 코드 조회
-    List<Project> findByProjectPk_ProjectCd(String projectCd);
+    List<Project> findByProjectPk_PjtSeq(long pjtSeq);
 
     // 프로젝트 삭제
     @Modifying
     @Transactional
-    @Query("DELETE FROM Project p WHERE p.projectPk.projectCd = :projectCd")
-    int deleteByProjectCd(@Param("projectCd") String projectCd);
+    @Query("DELETE FROM Project p WHERE p.projectPk.pjtSeq = :pjtSeq")
+    int deleteByPjtSeq(@Param("pjtSeq") String pjtSeq);
     
 }

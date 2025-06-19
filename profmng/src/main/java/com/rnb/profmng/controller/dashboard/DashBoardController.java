@@ -8,32 +8,39 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.rnb.profmng.dto.project.ProjectDTO;
+import com.rnb.profmng.repository.profile.PjtHmnResrcInfoRepo;
 import com.rnb.profmng.service.project.ProjectService;
 
 @Controller
 public class DashBoardController{
+
+    private final PjtHmnResrcInfoRepo pjtHmnResrcInfoRepo;
 	
 	@Autowired
 	private ProjectService projectService;
+
+    DashBoardController(PjtHmnResrcInfoRepo pjtHmnResrcInfoRepo) {
+        this.pjtHmnResrcInfoRepo = pjtHmnResrcInfoRepo;
+    }
 	
 	@GetMapping("/dashboard")
 	public String showProjectPage(Model model) {
 		List<ProjectDTO> result = projectService.allProjects();
 		
 		if(result.size() > 0) {
-			result.sort((a, b) -> b.getStartDate().compareTo(a.getStartDate()));
+			result.sort((a, b) -> b.getEfctStartDate().compareTo(a.getEfctStartDate()));
 			int idx = Math.min(result.size(), 4);
 			int count = 0;
 			
 			for (ProjectDTO project : result) {
 				if (count >= 4) break;
 				
-			    model.addAttribute("dashboard_projectCd" + idx, project.getProjectCd());
-			    model.addAttribute("dashboard_projectNm" + idx, project.getProjectNm());
+			    model.addAttribute("dashboard_projectCd" + idx, project.getPjtSeq());
+			    model.addAttribute("dashboard_projectNm" + idx, project.getPjtNm());
 			    model.addAttribute("dashboard_startDate" + idx,
-			            project.getStartDate() != null ? project.getStartDate() : null);
+			            project.getEfctStartDate() != null ? project.getEfctStartDate() : null);
 			    model.addAttribute("dashboard_endDate" + idx,
-			            project.getEndDate() != null ? project.getEndDate() : "9999-12-31");
+			            project.getEfctEndDate() != null ? project.getEfctEndDate() : "9999-12-31");
 			    idx--;
 			    count++;
 			}

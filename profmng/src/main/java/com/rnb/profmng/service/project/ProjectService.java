@@ -29,19 +29,19 @@ public class ProjectService {
         Project project = new Project();
 
         ProjectPK pk = new ProjectPK();
-        pk.setProjectCd(dto.getProjectCd());
-        pk.setProjectNm(dto.getProjectNm());
-        pk.setStartDate(dto.getStartDate());
+        pk.setPjtSeq(dto.getPjtSeq());
+        pk.setPjtNm(dto.getPjtNm());
+        pk.setEfctStartDate(dto.getEfctStartDate());
 
         project.setProjectPk(pk);
 
-        project.setEndDate(dto.getEndDate());
+        project.setEfctEndDate(dto.getEfctEndDate());
         project.setPmId(dto.getPmId());
         project.setClient(dto.getClient());
         project.setContractor(dto.getContractor());
         project.setManMonth(dto.getManMonth());
         project.setTotAmt(dto.getTotAmt());
-        project.setProjectType(dto.getProjectType());
+        project.setPjtTypeCd(dto.getPjtTypeCd());
 
         projectRepo.save(project);
     }
@@ -54,8 +54,8 @@ public class ProjectService {
     }
     
     // 프로젝트 삭제
-    public int deleteProject(String projectCd) {
-        return projectRepo.deleteByProjectCd(projectCd);
+    public int deleteProject(String pjtSeq) {
+        return projectRepo.deleteByPjtSeq(pjtSeq);
     }
     
     // 프로젝트 수정 - PK 체크    
