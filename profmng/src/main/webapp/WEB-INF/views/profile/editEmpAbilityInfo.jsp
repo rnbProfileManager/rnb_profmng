@@ -84,7 +84,7 @@
 							</div>
 							<div class="edit-group">
 								<label for="dateInput">시작 일자 선택:</label>
-								<input type="date" name="startDate" class="dateInput" value="${param.startDate}" readonly>
+								<input type="date" name="sysCretDate" class="dateInput" value="${param.sysCretDate}" readonly>
 							</div>
 							<div class="grid-buttons">
 							  <button type="button" onclick="edit()" class="btn edit">수정</button>

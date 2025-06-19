@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProjectDTO implements ProjectView {
+public class ProjectDTO {
     
 	private String projectCd;
     private String projectNm;

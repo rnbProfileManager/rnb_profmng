@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ProfiledbDto {
 	
     private String empCd;
+    private String empId;
     //private String empNm;
     private String abilityType;
     private String abilityNm;

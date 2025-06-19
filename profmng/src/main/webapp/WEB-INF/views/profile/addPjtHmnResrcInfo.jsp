@@ -71,28 +71,28 @@
 					    <h2>프로젝트 조회</h2>
 					    <form class="edit-form" method="post">
 							<div class="edit-group">
-							    <label for="projectCd">프로젝트코드: <span class="required">*</span></label>
-							    <input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
+							    <label for="pjtSeq">프로젝트코드: <span class="required">*</span></label>
+							    <input type="text" name="pjtSeq" class="searchInput" placeholder="예: 0001" required>
+							</div>
+							<div class="edit-group">
+							    <label for="pjtNm">프로젝트명: <span class="required">*</span></label>
+							    <input type="text" name="pjtNm" class="searchInput" placeholder="예: 0001" required>
 							</div>
 							<div class="edit-group">
 								<label for="searchInput">사원코드: <span class="required">*</span></label>
 								<input type="text"  name="empId" class="searchInput" placeholder="예: 0001" required>
 							</div>
 							<div class="edit-group">
-								<label for="searchInput">프로젝트명: <span class="required">*</span></label>
-								<input type="text"  name="projectNm" class="searchInput" placeholder="예: ICIS-TR" required>
-							</div>
-							<div class="edit-group">
 								<label for="dateInput">시작일자: <span class="required">*</span></label>
-								<input type="date" name="startDate" class="dateInput" required>
+								<input type="date" name="efctStartDate" class="dateInput" required>
 							</div>
 							<div class="edit-group">
 								<label for="dateInput">종료일자:</label>
-								<input type="date" name="endDate" class="dateInput">
+								<input type="date" name="efctEndDate" class="dateInput">
 							</div>
 							<div class="edit-group">
 								<label for="departmentSelect">역할:</label>
-								<select class="departmentSelect" name="userRole">
+								<select class="departmentSelect" name="userRoleCd">
 								  <option value="전체">전체</option>
 								  <option value="PM">PM</option>
 								  <option value="PL">PL</option>

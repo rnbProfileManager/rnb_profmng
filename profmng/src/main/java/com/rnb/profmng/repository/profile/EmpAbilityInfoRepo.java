@@ -22,11 +22,8 @@ public interface EmpAbilityInfoRepo extends JpaRepository<EmpAbilityInfo, EmpAbi
     List<EmpAbilityInfo> findByEmpAbilityInfoPk_EmpId(String EmpId);
 
     // 직무 능력 삭제
-//    @Modifying
-//    @Transactional
-//    @Query("DELETE FROM EmpAbilityInfo a, EmpBas b "
-//    		+ " WHERE b.empNm = :empNm"
-//    		+ " AND a.empAbilityInfoPk.empId = b.empId"
-//    		)
-//    int deleteByEmpNm(@Param("empNm") String empNm);
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM EmpAbilityInfo a WHERE a.empAbilityInfoPk.empId = :empId")
+    int deleteByEmpNm(@Param("empId") String empId);
 }

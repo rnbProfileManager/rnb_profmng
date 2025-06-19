@@ -71,8 +71,8 @@
 					    <h2>프로젝트 조회</h2>
 					    <form class="edit-form" method="post">
 							<div class="edit-group">
-							    <label for="projectCd">프로젝트코드:</label>
-							    <input type="text" name="projectCd" class="searchInput" value="${param.projectCd}" readonly>
+							    <label for="pjtSeq">프로젝트코드:</label>
+							    <input type="text" name="pjtSeq" class="searchInput" value="${param.pjtSeq}" readonly>
 							</div>
 							<div class="edit-group">
 								<label for="searchInput">사원코드:</label>
@@ -80,19 +80,19 @@
 							</div>
 							<div class="edit-group">
 								<label for="searchInput">프로젝트명:</label>
-								<input type="text"  name="projectNm" class="searchInput" value="${param.projectNm}" readonly>
+								<input type="text"  name="pjtNm" class="searchInput">
 							</div>
 							<div class="edit-group">
 								<label for="dateInput">시작일자:</label>
-								<input type="date" name="startDate" class="dateInput" value="${param.startDate}" readonly>
+								<input type="date" name="efctStartDate" class="dateInput" value="${param.efctStartDate}" readonly>
 							</div>
 							<div class="edit-group">
 								<label for="dateInput">종료일자:</label>
-								<input type="date" name="endDate" class="dateInput">
+								<input type="date" name="efctEndDate" class="dateInput">
 							</div>
 							<div class="edit-group">
 								<label for="departmentSelect">역할:</label>
-								<select class="departmentSelect" name="userRole">
+								<select class="departmentSelect" name="userRoleCd">
 								  <option value="전체">전체</option>
 								  <option value="PM">PM</option>
 								  <option value="PL">PL</option>

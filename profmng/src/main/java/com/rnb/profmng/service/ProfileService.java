@@ -44,30 +44,30 @@ public class ProfileService {
     private final ProfileRepository profileRepository;
 	 
 	// 전체 조회
-	public List<ProfiledbDto> getAllProfiles() {
-		List<ProfiledbDto> dto = profileRepository.getAllProfiles();
-
-		return dto;
-	}
+//	public List<ProfiledbDto> getAllProfiles() {
+//		List<ProfiledbDto> dto = profileRepository.getAllProfiles();
+//
+//		return dto;
+//	}
 	 
 	// 조회조건 조회   
-	 public List<ProfiledbDto> searchProfiles(String empCd, String startDateStr, String endDateStr) {
-	        if ((empCd == null || empCd.isEmpty()) 
-	            && (startDateStr == null || startDateStr.isEmpty()) 
-	            && (endDateStr == null || endDateStr.isEmpty())) {
-	            return getAllProfiles();
-	        }
-
-	        LocalDateTime parsedStartDate = (startDateStr != null && !startDateStr.isEmpty())
-	                ? LocalDate.parse(startDateStr).atStartOfDay()
-	                : null;
-
-	        LocalDateTime parsedEndDate = (endDateStr != null && !endDateStr.isEmpty())
-	                ? LocalDate.parse(endDateStr).atTime(23, 59, 59)
-	                : null;
-
-	        return profileRepository.searchProfiles(empCd, parsedStartDate, parsedEndDate);
-	    }
+//	 public List<ProfiledbDto> searchProfiles(String empCd, String startDateStr, String endDateStr) {
+//	        if ((empCd == null || empCd.isEmpty()) 
+//	            && (startDateStr == null || startDateStr.isEmpty()) 
+//	            && (endDateStr == null || endDateStr.isEmpty())) {
+//	            return getAllProfiles();
+//	        }
+//
+//	        LocalDateTime parsedStartDate = (startDateStr != null && !startDateStr.isEmpty())
+//	                ? LocalDate.parse(startDateStr).atStartOfDay()
+//	                : null;
+//
+//	        LocalDateTime parsedEndDate = (endDateStr != null && !endDateStr.isEmpty())
+//	                ? LocalDate.parse(endDateStr).atTime(23, 59, 59)
+//	                : null;
+//
+//	        return profileRepository.searchProfiles(empCd, parsedStartDate, parsedEndDate);
+//	    }
     
 
     public EmpBas insertEmpBas(EmpBasDTO dto) {
@@ -245,9 +245,9 @@ public class ProfileService {
     }
     
     // 직무 능력 삭제
-//    public int deleteEmpAbilityInfo(String empNm) {
-//        return empAbilityInfoRepo.deleteByEmpNm(empNm);
-//    }
+    public int deleteEmpAbilityInfo(String empNm) {
+        return empAbilityInfoRepo.deleteByEmpNm(empNm);
+    }
     
     // 직무 능력 수정 - PK 체크    
     public EmpAbilityInfo findByPk(EmpAbilityInfoPK pk) {
@@ -307,9 +307,9 @@ public class ProfileService {
     }
     
     // 투입 인력 삭제
-//    public int deletePjtHmnResrcInfo(String pjtSeq) {
-//        return pjtHmnResrcInfoRepo.deleteByPjtSeq(pjtSeq);
-//    }
+    public int deletePjtHmnResrcInfo(String pjtSeq) {
+        return pjtHmnResrcInfoRepo.deleteByPjtHmnResrcInfoPK_PjtSeq(pjtSeq);
+    }
     
     // 투입 인력 수정 - PK 체크    
     public PjtHmnResrcInfo findByPk(PjtHmnResrcInfoPK pk) {

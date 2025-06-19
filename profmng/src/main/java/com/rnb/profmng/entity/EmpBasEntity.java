@@ -6,7 +6,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "EMP_BAS")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class EmpBasEntity {
 
     @Id
@@ -25,10 +29,10 @@ public class EmpBasEntity {
     //@Column(name = "UPDATE_DATE")
     //private LocalDateTime updateDate;
 
-    @Column(name = "job_grade")
+    @Column(name = "job_grade_cd")
     private String jobGrade;
 
-    @Column(name = "job_title")
+    @Column(name = "job_title_cd")
     private String jobTitle;
 
     @Column(name = "home_addr")
@@ -37,7 +41,7 @@ public class EmpBasEntity {
     @Column(name = "call_number")
     private String callNumber;
 
-    @Column(name = "org_nm")
+    @Column(name = "org_cd")
     private String orgNm;
 
     @Column(name = "emp_type_cd")

@@ -13,21 +13,21 @@ public class ProfileFileInfoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FILE_ID")
+    @Column(name = "file_seq")
     private Long fileId;
 
-    @Column(name = "EMP_CD")
+    @Column(name = "emp_id")
     private String empCd;
 
-    @Column(name = "FILE_NAME")
+    @Column(name = "file_nm")
     private String fileName;
 
-    @Column(name = "FILE_PATH")
+    @Column(name = "file_dir")
     private String filePath;
 
-    @Column(name = "FILE_SIZE")
+    @Column(name = "file_size")
     private Long fileSize;
 
-    @Column(name = "UPLOAD_DT")
+    @Column(name = "sys_updt_date")
     private LocalDateTime uploadDt;
 }

@@ -84,7 +84,6 @@
 					            <th><input type="checkbox" id="checkAll" /></th>
 					            <th>프로젝트코드</th>
 					            <th>사원코드</th>
-								<th>프로젝트명</th>
 					            <th>시작일자</th>
 					            <th>종료일자</th>
 					            <th>역할</th>
@@ -95,16 +94,14 @@
 									<c:forEach var="pjtHmnResrcInfo" items="${pjtHmnResrcInfoList}">
 										<tr>
 										   <td><input type="checkbox" name="empId" value="${pjtHmnResrcInfo.empId}"
-												data-projectcd="${pjtHmnResrcInfo.projectCd}"
-									       		data-empId="${pjtHmnResrcInfo.empId}"
-												data-projectnm="${pjtHmnResrcInfo.projectNm}"
-											    data-startdate="${pjtHmnResrcInfo.startDate}" /></td>
-											<td>${pjtHmnResrcInfo.projectCd}</td>
+												data-pjtseq="${pjtHmnResrcInfo.pjtSeq}"
+									       		data-empid="${pjtHmnResrcInfo.empId}"
+											    data-efctstartdate="${pjtHmnResrcInfo.efctStartDate}" /></td>
+											<td>${pjtHmnResrcInfo.pjtSeq}</td>
 										    <td>${pjtHmnResrcInfo.empId}</td>
-										    <td>${pjtHmnResrcInfo.projectNm}</td>
-										    <td>${pjtHmnResrcInfo.startDate}</td>
-										    <td>${pjtHmnResrcInfo.endDate}</td>
-											<td>${pjtHmnResrcInfo.userRole}</td>
+										    <td>${pjtHmnResrcInfo.efctStartDate}</td>
+										    <td>${pjtHmnResrcInfo.efctEndDate}</td>
+											<td>${pjtHmnResrcInfo.userRoleCd}</td>
 										</tr>
 									</c:forEach>
 						    </tbody>
@@ -171,21 +168,19 @@
 	    }
 		
 		const item = checkedItems[0];
-	    const projectCd = item.dataset.projectcd;
-		const empId = item.dataset.empId;
-	    const projectNm = item.dataset.projectnm;
-	    const startDate = item.dataset.startdate;
+	    const pjtSeq = item.dataset.pjtseq;
+		const empId = item.dataset.empid;
+	    const efctStartDate = item.dataset.efctstartdate;
 			
-		if (!projectCd || !empId || !projectNm || !startDate) {
+		if (!pjtSeq || !empId || !efctStartDate) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
 
 		window.location.href = "/profile/editPjtHmnResrcInfo"
-		    + "?projectCd=" + encodeURIComponent(projectCd)
+		    + "?pjtSeq=" + encodeURIComponent(pjtSeq)
 			+ "&empId=" + encodeURIComponent(empId)
-		    + "&projectNm=" + encodeURIComponent(projectNm)
-		    + "&startDate=" + encodeURIComponent(startDate);
+		    + "&efctStartDate=" + encodeURIComponent(efctStartDate);
 	}
 	function deleteSelected() {
 	    const checkedItems = document.querySelectorAll('input[name="empId"]:checked');

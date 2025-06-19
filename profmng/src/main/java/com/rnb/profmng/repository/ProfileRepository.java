@@ -13,45 +13,45 @@ import com.rnb.profmng.entity.EmpAbilityInfoId;
 
 public interface ProfileRepository extends JpaRepository<EmpAbilityInfoEntity, EmpAbilityInfoId> {
 
-	@Query("SELECT new com.rnb.profmng.dto.ProfiledbDto(a.empCd, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath , c.fileName) "
-			+ "FROM EmpAbilityInfoEntity a " + "JOIN EmpBasEntity b ON a.empCd = b.empCd "
-			+ "LEFT JOIN ProfileFileInfoEntity c ON a.empCd = c.empCd ")
-	List<ProfiledbDto> findAllProfiles();
+//	@Query("SELECT new com.rnb.profmng.dto.ProfiledbDto(a.empCd, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath , c.fileName) "
+//			+ "FROM EmpAbilityInfoEntity a " + "JOIN EmpBasEntity b ON a.empCd = b.empCd "
+//			+ "LEFT JOIN ProfileFileInfoEntity c ON a.empCd = c.empCd ")
+//	List<ProfiledbDto> findAllProfiles();
 
-	@Query("""
-			SELECT new com.rnb.profmng.dto.ProfiledbDto(
-			    a.empCd, a.abilityType, a.abilityNm,
-			    b.jobTitle, b.callNumber,
-			    c.filePath, c.fileName
-			)
-			FROM EmpAbilityInfoEntity a
-			JOIN EmpBasEntity b ON a.empCd = b.empCd
-			LEFT JOIN ProfileFileInfoEntity c
-			  ON a.empCd = c.empCd
-			  AND c.uploadDt = (
-			      SELECT MAX(c2.uploadDt)
-			      FROM ProfileFileInfoEntity c2
-			      WHERE c2.empCd = a.empCd
-			  )
-			WHERE (:startDate IS NULL OR a.startDate >= :startDate)
-			  AND (:endDate IS NULL OR a.endDate <= :endDate)
-			""")
-			List<ProfiledbDto> searchProfiles(
-			    @Param("empCd") String empCd,
-			    @Param("startDate") LocalDateTime startDate,
-			    @Param("endDate") LocalDateTime endDate
-			);
+//	@Query("""
+//			SELECT new com.rnb.profmng.dto.ProfiledbDto(
+//			    a.empCd, a.abilityType, a.abilityNm,
+//			    b.jobTitle, b.callNumber,
+//			    c.filePath, c.fileName
+//			)
+//			FROM EmpAbilityInfoEntity a
+//			JOIN EmpBasEntity b ON a.empCd = b.empCd
+//			LEFT JOIN ProfileFileInfoEntity c
+//			  ON a.empCd = c.empCd
+//			  AND c.uploadDt = (
+//			      SELECT MAX(c2.uploadDt)
+//			      FROM ProfileFileInfoEntity c2
+//			      WHERE c2.empCd = a.empCd
+//			  )
+//			WHERE (:startDate IS NULL OR a.startDate >= :startDate)
+//			  AND (:endDate IS NULL OR a.endDate <= :endDate)
+//			""")
+//			List<ProfiledbDto> searchProfiles(
+//			    @Param("empCd") String empCd,
+//			    @Param("startDate") LocalDateTime startDate,
+//			    @Param("endDate") LocalDateTime endDate
+//			);
 
-	@Query("""
-			SELECT new com.rnb.profmng.dto.ProfiledbDto(
-			    a.empCd, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath,c.fileName
-			)
-			FROM EmpAbilityInfoEntity a
-			JOIN EmpBasEntity b ON a.empCd = b.empCd
-			LEFT JOIN ProfileFileInfoEntity c ON a.empCd = c.empCd AND c.uploadDt = (
-			    SELECT MAX(c2.uploadDt) FROM ProfileFileInfoEntity c2 WHERE c2.empCd = a.empCd
-			)
-			""")
-	List<ProfiledbDto> getAllProfiles();
+//	@Query("""
+//			SELECT new com.rnb.profmng.dto.ProfiledbDto(
+//			    a.empCd, a.abilityType, a.abilityNm, b.jobTitle, b.callNumber, c.filePath,c.fileName
+//			)
+//			FROM EmpAbilityInfoEntity a
+//			JOIN EmpBasEntity b ON a.empCd = b.empCd
+//			LEFT JOIN ProfileFileInfoEntity c ON a.empCd = c.empCd AND c.uploadDt = (
+//			    SELECT MAX(c2.uploadDt) FROM ProfileFileInfoEntity c2 WHERE c2.empCd = a.empCd
+//			)
+//			""")
+//	List<ProfiledbDto> getAllProfiles();
 
 }

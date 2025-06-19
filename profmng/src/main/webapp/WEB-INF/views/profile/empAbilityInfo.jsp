@@ -93,20 +93,20 @@
 									<c:forEach var="empAbilityInfo" items="${empAbilityInfoList}">
 										<tr>
 										   <td><input type="checkbox" name="empId" value="${empAbilityInfo.empId}"
-												data-empId="${empAbilityInfo.empId}"
+												data-empid="${empAbilityInfo.empId}"
 									       		data-abilitytype="${empAbilityInfo.abilityType}"
 												data-abilitynm="${empAbilityInfo.abilityNm}"
-											    data-startdate="${empAbilityInfo.startDate}" /></td>
+											    data-syscretdate="${empAbilityInfo.sysCretDate}" /></td>
 										    <td>${empAbilityInfo.empId}</td>
 											<td>${empAbilityInfo.abilityType}</td>
 											<td>${empAbilityInfo.abilityNm}</td>
-										    <td>${empAbilityInfo.startDate}</td>
+										    <td>${empAbilityInfo.sysCretDate}</td>
 										</tr>
 									</c:forEach>
 						    </tbody>
 						</table>
 			        <div class="grid-buttons">
-			            <button type="button" onclick="location.href='/profile/addEmpAbililtyInfo'" class="btn new">신규</button>
+			            <button type="button" onclick="location.href='/profile/addEmpAbilityInfo'" class="btn new">신규</button>
 			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
 			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
 			        </div>
@@ -167,12 +167,12 @@
 	    }
 		
 		const item = checkedItems[0];
-	    const empId = item.dataset.empId;
+	    const empId = item.dataset.empid;
 	    const abilityType = item.dataset.abilitytype;
 		const abilityNm = item.dataset.abilitynm;
-	    const startDate = item.dataset.startdate;
+	    const sysCretDate = item.dataset.syscretdate;
 			
-		if (!empId || !abilityType || !abilityNm) {
+		if (!empId || !abilityNm) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
@@ -181,7 +181,7 @@
 		    + "?empId=" + encodeURIComponent(empId)
 			+ "&abilityType=" + encodeURIComponent(abilityType)
 			+ "&abilityNm=" + encodeURIComponent(abilityNm)
-		    + "&startDate=" + encodeURIComponent(startDate);
+		    + "&sysCretDate=" + encodeURIComponent(sysCretDate);
 	}
 	function deleteSelected() {
 	    const checkedItems = document.querySelectorAll('input[name="empId"]:checked');

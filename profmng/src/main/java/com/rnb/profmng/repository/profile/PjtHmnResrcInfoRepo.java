@@ -22,8 +22,8 @@ public interface PjtHmnResrcInfoRepo extends JpaRepository<PjtHmnResrcInfo, PjtH
     List<PjtHmnResrcInfo> findByPjtHmnResrcInfoPk_EmpId(String empId);
 
     // 투입 인력 만료
-//    @Modifying
-//    @Transactional
-//    @Query("DELETE FROM PjtHmnResrcInfo p WHERE p.pjtHmnResrcInfoPk.pjt_seq = :pjt_seq")
-//    int deleteByPjtHmnResrcInfoPK_PjtSeq(@Param("pjtSeq") String pjtSeq);
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM PjtHmnResrcInfo p WHERE p.pjtHmnResrcInfoPk.pjtSeq = :pjtSeq")
+    int deleteByPjtHmnResrcInfoPK_PjtSeq(@Param("pjtSeq") String pjtSeq);
 }

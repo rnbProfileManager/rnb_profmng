@@ -149,7 +149,7 @@
 		    return;
 		}
 
-		form.action = "/profile/addEmpAbililtyInfo";
+		form.action = "/profile/addEmpAbilityInfo";
 		form.method = "post";
 
 		form.submit();
