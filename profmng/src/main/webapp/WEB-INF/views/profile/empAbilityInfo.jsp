@@ -53,8 +53,8 @@
             <ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
 				<li><a href="/profile/empBas">직원 정보</a></li>
-				<li><a href="/profile/projectEmpInfo" class="active">투입 인력 관리</a></li>
-				<li><a href="/profile/empAbility">직무 능력</a></li>
+				<li><a href="/profile/pjtHmnResrcInfo">투입 인력 관리</a></li>
+				<li><a href="/profile/empAbilityInfo" class="active">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
 				<li><a href="#">파일 관리</a></li>
 				<li><a href="#">설정</a></li>            
@@ -63,13 +63,13 @@
 
         <!-- MAIN CONTENT -->
         <main>
-            <h1 class="main-title">투입 인력 조회</h1>
+            <h1 class="main-title">직무능력 조회</h1>
             <p class="main-subtitle">사원 코드를 입력해주세요</p>
 
 			<section class="search-area">
-			    <h2>투입 인력 조회</h2>
+			    <h2>직무 능력 조회</h2>
 
-			    <form class="search-form" method="get" action="/profile/projectEmpInfo/manage">	
+			    <form class="search-form" method="get" action="/profile/empAbilityInfo/manage">	
 					<div class="form-group">
 					    <label for="empId">사원 코드</label>
 					    <input type="text" id="empId" name="empId" value="${param.empId}">
@@ -82,43 +82,39 @@
 					    <thead>
 					        <tr>
 					            <th><input type="checkbox" id="checkAll" /></th>
-					            <th>프로젝트코드</th>
 					            <th>사원코드</th>
-								<th>프로젝트명</th>
+					            <th>직무능력유형</th>
+					            <th>직무능력명</th>
 					            <th>시작일자</th>
-					            <th>종료일자</th>
-					            <th>역할</th>
 					        </tr>
 					    </thead>
 						    <tbody>
-								<h3>총 건수: ${fn:length(projectEmpInfoList)}</h3>
-									<c:forEach var="projectEmpInfo" items="${projectEmpInfoList}">
+								<h3>총 건수: ${fn:length(empAbilityInfoList)}</h3>
+									<c:forEach var="empAbilityInfo" items="${empAbilityInfoList}">
 										<tr>
-										   <td><input type="checkbox" name="empId" value="${projectEmpInfo.empId}"
-												data-projectcd="${projectEmpInfo.projectCd}"
-									       		data-empId="${projectEmpInfo.empId}"
-												data-projectnm="${projectEmpInfo.projectNm}"
-											    data-startdate="${projectEmpInfo.startDate}" /></td>
-											<td>${projectEmpInfo.projectCd}</td>
-										    <td>${projectEmpInfo.empId}</td>
-										    <td>${projectEmpInfo.projectNm}</td>
-										    <td>${projectEmpInfo.startDate}</td>
-										    <td>${projectEmpInfo.endDate}</td>
-											<td>${projectEmpInfo.userRole}</td>
+										   <td><input type="checkbox" name="empId" value="${empAbilityInfo.empId}"
+												data-empId="${empAbilityInfo.empId}"
+									       		data-abilitytype="${empAbilityInfo.abilityType}"
+												data-abilitynm="${empAbilityInfo.abilityNm}"
+											    data-startdate="${empAbilityInfo.startDate}" /></td>
+										    <td>${empAbilityInfo.empId}</td>
+											<td>${empAbilityInfo.abilityType}</td>
+											<td>${empAbilityInfo.abilityNm}</td>
+										    <td>${empAbilityInfo.startDate}</td>
 										</tr>
 									</c:forEach>
 						    </tbody>
 						</table>
 			        <div class="grid-buttons">
-			            <button type="button" onclick="location.href='/profile/addProjectEmpInfo'" class="btn new">신규</button>
+			            <button type="button" onclick="location.href='/profile/addEmpAbililtyInfo'" class="btn new">신규</button>
 			            <button type="button" onclick="editSelected()" class="btn edit">수정</button>
 			            <button type="button" onclick="deleteSelected()" class="btn delete">삭제</button>
 			        </div>
-					<form id="editForm" method="POST" action="/profile/editProjectEmpInfo">
-					    <input type="hidden" name="empId" id="editProjectEmpInfo" />
+					<form id="editForm" method="POST" action="/profile/editEmpAbilityInfo">
+					    <input type="hidden" name="empId" id="editEmpAbilityInfo" />
 					</form>
-					<form id="deleteForm" method="POST" action="/profile/deleteProjectEmpInfo">
-					    <input type="hidden" name="empId" id="deleteProjectEmpInfo" />
+					<form id="deleteForm" method="POST" action="/profile/deleteEmpAbilityInfo">
+					    <input type="hidden" name="empId" id="deleteEmpAbilityInfo" />
 					</form>
 					<c:choose>
 						<c:when test="${deleteResult eq 'success'}">
@@ -171,20 +167,20 @@
 	    }
 		
 		const item = checkedItems[0];
-	    const projectCd = item.dataset.projectcd;
-		const empId = item.dataset.empId;
-	    const projectNm = item.dataset.projectnm;
+	    const empId = item.dataset.empId;
+	    const abilityType = item.dataset.abilitytype;
+		const abilityNm = item.dataset.abilitynm;
 	    const startDate = item.dataset.startdate;
 			
-		if (!projectCd || !empId || !projectNm || !startDate) {
+		if (!empId || !abilityType || !abilityNm) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}
 
-		window.location.href = "/profile/editProjectEmpInfo"
-		    + "?projectCd=" + encodeURIComponent(projectCd)
-			+ "&empId=" + encodeURIComponent(empId)
-		    + "&projectNm=" + encodeURIComponent(projectNm)
+		window.location.href = "/profile/editEmpAbilityInfo"
+		    + "?empId=" + encodeURIComponent(empId)
+			+ "&abilityType=" + encodeURIComponent(abilityType)
+			+ "&abilityNm=" + encodeURIComponent(abilityNm)
 		    + "&startDate=" + encodeURIComponent(startDate);
 	}
 	function deleteSelected() {
@@ -202,7 +198,7 @@
 	    const empIds = Array.from(checkedItems).map(item => item.value);
 	    const param = empIds.map(cd => "empId=" + encodeURIComponent(cd)).join("&");
 
-	    window.location.href = "/profile/deleteProjectEmpInfo?" + param;
+	    window.location.href = "/profile/deleteEmpAbilityInfo?" + param;
 	}
 	</script>
 </body>

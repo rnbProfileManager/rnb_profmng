@@ -110,16 +110,16 @@ public class ProfileService {
         pk.setEmpId(dto.getEmpId());
         pk.setAbilityNm(dto.getAbilityNm());
         
-        EmpAbilityInfo empAbility = new EmpAbilityInfo();
+        EmpAbilityInfo empAbilityInfo = new EmpAbilityInfo();
         
-        empAbility.setEmpAbilityInfoPk(pk);
-        empAbility.setAbilityType(dto.getAbilityType());
-        empAbility.setSysUpdtrId(dto.getSysUpdtrId());
-        empAbility.setSysSvcId(dto.getSysSvcId());
-        empAbility.setSysCretDate(dto.getSysCretDate());
-        empAbility.setSysUpdtDate(dto.getSysUpdtDate());
+        empAbilityInfo.setEmpAbilityInfoPk(pk);
+        empAbilityInfo.setAbilityType(dto.getAbilityType());
+        empAbilityInfo.setSysUpdtrId(dto.getSysUpdtrId());
+        empAbilityInfo.setSysSvcId(dto.getSysSvcId());
+        empAbilityInfo.setSysCretDate(dto.getSysCretDate());
+        empAbilityInfo.setSysUpdtDate(dto.getSysUpdtDate());
 
-        return empAbilityInfoRepo.save(empAbility);
+        return empAbilityInfoRepo.save(empAbilityInfo);
     }
     
     public PjtHmnResrcInfo insertPjtHmnResrcInfo(PjtHmnResrcInfoDTO dto) {

@@ -52,8 +52,8 @@
 			<ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
 				<li><a href="/profile/empBas">직원 정보</a></li>
-				<li><a href="/profile/projectEmpInfo" class="active">투입 인력 관리</a></li>
-				<li><a href="/profile/empAbility">직무 능력</a></li>
+				<li><a href="/profile/pjtHmnResrcInfo" class="active">투입 인력 관리</a></li>
+				<li><a href="/profile/empAbilityInfo">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
 				<li><a href="#">파일 관리</a></li>
 				<li><a href="#">설정</a></li>
@@ -71,20 +71,20 @@
 					    <h2>프로젝트 조회</h2>
 					    <form class="edit-form" method="post">
 							<div class="edit-group">
-							    <label for="projectCd">프로젝트코드: <span class="required">*</span></label>
-							    <input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
+							    <label for="projectCd">프로젝트코드:</label>
+							    <input type="text" name="projectCd" class="searchInput" value="${param.projectCd}" readonly>
 							</div>
 							<div class="edit-group">
-								<label for="searchInput">사원코드: <span class="required">*</span></label>
-								<input type="text"  name="empId" class="searchInput" placeholder="예: 0001" required>
+								<label for="searchInput">사원코드:</label>
+								<input type="text"  name="empId" class="searchInput" value="${param.empId}" readonly>
 							</div>
 							<div class="edit-group">
-								<label for="searchInput">프로젝트명: <span class="required">*</span></label>
-								<input type="text"  name="projectNm" class="searchInput" placeholder="예: ICIS-TR" required>
+								<label for="searchInput">프로젝트명:</label>
+								<input type="text"  name="projectNm" class="searchInput" value="${param.projectNm}" readonly>
 							</div>
 							<div class="edit-group">
-								<label for="dateInput">시작일자: <span class="required">*</span></label>
-								<input type="date" name="startDate" class="dateInput" required>
+								<label for="dateInput">시작일자:</label>
+								<input type="date" name="startDate" class="dateInput" value="${param.startDate}" readonly>
 							</div>
 							<div class="edit-group">
 								<label for="dateInput">종료일자:</label>
@@ -101,20 +101,17 @@
 								</select>
 							</div>
 							<div class="grid-buttons">
-							  <button type="button" onclick="add()" class="btn edit">추가</button>
+							  <button type="button" onclick="edit()" class="btn edit">수정</button>
 							</div>
 						</form>
 					    <!-- 리스트 영역 -->
 					    <div class="grid-area">
 							<c:choose>
-								<c:when test="${addResult eq 'success'}">
-								    <div class="result-area">✅ 투입 인력 추가에 성공했습니다.</div>
+								<c:when test="${editResult eq 'success'}">
+								    <div class="result-area">✅ 투입 인력 수정에 성공했습니다.</div>
 								</c:when>
-								<c:when test="${addResult eq 'duplicate'}">
-								    <div class="result-area">❌ 중복된 코드가 있습니다.</div>
-								</c:when>
-								<c:when test="${addResult eq 'exception'}">
-								    <div class="result-area">❌ 투입 인력 추가에 실패했습니다.</div>
+								<c:when test="${editResult eq 'exception'}">
+								    <div class="result-area">❌ 투입 인력 수정에 실패했습니다.</div>
 								</c:when>
 							    <c:otherwise>
 							        <!-- 아무 메시지도 출력 안 함 -->
@@ -142,18 +139,18 @@
         </div>
     </footer>
 	<script>
-	function add() {
-		const form = document.querySelector('.edit-form');
+	function edit() {
+			const form = document.querySelector('.edit-form');
 
-		if (!form.checkValidity()) {
-		    form.reportValidity();
-		    return;
-		}
+			if (!form.checkValidity()) {
+			    form.reportValidity();
+			    return;
+			}
 
-		form.action = "/profile/addProjectEmpInfo";
-		form.method = "post";
+			form.action = "/profile/editPjtHmnResrcInfo";
+			form.method = "post";
 
-		form.submit();
+			form.submit();
 	}
 	</script>
 </body>

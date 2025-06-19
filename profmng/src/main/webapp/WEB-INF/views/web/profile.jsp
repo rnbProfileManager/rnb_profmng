@@ -53,8 +53,8 @@
             <ul class="sidebar-menu">
                 <li><a href="/profile/manage" class="active">프로필 조회</a></li>
                 <li><a href="/profile/empBas">직원 정보</a></li>
-                <li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
-				<li><a href="/profile/empAbility">직무 능력</a></li>
+                <li><a href="/profile/pjtHmnResrcInfo">투입 인력 관리</a></li>
+				<li><a href="/profile/empAbilityInfo">직무 능력</a></li>
                 <li><a href="#">캘린더</a></li>
                 <li><a href="#">파일 관리</a></li>
                 <li><a href="#">설정</a></li>

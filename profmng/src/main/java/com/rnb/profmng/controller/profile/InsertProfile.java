@@ -10,13 +10,13 @@ import com.rnb.profmng.service.ProfileService;
 @Controller
 public class InsertProfile{
 
-    private final PjtHmnResrcInfoRepo projectEmpInfoRepo;
+    private final PjtHmnResrcInfoRepo pjtHmnResrcInfoRepo;
 
 	@Autowired
 	private ProfileService profileInsertService;
 
-    InsertProfile(PjtHmnResrcInfoRepo projectEmpInfoRepo) {
-        this.projectEmpInfoRepo = projectEmpInfoRepo;
+    InsertProfile(PjtHmnResrcInfoRepo pjtHmnResrcInfoRepo) {
+        this.pjtHmnResrcInfoRepo = pjtHmnResrcInfoRepo;
     }
 
 	@GetMapping("/empProfileInsert")

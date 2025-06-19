@@ -103,6 +103,9 @@ public class ProfileController{
     public ResponseEntity<List<String>> listFiles() {
         return azureStorageService.listFiles();
     }
+    
+    
+    
 
     @GetMapping("/profile")
     public String profile(Model model) {
@@ -185,6 +188,7 @@ public class ProfileController{
     	
     	EmpBasPK pk = new EmpBasPK(empId, efctStartDate);
         EmpBas empBas = profileService.findByPk(pk);
+        
         model.addAttribute("empId", empId);
         model.addAttribute("empNm", empNm);
         model.addAttribute("efctStartDate", efctStartDate);
@@ -234,29 +238,29 @@ public class ProfileController{
 	 */
     
     // 투입 인력 탭
-    @GetMapping("/profile/projectEmpInfo")
+    @GetMapping("/profile/pjtHmnResrcInfo")
     public String allProfileInfo(Model model) {
-        List<PjtHmnResrcInfoDTO> projectEmpInfoList = profileService.allPjtHmnResrcInfo();
-        model.addAttribute("projectEmpInfoList", projectEmpInfoList);
-        return "profile/projectEmpInfo";
+        List<PjtHmnResrcInfoDTO> pjtHmnResrcInfoList = profileService.allPjtHmnResrcInfo();
+        model.addAttribute("pjtHmnResrcInfoList", pjtHmnResrcInfoList);
+        return "profile/pjtHmnResrcInfo";
     }
     
     // 특정 사원 투입 프로젝트 조회
-    @GetMapping("/profile/projectEmpInfo/manage")
+    @GetMapping("/profile/pjtHmnResrcInfo/manage")
     public String selectProfileInfo(@RequestParam("empId") String empId, Model model) {
         List<PjtHmnResrcInfo> result = pjtHmnResrcInfoRepo.findByPjtHmnResrcInfoPk_EmpId(empId);
-        model.addAttribute("projectEmpInfoList", result);
-        return "profile/projectEmpInfo";
+        model.addAttribute("pjtHmnResrcInfoList", result);
+        return "profile/pjtHmnResrcInfo";
     }
     
     // 신규 투입 인력 추가
-    @GetMapping("/profile/addProjectEmpInfo")
-    public String showAddProjectEmpInfoPage() {
-        return "profile/addProjectEmpInfo";
+    @GetMapping("/profile/addPjtHmnResrcInfo")
+    public String showAddPjtHmnResrcInfoPage() {
+        return "profile/addPjtHmnResrcInfo";
     }
 	
-    @PostMapping("/profile/addProjectEmpInfo")
-    public String addProjectEmpInfoPage(@ModelAttribute PjtHmnResrcInfoDTO dto, RedirectAttributes redirectAttributes) {
+    @PostMapping("/profile/addPjtHmnResrcInfo")
+    public String addPjtHmnResrcInfoPage(@ModelAttribute PjtHmnResrcInfoDTO dto, RedirectAttributes redirectAttributes) {
 
         try {
             PjtHmnResrcInfoPK pk = new PjtHmnResrcInfoPK(
@@ -267,7 +271,7 @@ public class ProfileController{
 
             if (profileService.existsByPk(pk)) {
                 redirectAttributes.addFlashAttribute("addResult", "duplicate");
-                return "redirect:/profile/addProjectEmpInfo";
+                return "redirect:/profile/addPjtHmnResrcInfo";
             }
         	
             profileService.savePjtHmnResrcInfo(dto);
@@ -275,12 +279,12 @@ public class ProfileController{
         } catch (Exception e) {
         	redirectAttributes.addFlashAttribute("addResult", "exception");
         }
-        return "redirect:/profile/addProjectEmpInfo";
+        return "redirect:/profile/addPjtHmnResrcInfo";
     }
 
     // 투입 인력 수정
-    @GetMapping("/profile/editProjectEmpInfo")
-    public String editProjectEmpInfoForm(
+    @GetMapping("/profile/editPjtHmnResrcInfo")
+    public String editPjtHmnResrcInfoForm(
             @RequestParam("pjtSeq") long pjtSeq,
             @RequestParam("empId") String empId,
             @RequestParam("efctStartDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate efctStartDate,
@@ -288,15 +292,15 @@ public class ProfileController{
 
     	
         PjtHmnResrcInfoPK pk = new PjtHmnResrcInfoPK(pjtSeq, empId, efctStartDate);
-        PjtHmnResrcInfo projectEmpInfo = profileService.findByPk(pk);
+        PjtHmnResrcInfo pjtHmnResrcInfo = profileService.findByPk(pk);
         model.addAttribute("projectCd", pjtSeq);
         model.addAttribute("projectNm", empId);
         model.addAttribute("startDate", efctStartDate);
-        return "profile/editProjectEmpInfo";
+        return "profile/editPjtHmnResrcInfo";
     }
     
-    @PostMapping("/profile/editProjectEmpInfo")
-    public String editProjectEmpInfoPage(@ModelAttribute PjtHmnResrcInfoDTO dto, RedirectAttributes redirectAttributes) {
+    @PostMapping("/profile/editPjtHmnResrcInfo")
+    public String editPjtHmnResrcInfoPage(@ModelAttribute PjtHmnResrcInfoDTO dto, RedirectAttributes redirectAttributes) {
         try {
         	PjtHmnResrcInfoPK pk = new PjtHmnResrcInfoPK(
         			dto.getPjtSeq(),
@@ -304,22 +308,22 @@ public class ProfileController{
         			dto.getEfctStartDate()
             );
 
-        	PjtHmnResrcInfo existingProjectEmpInfo = profileService.findByPk(pk);
+        	PjtHmnResrcInfo existingPjtHmnResrcInfo = profileService.findByPk(pk);
 
-            profileService.updatePjtHmnResrcInfoFromDto(dto, existingProjectEmpInfo);
+            profileService.updatePjtHmnResrcInfoFromDto(dto, existingPjtHmnResrcInfo);
             redirectAttributes.addFlashAttribute("editResult", "success");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
-        return "redirect:/profile/editProjectEmpInfo?projectCd=" + dto.getPjtSeq()
+        return "redirect:/profile/editPjtHmnResrcInfo?projectCd=" + dto.getPjtSeq()
              + "&empId=" + URLEncoder.encode(dto.getEmpId(), StandardCharsets.UTF_8)
              + "&startDate=" + dto.getEfctStartDate();
     }
     
     // 투입 인력 삭제
-    @GetMapping("/profile/deleteProjectEmpInfo")
-    public String deleteProjectEmpInfoPage(@RequestParam("empId") List<String> pjtSeqs, RedirectAttributes redirectAttributes) {
+    @GetMapping("/profile/deletePjtHmnResrcInfo")
+    public String deletePjtHmnResrcInfoPage(@RequestParam("empId") List<String> pjtSeqs, RedirectAttributes redirectAttributes) {
         try {
 //            for (String pjtSeq : pjtSeqs) {
 //                profileService.deletePjtHmnResrcInfo(pjtSeq);
@@ -328,7 +332,7 @@ public class ProfileController{
         } catch (Exception e) {
         	redirectAttributes.addFlashAttribute("deleteResult", "exception");
         }
-        return "redirect:/profile/projectEmpInfo";
+        return "redirect:/profile/pjtHmnResrcInfo";
     }
 	
     
@@ -340,29 +344,29 @@ public class ProfileController{
 	 */
     
     // 직무 능력 탭
-    @GetMapping("/profile/empAbility")
-    public String allEmpAbility(Model model) {
-        List<EmpAbilityInfoDTO> empAbilityList = profileService.allEmpAbilityInfo();
-        model.addAttribute("empAbilityList", empAbilityList);
-        return "profile/empAbility";
+    @GetMapping("/profile/empAbilityInfo")
+    public String allEmpAbilityInfo(Model model) {
+        List<EmpAbilityInfoDTO> empAbilityInfoList = profileService.allEmpAbilityInfo();
+        model.addAttribute("empAbilityInfoList", empAbilityInfoList);
+        return "profile/empAbilityInfo";
     }
     
     // 특정 사원 직무 능력 조회
-    @GetMapping("/profile/empAbility/manage")
-    public String selectEmpAbility(@RequestParam("empId") String empId, Model model) {
+    @GetMapping("/profile/empAbilityInfo/manage")
+    public String selectEmpAbilityInfo(@RequestParam("empId") String empId, Model model) {
         List<EmpAbilityInfo> result = empAbilityInfoRepo.findByEmpAbilityInfoPk_EmpId(empId);
-        model.addAttribute("empAbilityList", result);
-        return "profile/empAbility";
+        model.addAttribute("empAbilityInfoList", result);
+        return "profile/empAbilityInfo";
     }
 	
     // 신규 직무 능력 추가
-    @GetMapping("/profile/addEmpAbility")
-    public String showAddEmpAbilityPage() {
-        return "profile/addEmpAbility";
+    @GetMapping("/profile/addEmpAbililtyInfo")
+    public String showAddEmpAbililtyInfoPage() {
+        return "profile/addEmpAbililtyInfo";
     }
 	
-    @PostMapping("/profile/addEmpAbility")
-    public String addEmpAbilityPage(@ModelAttribute EmpAbilityInfoDTO dto, RedirectAttributes redirectAttributes) {
+    @PostMapping("/profile/addEmpAbililtyInfo")
+    public String addEmpAbililtyInfoPage(@ModelAttribute EmpAbilityInfoDTO dto, RedirectAttributes redirectAttributes) {
 
         try {
             EmpAbilityInfoPK pk = new EmpAbilityInfoPK(
@@ -372,7 +376,7 @@ public class ProfileController{
 
             if (profileService.existsByPk(pk)) {
                 redirectAttributes.addFlashAttribute("addResult", "duplicate");
-                return "redirect:/profile/addEmpAbility";
+                return "redirect:/profile/addEmpAbililtyInfo";
             }
         	
             profileService.saveEmpAbilityInfo(dto);
@@ -380,12 +384,12 @@ public class ProfileController{
         } catch (Exception e) {
         	redirectAttributes.addFlashAttribute("addResult", "exception");
         }
-        return "redirect:/profile/addEmpAbility";
+        return "redirect:/profile/addEmpAbililtyInfo";
     }
 
     // 직무 능력 수정
-    @GetMapping("/profile/editEmpAbility")
-    public String editEmpAbilityForm(
+    @GetMapping("/profile/editEmpAbilityInfo")
+    public String editEmpAbilityInfoForm(
             @RequestParam("empId") String empId,
             //@RequestParam("empNm") String empNm,
             @RequestParam("abilityType") String abilityType,
@@ -395,36 +399,36 @@ public class ProfileController{
 
     	
     	EmpAbilityInfoPK pk = new EmpAbilityInfoPK(empId, abilityNm);
-    	EmpAbilityInfo empAbility = profileService.findByPk(pk);
+    	EmpAbilityInfo empAbilityInfo = profileService.findByPk(pk);
         model.addAttribute("empId", empId);
         model.addAttribute("abilityNm", abilityNm);
         
-        return "profile/editEmpAbility";
+        return "profile/editEmpAbilityInfo";
     }
     
-    @PostMapping("/profile/editEmpAbility")
-    public String editEmpAbilityPage(@ModelAttribute EmpAbilityInfoDTO dto, RedirectAttributes redirectAttributes) {
+    @PostMapping("/profile/editEmpAbilityInfo")
+    public String editEmpAbilityInfoPage(@ModelAttribute EmpAbilityInfoDTO dto, RedirectAttributes redirectAttributes) {
         try {
         	EmpAbilityInfoPK pk = new EmpAbilityInfoPK(
         			dto.getEmpId(),
         			dto.getAbilityNm()
             );
 
-        	EmpAbilityInfo existingEmpAbility = profileService.findByPk(pk);
+        	EmpAbilityInfo existingEmpAbilityInfo = profileService.findByPk(pk);
 
-            profileService.updateEmpAbilityInfoFromDto(dto, existingEmpAbility);
+            profileService.updateEmpAbilityInfoFromDto(dto, existingEmpAbilityInfo);
             redirectAttributes.addFlashAttribute("editResult", "success");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("editResult", "exception");
         }
 
-        return "redirect:/profile/editEmpAbility?empId=" + URLEncoder.encode(dto.getEmpId(), StandardCharsets.UTF_8)
+        return "redirect:/profile/editEmpAbilityInfo?empId=" + URLEncoder.encode(dto.getEmpId(), StandardCharsets.UTF_8)
              + "&abilityNm=" + URLEncoder.encode(dto.getAbilityNm(), StandardCharsets.UTF_8);
     }
     
     // 직무 능력 삭제
-    @GetMapping("/profile/deleteEmpAbility")
-    public String deleteEmpAbilityPage(@RequestParam("empId") List<String> empIds, RedirectAttributes redirectAttributes) {
+    @GetMapping("/profile/deleteEmpAbilityInfo")
+    public String deleteEmpAbilityInfoPage(@RequestParam("empId") List<String> empIds, RedirectAttributes redirectAttributes) {
         try {
             for (String empId : empIds) {
 //                profileService.deleteEmpAbilityInfo(empId);
@@ -433,7 +437,7 @@ public class ProfileController{
         } catch (Exception e) {
         	redirectAttributes.addFlashAttribute("deleteResult", "exception");
         }
-        return "redirect:/profile/empAbility";
+        return "redirect:/profile/empAbilityInfo";
     }
 }
 

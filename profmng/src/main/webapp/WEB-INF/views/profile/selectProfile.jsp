@@ -54,8 +54,8 @@
 				<li><a href="/empProfileManage">사원 정보 관리</a></li>
                 <li><a href="/empProjectInsert">투입 인력 추가</a></li>
 				<li><a href="/empProjectManage">투입 인력 관리</a></li>
-				<li><a href="/empAbilityInsert">직무 능력 추가</a></li>
-				<li><a href="/empAbilityManage">직무 능력 관리</a></li>
+				<li><a href="/empAbilityInfoInsert">직무 능력 추가</a></li>
+				<li><a href="/empAbilityInfoManage">직무 능력 관리</a></li>
             </ul>
         </aside>
 

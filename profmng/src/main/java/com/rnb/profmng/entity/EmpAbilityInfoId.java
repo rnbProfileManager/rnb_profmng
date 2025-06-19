@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class EmpAbilityId implements Serializable {
+public class EmpAbilityInfoId implements Serializable {
 
     private static final long serialVersionUID = -5164275620127845543L;
 	private String empCd;
@@ -12,13 +12,13 @@ public class EmpAbilityId implements Serializable {
     private String abilityNm;
     private LocalDateTime startDate;
 
-    public EmpAbilityId() {}
+    public EmpAbilityInfoId() {}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EmpAbilityId)) return false;
-        EmpAbilityId that = (EmpAbilityId) o;
+        if (!(o instanceof EmpAbilityInfoId)) return false;
+        EmpAbilityInfoId that = (EmpAbilityInfoId) o;
         return Objects.equals(empCd, that.empCd) &&
         		//Objects.equals(empNm, that.empNm) &&
                 Objects.equals(abilityNm, that.abilityNm) &&

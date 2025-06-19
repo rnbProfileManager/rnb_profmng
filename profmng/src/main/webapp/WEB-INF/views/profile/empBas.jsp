@@ -53,8 +53,8 @@
             <ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
 				<li><a href="/profile/empBas" class="active">직원 정보</a></li>
-				<li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
-				<li><a href="/profile/empAbility">직무 능력</a></li>
+				<li><a href="/profile/pjtHmnResrcInfo">투입 인력 관리</a></li>
+				<li><a href="/profile/empAbilityInfo">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
 				<li><a href="#">파일 관리</a></li>
 				<li><a href="#">설정</a></li>
@@ -182,7 +182,7 @@
 		const empNm = item.dataset.empnm;
 	    const efctStartDate = item.dataset.efctstartdate;
 			
-		if (!empNm || !efctStartDate) {
+		if (!empId || !efctStartDate) {
 		    alert("데이터가 잘못되었습니다. 선택한 항목의 값을 확인하세요.");
 		    return;
 		}

@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "EMP_ABILITY_INFO")
-@IdClass(EmpAbilityId.class)
+@IdClass(EmpAbilityInfoId.class)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
-public class EmpAbilityEntity {
+public class EmpAbilityInfoEntity {
 
     // 사원코드
     @Id

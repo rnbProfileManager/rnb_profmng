@@ -52,8 +52,8 @@
 			<ul class="sidebar-menu">
 				<li><a href="/profile/manage">프로필 조회</a></li>
 				<li><a href="/profile/empBas">직원 정보</a></li>
-				<li><a href="/profile/projectEmpInfo">투입 인력 관리</a></li>
-				<li><a href="/profile/empAbility" class="active">직무 능력</a></li>
+				<li><a href="/profile/pjtHmnResrcInfo" class="active">투입 인력 관리</a></li>
+				<li><a href="/profile/empAbilityInfo">직무 능력</a></li>
 				<li><a href="#">캘린더</a></li>
 				<li><a href="#">파일 관리</a></li>
 				<li><a href="#">설정</a></li>
@@ -71,33 +71,34 @@
 					    <h2>프로젝트 조회</h2>
 					    <form class="edit-form" method="post">
 							<div class="edit-group">
-							    <label for="searchInput">사원코드: <span class="required">*</span></label>
-							    <input type="text" name="empId" class="searchInput" placeholder="예: 0001" required>
+							    <label for="projectCd">프로젝트코드: <span class="required">*</span></label>
+							    <input type="text" name="projectCd" class="searchInput" placeholder="예: 0001" required>
 							</div>
 							<div class="edit-group">
-								<label for="searchInput">사원명: <span class="required">*</span></label>
-								<input type="text"  name="empNm" class="searchInput" placeholder="예: 홍길동" required>
+								<label for="searchInput">사원코드: <span class="required">*</span></label>
+								<input type="text"  name="empId" class="searchInput" placeholder="예: 0001" required>
 							</div>
 							<div class="edit-group">
-								<label for="departmentSelect">직무능력유형:</label>
-								<select class="departmentSelect" name="abilityType">
-								  <option value="전체">전체</option>
-								  <option value="자격증">자격증</option>
-								  <option value="교육">교육</option>
-								  <option value="기술">기술</option>
-								</select>
+								<label for="searchInput">프로젝트명: <span class="required">*</span></label>
+								<input type="text"  name="projectNm" class="searchInput" placeholder="예: ICIS-TR" required>
 							</div>
 							<div class="edit-group">
-								<label for="searchInput">직무능력명:</label>
-								<input type="text" name="abilityNm" class="searchInput" placeholder="예: 정보처리기사">
-							</div>
-							<div class="edit-group">
-								<label for="dateInput">시작 일자 선택: <span class="required">*</span></label>
+								<label for="dateInput">시작일자: <span class="required">*</span></label>
 								<input type="date" name="startDate" class="dateInput" required>
 							</div>
 							<div class="edit-group">
-								<label for="dateInput">종료 일자 선택:</label>
+								<label for="dateInput">종료일자:</label>
 								<input type="date" name="endDate" class="dateInput">
+							</div>
+							<div class="edit-group">
+								<label for="departmentSelect">역할:</label>
+								<select class="departmentSelect" name="userRole">
+								  <option value="전체">전체</option>
+								  <option value="PM">PM</option>
+								  <option value="PL">PL</option>
+								  <option value="BA">BA</option>
+								  <option value="개발">개발</option>
+								</select>
 							</div>
 							<div class="grid-buttons">
 							  <button type="button" onclick="add()" class="btn edit">추가</button>
@@ -107,13 +108,13 @@
 					    <div class="grid-area">
 							<c:choose>
 								<c:when test="${addResult eq 'success'}">
-								    <div class="result-area">✅ 직무능력 추가에 성공했습니다.</div>
+								    <div class="result-area">✅ 투입 인력 추가에 성공했습니다.</div>
 								</c:when>
 								<c:when test="${addResult eq 'duplicate'}">
-								    <div class="result-area">❌ 중복된 데이터가 있습니다.</div>
+								    <div class="result-area">❌ 중복된 코드가 있습니다.</div>
 								</c:when>
 								<c:when test="${addResult eq 'exception'}">
-								    <div class="result-area">❌ 직무능력 추가에 실패했습니다.</div>
+								    <div class="result-area">❌ 투입 인력 추가에 실패했습니다.</div>
 								</c:when>
 							    <c:otherwise>
 							        <!-- 아무 메시지도 출력 안 함 -->
@@ -149,7 +150,7 @@
 		    return;
 		}
 
-		form.action = "/profile/addEmpAbility";
+		form.action = "/profile/addPjtHmnResrcInfo";
 		form.method = "post";
 
 		form.submit();
